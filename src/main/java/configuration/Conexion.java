@@ -1,3 +1,4 @@
+
 package configuration;
 
 import java.sql.Connection;
@@ -16,7 +17,10 @@ public class Conexion {
         try {
             if (conectar == null) {
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                conectar = DriverManager.getConnection(URL, USUARIO, CONTRASENA);
+                conectar = DriverManager.getConnection(
+                        URL,
+                        USUARIO,
+                        CONTRASENA);
                 System.out.println("Conexion establecida");
             }
         } catch (ClassNotFoundException | SQLException e) {
@@ -31,9 +35,10 @@ public class Conexion {
                 conectar.close();
                 System.out.println("Conexion cerrada");
             } catch (SQLException e) {
-                System.out.println("Error al cerrar conexion" +e.getMessage());
+                System.out.println("Error al cerrar conexion" + e.getMessage());
             }
         }
     }
 
 }
+

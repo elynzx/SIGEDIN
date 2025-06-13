@@ -673,7 +673,7 @@ public class PlanIndividualView extends javax.swing.JPanel {
         }
         ExcelResumenIncidentes.exportarResumen(listaResumenIncidentes, estudianteSeleccionado, PlanIndividualView.this);
 
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_descargaResumenMouseClicked
 
     private void descargaHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_descargaHistorialMouseClicked

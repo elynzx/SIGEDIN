@@ -13,14 +13,18 @@ import java.util.List;
 
 public class ExcelHistorialIntervenciones {
 
-    public static void exportarHistorial(List<PlanIntervencion> historial, Estudiante estudiante, JPanel parent) {
+    public static void exportarHistorial(List<PlanIntervencion> historial,
+            Estudiante estudiante,
+            JPanel parent) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Historial Intervenciones");
 
-            // Información del estudiante
+            
             Row info1 = sheet.createRow(0);
             info1.createCell(0).setCellValue("Estudiante:");
-            info1.createCell(1).setCellValue(estudiante.getNombres() + " " + estudiante.getApellidos());
+            info1.createCell(1).setCellValue(estudiante.getNombres()
+                    + " "
+                    + estudiante.getApellidos());
 
             Row info2 = sheet.createRow(1);
             info2.createCell(0).setCellValue("ID:");
@@ -46,7 +50,7 @@ public class ExcelHistorialIntervenciones {
                 cell.setCellStyle(estiloCabecera);
             }
 
-            // Llenado de datos
+            // Datos
             int rowNum = 4;
             for (PlanIntervencion i : historial) {
                 Row fila = sheet.createRow(rowNum++);
@@ -63,7 +67,6 @@ public class ExcelHistorialIntervenciones {
                 sheet.autoSizeColumn(i);
             }
 
-         
             String nombreArchivo = "HistorialIntervenciones_"
                     + estudiante.getApellidos().replace(" ", "_") + "_"
                     + estudiante.getNombres().replace(" ", "_") + "_"

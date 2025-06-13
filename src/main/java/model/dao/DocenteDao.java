@@ -1,4 +1,3 @@
-
 package model.dao;
 
 import com.google.common.base.Preconditions;
@@ -47,11 +46,19 @@ public class DocenteDao implements IDocenteDao {
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                NivelFuncional nivel = new NivelFuncional(rs.getInt("id_nivel"), rs.getString("nivel_funcional"));
-                Diagnostico diagnostico = new Diagnostico(rs.getInt("id_diagnostico"), rs.getString("diagnostico"));
+                NivelFuncional nivel = new NivelFuncional(
+                        rs.getInt("id_nivel"),
+                        rs.getString("nivel_funcional"));
+                Diagnostico diagnostico = new Diagnostico(
+                        rs.getInt("id_diagnostico"),
+                        rs.getString("diagnostico"));
 
-                return new Aula(rs.getInt("id_aula"), rs.getString("nombre"), nivel, diagnostico,
-                        rs.getInt("vacantes_totales"), rs.getInt("vacantes_disponibles"), null);
+                return new Aula(rs.getInt("id_aula"),
+                        rs.getString("nombre"), 
+                        nivel, diagnostico,
+                        rs.getInt("vacantes_totales"),
+                        rs.getInt("vacantes_disponibles"), 
+                        null);
             }
         } catch (SQLException e) {
             System.out.println("Error al obtener datos del aula: " + e.getMessage());
@@ -92,7 +99,10 @@ public class DocenteDao implements IDocenteDao {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                listaEstudiantes.add(new Estudiante(rs.getInt("id_estudiante"), rs.getString("nombres"), rs.getString("apellidos")));
+                listaEstudiantes.add(new Estudiante(
+                        rs.getInt("id_estudiante"), 
+                        rs.getString("nombres"), 
+                        rs.getString("apellidos")));
             }
         } catch (Exception e) {
             System.out.println("Error al obtener la lista de estudiantes: " + e.getMessage());

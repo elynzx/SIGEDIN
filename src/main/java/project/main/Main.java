@@ -15,9 +15,6 @@ import view.Login;
 public class Main {
 
     public static void main(String[] args) {
-        
-       
-        
 
         Conexion.estableceConexion();
 
@@ -26,8 +23,7 @@ public class Main {
         IEstudianteDao estudianteDao = new EstudianteDao();
 
         UsuarioCtrl usuarioCtrl = new UsuarioCtrl(usuarioDao, docenteDao, estudianteDao);
- 
-        
+
         Login loginView = new Login(usuarioCtrl);
         loginView.setVisible(true);
         loginView.setLocationRelativeTo(null);

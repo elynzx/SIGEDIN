@@ -1,12 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package utillities;
 
 import java.io.File;
 import org.apache.poi.ss.usermodel.Row;
-
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.*;
@@ -19,7 +15,8 @@ import model.funcionalidad.catalogo.Diagnostico;
 
 public class ExcelResumenIncidentes {
 
-    public static void exportarResumen(List<ResumenIncidentes> listaResumen, Estudiante estudiante, JPanel parent) {
+    public static void exportarResumen(List<ResumenIncidentes> listaResumen,
+            Estudiante estudiante, JPanel parent) {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Resumen Conductas");
 
@@ -30,14 +27,17 @@ public class ExcelResumenIncidentes {
 
             Row info1 = sheet.createRow(0);
             info1.createCell(0).setCellValue("Estudiante:");
-            info1.createCell(1).setCellValue(estudiante.getNombres() + " " + estudiante.getApellidos());
+            info1.createCell(1).setCellValue(estudiante.getNombres()
+                    + " "
+                    + estudiante.getApellidos());
 
             Row info2 = sheet.createRow(1);
             info2.createCell(0).setCellValue("Diagnóstico:");
-            List<String> nombresDiagnosticos = estudiante.getDiagnosticos()
-                    .stream()
-                    .map(Diagnostico::getNombre)
-                    .collect(Collectors.toList());
+            List<String> nombresDiagnosticos
+                    = estudiante.getDiagnosticos()
+                            .stream()
+                            .map(Diagnostico::getNombre)
+                            .collect(Collectors.toList());
 
             String diagnosticosTexto = String.join(", ", nombresDiagnosticos);
 
@@ -89,3 +89,4 @@ public class ExcelResumenIncidentes {
         }
     }
 }
+
