@@ -8,10 +8,7 @@ import model.funcionalidad.catalogo.Antecedente;
 import java.sql.Date;
 import model.entidades.Estudiante;
 
-/**
- *
- * @author rpasc
- */
+
 public class FichaAbc {
 
     private int id;
@@ -28,6 +25,14 @@ public class FichaAbc {
         this.comportamiento = comportamiento;
         this.gravedad = gravedad;
     }
+    
+        public FichaAbc(Date fecha, Antecedente antecedente, String comportamiento, String consecuencia, int gravedad) {
+        this.fecha = fecha;
+        this.antecedente = antecedente;
+        this.comportamiento = comportamiento;
+        this.gravedad = gravedad;
+    }
+
 
     public FichaAbc(int id, Estudiante estudiante, Date fecha, Antecedente antecedente, String comportamiento, String consecuencia, int gravedad) {
         this.id = id;

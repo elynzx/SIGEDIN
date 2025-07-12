@@ -1,30 +1,30 @@
 package project.main;
 
 import configuration.Conexion;
-import controller.UsuarioCtrl;
-import model.dao.DocenteDao;
-import model.dao.EstudianteDao;
-import model.dao.IDocenteDao;
-import model.dao.IEstudianteDao;
-import model.dao.IUsuarioDao;
-import model.dao.UsuarioDao;
+import controller.LoginCtrl;
+import dao.DocenteImp;
+import dao.UsuarioImp;
 import java.sql.SQLException;
-import view.Docente.MenuDocenteView;
 import view.Login;
+import dao.DocenteDao;
+import dao.UsuarioDao;
 
 public class Main {
 
     public static void main(String[] args) {
+        
+        
 
         Conexion.estableceConexion();
 
-        IUsuarioDao usuarioDao = new UsuarioDao();
-        IDocenteDao docenteDao = new DocenteDao();
-        IEstudianteDao estudianteDao = new EstudianteDao();
+        UsuarioDao usuarioDao = new UsuarioImp();
+        DocenteDao docenteDao = new DocenteImp();
+ 
 
-        UsuarioCtrl usuarioCtrl = new UsuarioCtrl(usuarioDao, docenteDao, estudianteDao);
+        LoginCtrl loginCtrl = new LoginCtrl(usuarioDao, docenteDao);
 
-        Login loginView = new Login(usuarioCtrl);
+       
+        Login loginView = new Login(loginCtrl);
         loginView.setVisible(true);
         loginView.setLocationRelativeTo(null);
 

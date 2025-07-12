@@ -39,6 +39,14 @@ public class Estudiante extends Persona {
         this.idEstudiante = idEstudiante;
         this.diagnosticos = diagnosticos;
     }
+
+    public Estudiante() {
+    }
+
+    public Estudiante(int idEstudiante) {
+        this.idEstudiante = idEstudiante;
+    }
+    
     
 
     public Estudiante(int idEstudiante, boolean alergias, String tipoAlergia, boolean tomaMedicamentos, String medicamentos, NivelFuncional nivelFuncional, Apoderado apoderado, String observaciones, int id, String nombres, String apellidos, String dni, String celular, String correo, String direccion, Date fechaNacimiento, String genero) {

@@ -7,10 +7,7 @@ package model.funcionalidad;
 import java.sql.Date;
 import model.entidades.Estudiante;
 
-/**
- *
- * @author rpasc
- */
+
 public class Asistencia {
 
     private int id;

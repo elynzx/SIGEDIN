@@ -4,7 +4,7 @@
  */
 package view.Secretaria;
 
-import controller.SecretariaCtrl;
+import controller.secretaria.SecretariaCtrl;
 import javax.swing.JLabel;
 
 /**

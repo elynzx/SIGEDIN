@@ -4,7 +4,7 @@
  */
 package view.Secretaria;
 
-import controller.SecretariaCtrl;
+import controller.secretaria.SecretariaCtrl;
 import java.sql.Date;
 import javax.swing.JLabel;
 
@@ -13,6 +13,7 @@ import javax.swing.JLabel;
  * @author rpasc
  */
 public class Matricula extends javax.swing.JFrame {
+    
 
    private SecretariaCtrl secretaria;
     public Matricula() {
