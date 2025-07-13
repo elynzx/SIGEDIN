@@ -68,7 +68,7 @@ public class MenuAdminView extends javax.swing.JFrame {
         return tablaAulas;
     }
     
-        private DefaultTableModel cargarTablaUsuarios(){
+    private DefaultTableModel cargarTablaUsuarios(){
         DefaultTableModel tablaAulas=(DefaultTableModel) getjTableUsuarios().getModel();
         tablaAulas.setRowCount(0);
         List <ListaUsuarios> usuarios=adminCtrl.cargarTablaUsuarios();
@@ -107,10 +107,11 @@ public class MenuAdminView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jlblnombre = new javax.swing.JLabel();
-        jlblmenu = new javax.swing.JLabel();
         jlblempleado = new javax.swing.JLabel();
         jlblreportes = new javax.swing.JLabel();
         jlblestudiante = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jlblmenu = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableUsuarios = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -143,21 +144,46 @@ public class MenuAdminView extends javax.swing.JFrame {
         jlblnombre.setText("nombre");
         jPanel2.add(jlblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 178, 28));
 
-        jlblmenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jlblmenu.setText("Menu");
-        jPanel2.add(jlblmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
-
         jlblempleado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblempleado.setText("Empleados");
+        jlblempleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblempleadoMouseClicked(evt);
+            }
+        });
         jPanel2.add(jlblempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
         jlblreportes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblreportes.setText("Reportes");
-        jPanel2.add(jlblreportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, -1, -1));
+        jPanel2.add(jlblreportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
 
         jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblestudiante.setText("Estudiantes");
         jPanel2.add(jlblestudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+
+        jlblmenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlblmenu.setText("Menu");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(31, Short.MAX_VALUE)
+                .addComponent(jlblmenu)
+                .addGap(27, 27, 27))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jlblmenu)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 0, 120, 80));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1000, 80));
 
@@ -210,6 +236,12 @@ public class MenuAdminView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jlblempleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblempleadoMouseClicked
+        EmpleadosAdmin empleadosvista = new EmpleadosAdmin(idAdministrador);
+        empleadosvista.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblempleadoMouseClicked
     
 
 
@@ -220,6 +252,7 @@ public class MenuAdminView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTable jTableEstudiantes;

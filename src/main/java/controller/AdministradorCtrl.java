@@ -31,5 +31,9 @@ public class AdministradorCtrl {
         return usuarios;
     }
     
+    public void cambiarDato(String tipo_dato,String dato, int id){
+        dao.registrarCambio(tipo_dato,dato,id);
+    }
+    
     
 }

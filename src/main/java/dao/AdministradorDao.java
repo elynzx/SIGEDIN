@@ -18,4 +18,6 @@ public interface AdministradorDao {
     int obtenerIdAdministradorporPersona(int idPersona);
     ArrayList<ListaAulas> obtenerListaAulas();
     ArrayList<ListaUsuarios> obtenerListaUsuarios();
+    void registrarCambio(String tipo_dato,String dato, int id);
+    
 }

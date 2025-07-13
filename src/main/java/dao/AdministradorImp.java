@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import configuration.Conexion;
 import java.sql.Connection;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.entidades.Persona;
 import model.funcionalidad.ListaAulas;
 import model.funcionalidad.ListaUsuarios;
@@ -135,6 +136,28 @@ public class AdministradorImp implements AdministradorDao {
             instanciaAdministrador = new AdministradorImp();
         }
         return instanciaAdministrador;
+    }
+    
+    @Override
+    public void registrarCambio(String tipo_dato,String dato, int id){
+        String consulta="";
+        switch (tipo_dato){
+            case "Nombres": consulta="UPDATE persona SET nombres = '"+dato+"' WHERE id_persona="+id+"";break;
+            case "Apellidos": consulta="UPDATE persona SET apellidos = '"+dato+"' WHERE id_persona="+id+"";break;
+            case "Nombre de Usuario": consulta="UPDATE usuario SET username = '"+dato+"' WHERE id_persona="+id+"";break;
+            case "Rol": consulta="UPDATE usuario SET rol = '"+dato+"' WHERE id_persona="+id+"";break;
+            case "Estado": consulta="UPDATE usuario SET estado = '"+dato+"' WHERE id_persona="+id+"";break;
+            default: return;
+        }
+        
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Cambio registrado correctamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cambiar dato");
+            e.printStackTrace();
+        }
     }
     
 }
