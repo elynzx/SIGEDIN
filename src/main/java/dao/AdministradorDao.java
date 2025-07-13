@@ -4,6 +4,11 @@
  */
 package dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import model.funcionalidad.ListaAulas;
+import model.funcionalidad.ListaUsuarios;
+
 /**
  *
  * @author rpasc
@@ -11,4 +16,6 @@ package dao;
 public interface AdministradorDao {
 
     int obtenerIdAdministradorporPersona(int idPersona);
+    ArrayList<ListaAulas> obtenerListaAulas();
+    ArrayList<ListaUsuarios> obtenerListaUsuarios();
 }
