@@ -188,6 +188,11 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
 
         jbtnagregar.setBackground(new java.awt.Color(153, 255, 102));
         jbtnagregar.setText("Agregar Empleado");
+        jbtnagregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnagregarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbtnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 190, 30));
 
         jbtneliminar.setBackground(new java.awt.Color(255, 51, 51));
@@ -270,6 +275,12 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         jtxtDato.setEditable(false);
         jbmcdato.setEnabled(false);
     }//GEN-LAST:event_jbtncancelarActionPerformed
+
+    private void jbtnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnagregarActionPerformed
+        String rol="Empleado";
+        RegistrarAdministrador registrar = new RegistrarAdministrador(rol,idAdministrador);
+        registrar.setVisible(true);
+    }//GEN-LAST:event_jbtnagregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

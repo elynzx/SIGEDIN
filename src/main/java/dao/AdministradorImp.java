@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import model.entidades.Persona;
+import model.entidades.Usuario;
 import model.funcionalidad.ListaAulas;
 import model.funcionalidad.ListaUsuarios;
 
@@ -156,6 +157,74 @@ public class AdministradorImp implements AdministradorDao {
             JOptionPane.showMessageDialog(null, "Cambio registrado correctamente");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al cambiar dato");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean VerificarDni(String dni) {
+        String consulta="SELECT dni FROM persona WHERE dni='"+dni+"'";
+        boolean confirmacion=true;
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                confirmacion=false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         return confirmacion;
+    }
+
+    @Override
+    public void registrarPersona(Usuario usuario) {
+        String consulta="INSERT INTO persona (nombres,apellidos,dni,celular,correo,direccion,fecha_nacimiento,genero) VALUES (?,?,?,?,?,?,?,?)";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            pst.setString(1, usuario.getPersona().getNombres());
+            pst.setString(2, usuario.getPersona().getApellidos());
+            pst.setString(3, usuario.getPersona().getDni());
+            pst.setString(4, usuario.getPersona().getCelular());
+            pst.setString(5, usuario.getPersona().getCorreo());
+            pst.setString(6, usuario.getPersona().getDireccion());
+            pst.setDate(7, usuario.getPersona().getFechaNacimiento());
+            pst.setString(8, usuario.getPersona().getGenero());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Persona Registrado correctamente");
+        } catch (SQLException e) {
+            System.out.println("Error al registrar reporte "+ e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public int obtenerIdPersona(Usuario usuario) {
+        int idPersona=0;
+        String consulta="SELECT id_persona FROM persona WHERE dni='"+usuario.getPersona().getDni()+"'";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                idPersona=rs.getInt("id_persona");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return idPersona;
+    }
+    
+    @Override
+    public void registrar(Usuario usuario) {
+       String consulta="INSERT INTO usuario (username,password,rol,estado,id_persona) VALUES (?,?,?,?,?)";
+       try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            pst.setString(1, usuario.getUsername());
+            pst.setString(2, usuario.getPassword());
+            pst.setString(3, usuario.getRol());
+            pst.setString(4, usuario.getEstado());
+            pst.setInt(5, usuario.getPersona().getId());
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "usuario registrado correctamente");
+        } catch (SQLException e) {
+            System.out.println("Error al registrar reporte "+ e.getMessage());
             e.printStackTrace();
         }
     }
