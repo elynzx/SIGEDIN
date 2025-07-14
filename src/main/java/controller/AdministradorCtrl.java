@@ -3,6 +3,7 @@ package controller;
 
 import dao.AdministradorDao;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entidades.Persona;
 import model.entidades.Usuario;
@@ -43,12 +44,23 @@ public class AdministradorCtrl {
         return confirmacion;
     }
     
-    public void registrar(Usuario usuario){
-        dao.registrarPersona(usuario);
+    public boolean registrar(Usuario usuario){
+        boolean confirmacion = false;
+        boolean confirmacion2 = false; 
+        boolean confirmacion_final=false;
+        
+        confirmacion=dao.registrarPersona(usuario);
         int idPersona=dao.obtenerIdPersona(usuario);
         usuario.getPersona().setId(idPersona);
-        dao.registrar(usuario);
+        confirmacion2=dao.registrar(usuario);
+        if(confirmacion==true && confirmacion2==true){
+            confirmacion_final=true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Error registro");
+        }
+        return confirmacion_final;
     }
+    
     
     
 }

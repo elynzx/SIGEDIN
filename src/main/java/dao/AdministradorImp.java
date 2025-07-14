@@ -178,7 +178,8 @@ public class AdministradorImp implements AdministradorDao {
     }
 
     @Override
-    public void registrarPersona(Usuario usuario) {
+    public boolean registrarPersona(Usuario usuario) {
+        
         String consulta="INSERT INTO persona (nombres,apellidos,dni,celular,correo,direccion,fecha_nacimiento,genero) VALUES (?,?,?,?,?,?,?,?)";
         try (PreparedStatement pst = conn.prepareStatement(consulta)) {
             pst.setString(1, usuario.getPersona().getNombres());
@@ -191,9 +192,11 @@ public class AdministradorImp implements AdministradorDao {
             pst.setString(8, usuario.getPersona().getGenero());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "Persona Registrado correctamente");
+            return true;
         } catch (SQLException e) {
-            System.out.println("Error al registrar reporte "+ e.getMessage());
+            System.out.println("Error al registrar persona "+ e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
     
@@ -213,7 +216,7 @@ public class AdministradorImp implements AdministradorDao {
     }
     
     @Override
-    public void registrar(Usuario usuario) {
+    public boolean registrar(Usuario usuario) {
        String consulta="INSERT INTO usuario (username,password,rol,estado,id_persona) VALUES (?,?,?,?,?)";
        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
             pst.setString(1, usuario.getUsername());
@@ -223,9 +226,11 @@ public class AdministradorImp implements AdministradorDao {
             pst.setInt(5, usuario.getPersona().getId());
             pst.executeUpdate();
             JOptionPane.showMessageDialog(null, "usuario registrado correctamente");
+            return true;
         } catch (SQLException e) {
-            System.out.println("Error al registrar reporte "+ e.getMessage());
+            System.out.println("Error al registrar usuario "+ e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
     

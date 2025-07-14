@@ -277,9 +277,10 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtncancelarActionPerformed
 
     private void jbtnagregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnagregarActionPerformed
-        String rol="Empleado";
+        String rol="empleado";
         RegistrarAdministrador registrar = new RegistrarAdministrador(rol,idAdministrador);
         registrar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jbtnagregarActionPerformed
 
 

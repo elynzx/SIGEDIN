@@ -22,8 +22,8 @@ public interface AdministradorDao {
     ArrayList<ListaUsuarios> obtenerListaUsuarios();
     void registrarCambio(String tipo_dato,String dato, int id);
     boolean VerificarDni(String dni);
-    public void registrarPersona(Usuario usuario);
+    boolean registrarPersona(Usuario usuario);
     int obtenerIdPersona(Usuario usuario);
-    public void registrar(Usuario usuario);
+    boolean registrar(Usuario usuario);
     
 }

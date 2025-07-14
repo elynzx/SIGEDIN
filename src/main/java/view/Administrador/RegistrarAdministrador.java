@@ -9,6 +9,8 @@ import dao.AdministradorImp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.entidades.Persona;
 import model.entidades.Usuario;
@@ -31,8 +33,6 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
         );
         initComponents();
         jlblrol.setText(rol);
-        jcmbrol.setSelectedItem(rol);
-        jcmbrol.setEnabled(false);
 
     }
     
@@ -40,7 +40,7 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
         String nombre=jtxtnombre.getText();
         String apellido=jtxtapellido.getText();
         String dni=jtxtdni.getText();
-        Date fechaNacimiento=jDatenacimientoAlumno.getDate();
+        java.util.Date fechaNacimiento=jDatenacimientoAlumno.getDate();
         String telefono=jtxttelefono.getText();
         String correo=jtxtcorreo.getText();
         String direccion=jtxtdireccion.getText();
@@ -48,6 +48,9 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
         String username=jtxtnombreusuario.getText();
         String contraseña=jPasswordFieldcontraseña.getText();
         String estado=(String) jcmbestado.getSelectedItem();
+        String Rol=(String) jcmbrol.getSelectedItem();
+        
+        java.sql.Date sqlFechaUsuario= new java.sql.Date(fechaNacimiento.getTime());
         
         LocalDate FechaActual = LocalDate.now();
         LocalDate fechaNacimientoLocal = fechaNacimiento.toInstant()
@@ -75,22 +78,35 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
                                 telefono, 
                                 correo, 
                                 direccion, 
-                                (java.sql.Date) fechaNacimiento,
+                                sqlFechaUsuario,
                                 genero);
                         Usuario usuario = new Usuario(
                                 0,
                                 username,
                                 contraseña,
-                                rol,
+                                Rol,
                                 estado,
                                 persona
                         );
-                        adminCtrl.registrar(usuario);
+                        boolean confirmacion=adminCtrl.registrar(usuario);
+                        if(confirmacion==true){
+                            JOptionPane.showMessageDialog(rootPane, "Empleado registrado con exito");
+                            EmpleadosAdmin empleado = new EmpleadosAdmin(idAdministrador);
+                            empleado.setVisible(true);
+                            this.dispose();
+                        }else{
+                            JOptionPane.showMessageDialog(rootPane, "Error al registrar empleado");
+                            EmpleadosAdmin empleado = new EmpleadosAdmin(idAdministrador);
+                            empleado.setVisible(true);
+                            this.dispose();
+                        }
+                        
                     }
                 }
             }
         }
     }
+    
     
 
     /**
@@ -159,7 +175,7 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
         jLabel6.setText("DNI:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, -1));
 
-        jcmbrol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcmbrol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "secretaria", "docente", "administrador" }));
         jPanel1.add(jcmbrol, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 140, -1));
 
         jLabel7.setText("Telefono:");
@@ -195,6 +211,11 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
         jPanel1.add(jbtnregistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 490, -1, -1));
 
         jbtncancelar.setText("Cancelar");
+        jbtncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtncancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 490, 80, -1));
 
         jLabel10.setText("Genero:");
@@ -236,8 +257,15 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxttelefonoActionPerformed
 
     private void jbtnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnregistrarActionPerformed
+        registrar();
         
     }//GEN-LAST:event_jbtnregistrarActionPerformed
+
+    private void jbtncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtncancelarActionPerformed
+        EmpleadosAdmin empleado = new EmpleadosAdmin(idAdministrador);
+        empleado.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jbtncancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
