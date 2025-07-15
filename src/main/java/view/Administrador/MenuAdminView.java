@@ -159,6 +159,11 @@ public class MenuAdminView extends javax.swing.JFrame {
 
         jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblestudiante.setText("Estudiantes");
+        jlblestudiante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblestudianteMouseClicked(evt);
+            }
+        });
         jPanel2.add(jlblestudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
@@ -242,6 +247,12 @@ public class MenuAdminView extends javax.swing.JFrame {
         empleadosvista.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jlblempleadoMouseClicked
+
+    private void jlblestudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblestudianteMouseClicked
+        EstudiantesAdmin estudiantesvista = new EstudiantesAdmin(idAdministrador);
+        estudiantesvista.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblestudianteMouseClicked
     
 
 

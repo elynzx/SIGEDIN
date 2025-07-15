@@ -150,6 +150,11 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
 
         jlblmenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblmenu.setText("Menu");
+        jlblmenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblmenuMouseClicked(evt);
+            }
+        });
         jPanel2.add(jlblmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         jlblreportes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -282,6 +287,12 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         registrar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtnagregarActionPerformed
+
+    private void jlblmenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblmenuMouseClicked
+        MenuAdminView menu = new MenuAdminView(idAdministrador);
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblmenuMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

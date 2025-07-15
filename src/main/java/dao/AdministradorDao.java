@@ -25,5 +25,5 @@ public interface AdministradorDao {
     boolean registrarPersona(Usuario usuario);
     int obtenerIdPersona(Usuario usuario);
     boolean registrar(Usuario usuario);
-    
+    public List<String[]> listarEstudiantesMatriculados();
 }

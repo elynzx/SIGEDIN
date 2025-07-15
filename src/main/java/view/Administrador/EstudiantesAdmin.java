@@ -1,8 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package view.Administrador;
+
+import controller.AdministradorCtrl;
+import dao.AdministradorImp;
 
 /**
  *
@@ -10,12 +10,19 @@ package view.Administrador;
  */
 public class EstudiantesAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form EstudiantesAdmin
-     */
-    public EstudiantesAdmin() {
+    private int idAdministrador;
+    private final AdministradorCtrl adminCtrl;   
+
+    public EstudiantesAdmin(int idAdministrador) {
+        this.idAdministrador = idAdministrador;
+        this.adminCtrl= new AdministradorCtrl(
+        AdministradorImp.obtenerInstancia()
+        );
         initComponents();
+        adminCtrl.llenarTablaEstudiantes(jTableListaEstudiantes);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,57 +33,190 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        JlblEstudiantes = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableListaEstudiantes = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jlblnombre = new javax.swing.JLabel();
+        jlblempleado = new javax.swing.JLabel();
+        jlblreportes = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jlblestudiante = new javax.swing.JLabel();
+        jlblmenu = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        JlblEstudiantes.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        JlblEstudiantes.setText("Estudiantes");
+        jPanel1.add(JlblEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, -1));
+
+        jScrollPane1.setBorder(null);
+
+        jTableListaEstudiantes.setForeground(new java.awt.Color(51, 51, 51));
+        jTableListaEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, "Pascual Caycho", "Evelyn Roxana", null, null, null, null, null, null},
+                {null, "Caceres", "Carlos", null, null, null, null, null, null},
+                {null, "Pineda", "Paul", null, null, null, null, null, null},
+                {null, "Montalvo", "Matias", null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Apellidos", "Nombres", "Diagnostico", "Nivel funcional", "Aula asignada", "Docente a cargo", "Celular", "Fecha de Matricula"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableListaEstudiantes.setFocusable(false);
+        jTableListaEstudiantes.setGridColor(new java.awt.Color(204, 204, 204));
+        jTableListaEstudiantes.setSelectionBackground(new java.awt.Color(66, 128, 191));
+        jTableListaEstudiantes.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        jTableListaEstudiantes.setShowGrid(true);
+        jTableListaEstudiantes.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(jTableListaEstudiantes);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1060, 380));
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel10.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel10.setText("Hola,");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 40, -1));
+
+        jlblnombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jlblnombre.setForeground(new java.awt.Color(51, 51, 51));
+        jlblnombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlblnombre.setText("nombre");
+        jPanel2.add(jlblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 178, 28));
+
+        jlblempleado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlblempleado.setText("Empleados");
+        jlblempleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblempleadoMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jlblempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
+
+        jlblreportes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlblreportes.setText("Reportes");
+        jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblreportesMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jlblreportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+
+        jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlblestudiante.setText("Estudiantes");
+        jlblestudiante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblestudianteMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(jlblestudiante)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jlblestudiante)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 140, 80));
+
+        jlblmenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlblmenu.setText("Menu");
+        jlblmenu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblmenuMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jlblmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EstudiantesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EstudiantesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EstudiantesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EstudiantesAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jlblempleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblempleadoMouseClicked
+        EmpleadosAdmin empleadosvista = new EmpleadosAdmin(idAdministrador);
+        empleadosvista.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblempleadoMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EstudiantesAdmin().setVisible(true);
-            }
-        });
-    }
+    private void jlblestudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblestudianteMouseClicked
+        EstudiantesAdmin estudiantesvista = new EstudiantesAdmin(idAdministrador);
+        estudiantesvista.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblestudianteMouseClicked
+
+    private void jlblmenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblmenuMouseClicked
+        MenuAdminView menu = new MenuAdminView(idAdministrador);
+        menu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblmenuMouseClicked
+
+    private void jlblreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblreportesMouseClicked
+        ReportesAdmin reportes = new ReportesAdmin(idAdministrador);
+        reportes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblreportesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel JlblEstudiantes;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable jTableListaEstudiantes;
+    private javax.swing.JLabel jlblempleado;
+    private javax.swing.JLabel jlblestudiante;
+    private javax.swing.JLabel jlblmenu;
+    private javax.swing.JLabel jlblnombre;
+    private javax.swing.JLabel jlblreportes;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,7 @@ package controller;
 import dao.AdministradorDao;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.entidades.Persona;
 import model.entidades.Usuario;
@@ -59,6 +60,16 @@ public class AdministradorCtrl {
             JOptionPane.showMessageDialog(null, "Error registro");
         }
         return confirmacion_final;
+    }
+    
+    public void llenarTablaEstudiantes(JTable tabla) {
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        modelo.setRowCount(0);
+
+        List<String[]> estudiantes = dao.listarEstudiantesMatriculados();
+        for (String[] fila : estudiantes) {
+            modelo.addRow(fila);
+            }
     }
     
     
