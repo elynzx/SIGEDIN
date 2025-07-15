@@ -398,4 +398,48 @@ public class AdministradorImp implements AdministradorDao {
         return listaDocentes;
     }
     
+    @Override
+    public int obtenerIdMatricula(String id_alumno){
+        int id=0;
+        String consulta="SELECT m.id_matricula FROM matricula m JOIN estudiante e ON m.id_estudiante=e.id_estudiante WHERE e.id_estudiante="+id_alumno+"";
+        
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("id_matricula");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener lista Diagnostico: " + e.getMessage());
+        }
+        return id;
+    }
+
+    @Override
+    public void registrarCambioEstudiante(String dato_final, int idEstudiante) {
+        String consulta="";
+        int id_persona=0;
+        switch(dato_final){
+            case "nombres": id_persona=obtenerIdPersona(idEstudiante); consulta="UPDATE persona SET nombres = "+dato_final+" WHERE id_persona="+id_persona+"";break;
+        }
+    }
+
+    @Override
+    public int obtenerIdPersona(int idEstudiante) {
+        String consulta="SELECT id_persona FROM estudiante WHERE id_persona="+idEstudiante+"";
+        int id_persona=0;
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                id_persona = rs.getInt("id_persona");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener lista Diagnostico: " + e.getMessage());
+        }
+        return id_persona;
+    }
+    
+    
+    
 }

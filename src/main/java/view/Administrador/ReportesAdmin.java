@@ -112,10 +112,10 @@ public class ReportesAdmin extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jlblnombre = new javax.swing.JLabel();
         jlblempleado = new javax.swing.JLabel();
-        jlblreportes = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jlblestudiante = new javax.swing.JLabel();
+        jlblreportes = new javax.swing.JLabel();
         jlblmenu = new javax.swing.JLabel();
+        jlblestudiante = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lbNivel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -166,6 +166,8 @@ public class ReportesAdmin extends javax.swing.JFrame {
         });
         jPanel2.add(jlblempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+
         jlblreportes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblreportes.setText("Reportes");
         jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -173,36 +175,25 @@ public class ReportesAdmin extends javax.swing.JFrame {
                 jlblreportesMouseClicked(evt);
             }
         });
-        jPanel2.add(jlblreportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
-
-        jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jlblestudiante.setText("Estudiantes");
-        jlblestudiante.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jlblestudianteMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
-                .addComponent(jlblestudiante)
-                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jlblreportes)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jlblestudiante)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(21, 21, 21)
+                .addComponent(jlblreportes)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 0, 140, 80));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 140, 80));
 
         jlblmenu.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblmenu.setText("Menu");
@@ -212,6 +203,15 @@ public class ReportesAdmin extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jlblmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
+
+        jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jlblestudiante.setText("Estudiantes");
+        jlblestudiante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblestudianteMouseClicked(evt);
+            }
+        });
+        jPanel2.add(jlblestudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 80));
 

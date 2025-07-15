@@ -2,7 +2,12 @@
 package controller;
 
 import dao.AdministradorDao;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -120,6 +125,35 @@ public class AdministradorCtrl {
         dao.listarEstudiantesMatriculadosFiltro(aula,diagnostico,docente);
                         
     }
+    
+    public void abrirPDF(EstudiantesAdmin estudiantes){
+        try{
+            int filaSeleccionada = estudiantes.ObtenerValorSeleccionadojTableListaEstudiantes();
+            String id = null;
+            int id_matricula= 0;
+            if (filaSeleccionada != -1) {
+                id = (String) estudiantes.getjTableListaEstudiantes().getValueAt(filaSeleccionada, 0);
+                System.out.println("ID seleccionado: " + id);
+                id_matricula=dao.obtenerIdMatricula(id);
+            } else {
+                System.out.println("Por favor, selecciona una fila.");
+                return;
+            }
+            String relativePath = "src/main/java/pdf/Matricula_estudiante_" + id_matricula + ".pdf";
+            File file = new File(relativePath);
+        
+            Desktop.getDesktop().open(file);
+        } catch (IOException ex) {
+            Logger.getLogger(AdministradorCtrl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public void registrarCambioEstudiante(String dato_final,int idEstudiante){
+        dao.registrarCambioEstudiante(dato_final, idEstudiante);
+        
+    }
+    
     
     
     

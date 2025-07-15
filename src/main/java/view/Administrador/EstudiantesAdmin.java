@@ -6,6 +6,7 @@ import dao.AdministradorImp;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import view.Administrador.ReportesAdmin;
 
@@ -17,6 +18,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
 
     private int idAdministrador;
     private final AdministradorCtrl adminCtrl;
+    private String dato_final;
 
     public EstudiantesAdmin(int idAdministrador) {
         this.idAdministrador = idAdministrador;
@@ -25,8 +27,14 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         );
         initComponents();
         adminCtrl.llenarTablaEstudiantes(jTableListaEstudiantes);
-        cargarCombos();
-        
+        cargarAulas(jcmbaula);
+        cargarDiagnostico(jcmbdiagnostico);
+        cargarDocentes(jcmbdocente);
+        jcmbaula.setVisible(false);
+        jtxtdato.setVisible(false);
+        jbtncambiar.setVisible(false);
+        jbtncancelar.setVisible(false);
+        jcmbdatoVariable.setVisible(false);
     }
 
     public JTable getjTableListaEstudiantes() {
@@ -79,39 +87,46 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     
     
 
-    public void cargarAulas() {
-        List<String> listaAulas = adminCtrl.cargarAulas(jcmbaula);
+    public void cargarAulas(JComboBox combo) {
+        List<String> listaAulas = adminCtrl.cargarAulas(combo);
         jcmbaula.removeAllItems();
         jcmbaula.addItem("ninguno");
             for (String nombre : listaAulas) {
-                jcmbaula.addItem(nombre);
+                combo.addItem(nombre);
             }
         
     }
     
-    public void cargarDiagnostico(){
-        List<String> listaDiagnostico = adminCtrl.cargarDiagnostico(jcmbaula);
+    public void cargarDiagnostico(JComboBox combo){
+        List<String> listaDiagnostico = adminCtrl.cargarDiagnostico(combo);
         jcmbdiagnostico.removeAllItems();
         jcmbdiagnostico.addItem("ninguno");
 
             for (String nombre : listaDiagnostico) {
-                jcmbdiagnostico.addItem(nombre);
+                combo.addItem(nombre);
             }
     }
     
-    public void cargarDocentes(){
-        List<String> listaDocentes = adminCtrl.cargarDocentes(jcmbaula);
+    public void cargarDocentes(JComboBox combo){
+        List<String> listaDocentes = adminCtrl.cargarDocentes(combo);
         jcmbdocente.removeAllItems();
         jcmbdocente.addItem("ninguno");
         for (String nombre : listaDocentes) {
-            jcmbdocente.addItem(nombre);
+            combo.addItem(nombre);
         }
     }
     
-    public void cargarCombos(){
-        cargarAulas();
-        cargarDiagnostico();
-        cargarDocentes();
+
+    
+    public int ObtenerValorSeleccionadojTableListaEstudiantes() {
+        return jTableListaEstudiantes.getSelectedRow();
+    }
+    
+    private int idEstudiante(){
+            int filaSeleccionada = jTableListaEstudiantes.getSelectedRow();
+            int Id_estudiante = (int) jTableListaEstudiantes.getValueAt(filaSeleccionada, 0);
+            
+            return Id_estudiante;
     }
     
     @SuppressWarnings("unchecked")
@@ -138,6 +153,12 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         jcmbdocente = new javax.swing.JComboBox<>();
         jbtnactualizar = new javax.swing.JButton();
         jbtnabrirpdf = new javax.swing.JButton();
+        jcmbdato = new javax.swing.JComboBox<>();
+        jbtneditar = new javax.swing.JButton();
+        jtxtdato = new javax.swing.JTextField();
+        jbtncancelar = new javax.swing.JButton();
+        jbtncambiar = new javax.swing.JButton();
+        jcmbdatoVariable = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -258,7 +279,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         });
         jPanel2.add(jlblmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 80));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 80));
 
         jcmbaula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jcmbaula.addActionListener(new java.awt.event.ActionListener() {
@@ -310,7 +331,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtnactualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 220, 137, 40));
+        jPanel1.add(jbtnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 330, 170, 40));
 
         jbtnabrirpdf.setBackground(new java.awt.Color(102, 102, 102));
         jbtnabrirpdf.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
@@ -323,13 +344,49 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtnabrirpdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnabrirpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 160, 137, 40));
+        jPanel1.add(jbtnabrirpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 270, 170, 40));
+
+        jcmbdato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Apellidos", "Nombres", "Aula Asignada", "Celular" }));
+        jcmbdato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmbdatoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcmbdato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 440, 170, 30));
+
+        jbtneditar.setText("Editar datos de estudiante");
+        jbtneditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtneditarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 390, 170, 30));
+        jPanel1.add(jtxtdato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 490, 170, 30));
+
+        jbtncancelar.setText("cancelar");
+        jbtncancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtncancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 590, -1, -1));
+
+        jbtncambiar.setText("cambiar");
+        jbtncambiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtncambiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtncambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 590, -1, -1));
+
+        jcmbdatoVariable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(jcmbdatoVariable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 170, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1076, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1298, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,8 +437,46 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnactualizarActionPerformed
 
     private void jbtnabrirpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnabrirpdfActionPerformed
-        // TODO add your handling code here:
+        adminCtrl.abrirPDF(this);
     }//GEN-LAST:event_jbtnabrirpdfActionPerformed
+
+    private void jbtneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtneditarActionPerformed
+        jcmbaula.setVisible(true);
+        jtxtdato.setVisible(true);
+        jbtncambiar.setVisible(true);
+        jbtncancelar.setVisible(true);
+    }//GEN-LAST:event_jbtneditarActionPerformed
+
+    private void jbtncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtncancelarActionPerformed
+        jcmbaula.setVisible(false);
+        jtxtdato.setVisible(false);
+        jbtncambiar.setVisible(false);
+        jbtncancelar.setVisible(false);
+    }//GEN-LAST:event_jbtncancelarActionPerformed
+
+    private void jbtncambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtncambiarActionPerformed
+        String Dato=jtxtdato.getText();
+        if(Dato.isBlank()){
+            JOptionPane.showMessageDialog(rootPane, "Dato invalido");
+        }else{
+            int idEstudiante=idEstudiante();
+            adminCtrl.registrarCambio(dato_final,idEstudiante);
+        }
+    }//GEN-LAST:event_jbtncambiarActionPerformed
+
+    private void jcmbdatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbdatoActionPerformed
+        String dato=(String) jcmbdato.getSelectedItem();
+        
+        switch (dato){
+            case "Seleccionar":JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un dato");break;
+            case "Nombres": dato_final="nombres";break;
+            case "Apellidos": dato_final="apellidos";break;
+            case "Aula Asignada": dato_final="aula";jcmbdatoVariable.setVisible(true); cargarAulas(jcmbdatoVariable);jtxtdato.setEditable(false);jtxtdato.setText("");break;
+            case "Celular": dato_final="celular";break;
+            default:return;
+        }
+        
+    }//GEN-LAST:event_jcmbdatoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel JlblEstudiantes;
@@ -396,7 +491,12 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     public javax.swing.JTable jTableListaEstudiantes;
     public javax.swing.JButton jbtnabrirpdf;
     public javax.swing.JButton jbtnactualizar;
+    private javax.swing.JButton jbtncambiar;
+    private javax.swing.JButton jbtncancelar;
+    private javax.swing.JButton jbtneditar;
     public javax.swing.JComboBox<String> jcmbaula;
+    private javax.swing.JComboBox<String> jcmbdato;
+    private javax.swing.JComboBox<String> jcmbdatoVariable;
     public javax.swing.JComboBox<String> jcmbdiagnostico;
     public javax.swing.JComboBox<String> jcmbdocente;
     private javax.swing.JLabel jlblempleado;
@@ -404,5 +504,6 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jlblmenu;
     private javax.swing.JLabel jlblnombre;
     private javax.swing.JLabel jlblreportes;
+    private javax.swing.JTextField jtxtdato;
     // End of variables declaration//GEN-END:variables
 }
