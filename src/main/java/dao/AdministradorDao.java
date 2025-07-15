@@ -26,4 +26,8 @@ public interface AdministradorDao {
     int obtenerIdPersona(Usuario usuario);
     boolean registrar(Usuario usuario);
     public List<String[]> listarEstudiantesMatriculados();
+    public List<String[]> listarEstudiantesMatriculadosFiltro(String aula, String diagnostico, String docente);
+    public List<String> listaAulas();
+    public List<String> listaDiagnostico();
+    public List<String> listaDocentes();
 }

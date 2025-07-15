@@ -273,5 +273,129 @@ public class AdministradorImp implements AdministradorDao {
 
     return lista;
 }
+
+    @Override
+    public List<String[]> listarEstudiantesMatriculadosFiltro(String aula, String diagnostico, String docente) {
+            List<String[]> lista = new ArrayList<>();
+    String consulta = "SELECT " +
+            "e.id_estudiante, p.apellidos, p.nombres, d.nombre AS diagnostico, " +
+            "n.nombre AS nivel_funcional, a.nombre AS aula, " +
+            "pd.nombres AS docente_nombres, pd.apellidos AS docente_apellidos, " +
+            "p.celular, m.fecha_matricula " +
+            "FROM estudiante e " +
+            "JOIN persona p ON p.id_persona = e.id_persona " +
+            "JOIN matricula m ON m.id_estudiante = e.id_estudiante " +
+            "JOIN aula a ON m.id_aula = a.id_aula " +
+            "JOIN docente dc ON dc.id_docente = a.id_docente " +
+            "JOIN persona pd ON pd.id_persona = dc.id_persona " +
+            "JOIN nivel_funcional n ON n.id_nivel = a.id_nivel_funcional " +
+            "JOIN diagnostico d ON d.id_diagnostico = a.id_diagnostico_referente";
+    
+    if(aula!=null && diagnostico!=null && docente!=null){
+        consulta +=" WHERE pd.apellidos='"+docente+"' AND a.nombre='"+aula+"' AND d.nombre='"+diagnostico+"'"; 
+    }else{if(aula!=null &&  diagnostico==null && docente==null){
+        consulta +=" WHERE a.nombre='"+aula+"'";
+    }else{if(aula!=null &&  diagnostico!=null && docente==null){
+        consulta +=" WHERE a.nombre='"+aula+"' AND d.nombre='"+diagnostico+"'"; 
+    }else{if(aula!=null && diagnostico==null && docente!=null){
+        consulta +=" WHERE pd.apellidos='"+docente+"' AND a.nombre='"+aula+"'";
+                }else{if(aula==null && diagnostico!=null && docente==null){
+                    consulta +=" WHERE d.nombre='"+diagnostico+"'";
+                    }else{if(aula==null && diagnostico!=null && docente!=null){
+                            consulta +=" WHERE pd.apellidos='"+docente+"' AND d.nombre='"+diagnostico+"'";
+                        }else{if(aula==null && diagnostico==null && docente!=null){
+                                consulta+=" WHERE pd.apellidos='"+docente+"'";
+                            }else{if(aula==null && diagnostico== null && docente== null){
+                                    JOptionPane.showMessageDialog(null, " Valores ingresados invalidos");
+                                    return null;
+                                }
+                            }
+                        }
+                    }
+                }
+            }  
+        }
+    }
+    
+    try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String[] fila = new String[10];
+            fila[0] = rs.getString("id_estudiante");
+            fila[1] = rs.getString("apellidos");
+            fila[2] = rs.getString("nombres");
+            fila[3] = rs.getString("diagnostico");
+            fila[4] = rs.getString("nivel_funcional");
+            fila[5] = rs.getString("aula");
+            fila[6] = rs.getString("docente_nombres") + " " + rs.getString("docente_apellidos");
+            fila[7] = rs.getString("celular");
+            fila[8] = rs.getString("fecha_matricula");
+            lista.add(fila);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al listar estudiantes: " + e.getMessage());
+    }
+
+    return lista;
+    }
+    
+    @Override
+    public List<String> listaAulas() {
+    List<String> listaAulas = new ArrayList<>();
+    String consulta = "SELECT nombre FROM aula";
+
+    try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String nombre = rs.getString("nombre");
+            listaAulas.add(nombre);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener lista aula: " + e.getMessage());
+    }
+
+    return listaAulas;
+    }
+    
+    @Override
+    public List<String> listaDiagnostico() {
+    List<String> listaDiagnostico = new ArrayList<>();
+    String consulta = "SELECT nombre FROM diagnostico";
+
+    try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String nombre = rs.getString("nombre");
+            listaDiagnostico.add(nombre);
+        }
+    } catch (SQLException e) {
+        System.out.println("Error al obtener lista Diagnostico: " + e.getMessage());
+    }
+
+    return listaDiagnostico;
+}
+
+    @Override
+    public List<String> listaDocentes() {
+        List<String> listaDocentes = new ArrayList<>();
+        String consulta = "SELECT p.nombres, p.apellidos FROM persona p JOIN docente d ON d.id_persona=p.id_persona";
+
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String nombre = rs.getString("nombres");
+                String apellido = rs.getString("apellidos");
+                listaDocentes.add(apellido);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener lista docentes: " + e.getMessage());
+        }
+
+        return listaDocentes;
+    }
     
 }
