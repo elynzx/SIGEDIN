@@ -4,7 +4,11 @@ package controller;
 import dao.AdministradorDao;
 import java.awt.Desktop;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +21,15 @@ import model.entidades.Usuario;
 import model.funcionalidad.ListaAulas;
 import view.Administrador.MenuAdminView;
 import model.funcionalidad.ListaUsuarios;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import view.Administrador.EstudiantesAdmin;
 import view.Administrador.ReportesAdmin;
+import view.Secretaria.ReportesMatricula;
 
 
 
@@ -149,10 +160,96 @@ public class AdministradorCtrl {
 
     }
     
-    public void registrarCambioEstudiante(String dato_final,String idEstudiante,String Dato){
+        public void registrarCambioEstudiante(String dato_final,String idEstudiante,String Dato){
         
         dao.registrarCambioEstudiante(dato_final, idEstudiante,Dato);
         
+    }
+    
+        public int obtenerIdAula(String filtro){
+            int id=dao.obtenerAula(filtro);
+            return id;
+        }
+    
+        public void generarPdfAula(String tipo_reporte, String criterio_filtro,int id,boolean aulas, boolean diagnostico,String filtro,int id_empleado) {
+    
+        
+        int idTipoReporte = dao.obtenerId_Tipo_Matricula(tipo_reporte);
+        int idEmpleado = id_empleado;
+        int idEstudiante = 0;
+
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Timestamp timestamp = Timestamp.valueOf(now);
+        
+        List<String[]> estudiantes = dao.obtenerListaMatriculasPorAula(filtro,aulas,diagnostico);
+
+        dao.registrarReporte(idTipoReporte, criterio_filtro, idEstudiante, id, idEmpleado, timestamp);
+
+        
+        int idReporte = dao.obtenerIdReporte(timestamp, idEmpleado);
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Datos");
+
+        // Estilo con bordes para encabezado y celdas
+        CellStyle borderedStyle = workbook.createCellStyle();
+        borderedStyle.setBorderTop(BorderStyle.THIN);
+        borderedStyle.setBorderBottom(BorderStyle.THIN);
+        borderedStyle.setBorderLeft(BorderStyle.THIN);
+        borderedStyle.setBorderRight(BorderStyle.THIN);
+
+        // Fila de título
+        Row titulo = sheet.createRow(3);
+        titulo.createCell(5).setCellValue(tipo_reporte);
+        titulo.createCell(6).setCellValue("Id de Reporte:");
+        titulo.createCell(7).setCellValue(idReporte);
+
+        // Encabezado
+        Row header = sheet.createRow(5);
+        String[] headers = {
+            "ID", "Apellidos", "Nombres", "Diagnóstico", "Nivel Funcional",
+            "Aula", "Docente a cargo", "Celular de contacto", "Fecha de matrícula"
+        };
+        for (int j = 0; j < headers.length; j++) {
+            org.apache.poi.ss.usermodel.Cell cell = header.createCell(5 + j);
+            cell.setCellValue(headers[j]);
+            cell.setCellStyle(borderedStyle);
+        }
+
+        // Datos
+        for (int i = 0; i < estudiantes.size(); i++) {
+            String[] datos = estudiantes.get(i);
+            Row fila = sheet.createRow(6 + i);
+            for (int j = 0; j < datos.length; j++) {
+                org.apache.poi.ss.usermodel.Cell cell = fila.createCell(5 + j);
+                cell.setCellValue(datos[j]);
+                cell.setCellStyle(borderedStyle);
+            }
+        }
+
+        // Autoajustar columnas
+        for (int i = 5; i <= 13; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Guardar archivo
+        File archivo = new File("src/main/java/reportes/ReporteAula" + idReporte + ".xlsx");
+
+        try (FileOutputStream fileOut = new FileOutputStream(archivo)) {
+            workbook.write(fileOut);
+            workbook.close();
+            System.out.println("Archivo generado: " + archivo.getAbsolutePath());
+
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(archivo);
+            } else {
+                System.out.println("Desktop no es compatible. Abre el archivo manualmente.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     

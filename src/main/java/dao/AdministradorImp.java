@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import configuration.Conexion;
 import java.sql.Connection;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -469,6 +470,143 @@ public class AdministradorImp implements AdministradorDao {
         }
         return id_aula;
     }
+    
+    @Override
+    public int obtenerId_Tipo_Matricula(String tipo_reporte){
+        int idTipoReporte=0;
+        String consulta="SELECT id_tipo_reporte FROM tipo_reporte WHERE nombre='"+tipo_reporte+"'";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idTipoReporte = rs.getInt("id_tipo_reporte");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener id del tipo_reporte " + e.getMessage());
+        }
+        
+        return idTipoReporte;
+    }
+    
+    @Override
+    public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico){
+        List<String[]> lista = new ArrayList<>();
+        String consulta="SELECT\n" +
+            "   e.id_estudiante, p.apellidos, p.nombres, d.nombre AS diagnostico,\n" +
+            "   n.nombre AS nivel_funcional, a.nombre AS aula,\n" +
+            "   pd.nombres AS docente_nombres, pd.apellidos AS docente_apellidos,\n" +
+            "   p.celular, m.fecha_matricula \n" +
+            "FROM estudiante e \n" +
+            "JOIN persona p ON p.id_persona = e.id_persona \n" +
+            "JOIN matricula m ON m.id_estudiante = e.id_estudiante \n" +
+            "JOIN aula a ON m.id_aula = a.id_aula \n" +
+            "JOIN docente dc ON dc.id_docente = a.id_docente \n" +
+            "JOIN persona pd ON pd.id_persona = dc.id_persona \n" +
+            "JOIN nivel_funcional n ON n.id_nivel = a.id_nivel_funcional \n" +
+            "JOIN diagnostico d ON d.id_diagnostico = a.id_diagnostico_referente";
+                
+        if(aulas==true && diagnostico==false){
+            consulta +=" WHERE a.nombre='"+filtro+"'";
+        }else{
+            if(diagnostico==true && aulas==false){
+                consulta +=" WHERE d.nombre='"+filtro+"'";
+            }
+        }
+            
+        
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+        while (rs.next()) {
+            String[] fila = new String[10];
+            fila[0] = rs.getString("id_estudiante");
+            fila[1] = rs.getString("apellidos");
+            fila[2] = rs.getString("nombres");
+            fila[3] = rs.getString("diagnostico");
+            fila[4] = rs.getString("nivel_funcional");
+            fila[5] = rs.getString("aula");
+            fila[6] = rs.getString("docente_nombres") + " " + rs.getString("docente_apellidos");
+            fila[7] = rs.getString("celular");
+            fila[8] = rs.getString("fecha_matricula");
+            lista.add(fila);
+        }
+        } catch (SQLException e) {
+        System.out.println("Error al listar estudiantes: " + e.getMessage());
+        }
+         
+        return lista;
+    }
+    
+    @Override
+    public void registrarReporte(int idTipoReporte,String criterio_filtro,int idEstudiante, int id,int idEmpleado, Timestamp timestamp){
+        int idReporte=0;
+        String estudianteString=null;
+        String idAula=null;
+        if(idEstudiante==0){
+            estudianteString="NULL";
+        }else{
+            estudianteString=Integer.toString(idEstudiante);
+        }
+        if(id==0){
+            idAula="NULL";
+        }else{
+            idAula=Integer.toString(id);
+        }
+        
+        
+        
+        String consulta="INSERT INTO reporte (id_tipo_reporte, criterio_filtro, id_estudiante, id_aula, fecha_generacion, generado_por) VALUES (?,?,"+estudianteString+","+idAula+",?,?);";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            pst.setInt(1, idTipoReporte);
+            pst.setString(2, criterio_filtro);
+            pst.setTimestamp(3, timestamp);
+            pst.setInt(4, idEmpleado);
+            pst.executeUpdate();
+            System.out.println("reporte Registrado correctamente");
+        } catch (SQLException e) {
+            System.out.println("Error al registrar reporte "+ e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    
+    @Override
+    public int obtenerIdReporte(Timestamp timestamp, int idEmpleado){
+        int idReporte=0;
+        System.out.println("id empleado "+idEmpleado+" fecha: "+timestamp);
+         String consulta="SELECT id_reporte FROM reporte WHERE fecha_generacion= '"+timestamp+"' AND generado_por="+idEmpleado+"";
+        
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idReporte = rs.getInt("id_reporte");
+            }
+            System.out.println("id obtenido correctamente "+idReporte);
+            
+        } catch (SQLException e) {
+            System.out.println("Error al obtener id del reporte " + e.getMessage());
+        }
+        return idReporte;
+    }
+    
+    @Override
+    public int obtenerAula(String aula){
+        int idAula=0;
+        String consulta="SELECT id_aula FROM aula WHERE nombre='"+aula+"'";
+        
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                idAula = rs.getInt("id_aula");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener id del aula " + e.getMessage());
+        }
+         
+        return idAula;
+     }
     
     
     

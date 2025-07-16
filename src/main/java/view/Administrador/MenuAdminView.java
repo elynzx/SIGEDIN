@@ -157,6 +157,11 @@ public class MenuAdminView extends javax.swing.JFrame {
 
         jlblreportes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblreportes.setText("Reportes");
+        jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblreportesMouseClicked(evt);
+            }
+        });
         jPanel2.add(jlblreportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
 
         jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -255,6 +260,12 @@ public class MenuAdminView extends javax.swing.JFrame {
         estudiantesvista.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jlblestudianteMouseClicked
+
+    private void jlblreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblreportesMouseClicked
+        ReportesAdmin reportes = new ReportesAdmin(idAdministrador);
+        reportes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblreportesMouseClicked
     
 
 

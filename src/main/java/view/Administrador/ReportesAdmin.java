@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -307,6 +308,11 @@ public class ReportesAdmin extends javax.swing.JFrame {
         jbtnpdfdiagnostico.setText("GENERAR PDF");
         jbtnpdfdiagnostico.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtnpdfdiagnostico.setFocusPainted(false);
+        jbtnpdfdiagnostico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbtnpdfdiagnosticoMouseClicked(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
@@ -494,7 +500,15 @@ public class ReportesAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jcmbaulasActionPerformed
 
     private void jbtnpdfaulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfaulaActionPerformed
-        // TODO add your handling code here:
+        String tipo_reporte = "matricula_por_aula";
+        String criterio_filtro = "matricula por aula";
+        String filtro = (String) getJcmbaulas().getSelectedItem();
+        int id = adminCtrl.obtenerIdAula(filtro);
+        if (!"ninguno".equals(filtro)) {
+            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,true,false,filtro,idAdministrador);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un aula");
+        }
     }//GEN-LAST:event_jbtnpdfaulaActionPerformed
 
     private void jbtnpdfmatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfmatriculaActionPerformed
@@ -504,6 +518,18 @@ public class ReportesAdmin extends javax.swing.JFrame {
     private void jbtnpdfvacantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfvacantesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jbtnpdfvacantesActionPerformed
+
+    private void jbtnpdfdiagnosticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnpdfdiagnosticoMouseClicked
+        String tipo_reporte = "matricula_por_diagnostico";
+        String criterio_filtro = "matricula por diagnostico";
+        String filtro = (String) getJcmbdiagnostico().getSelectedItem();
+        int id = adminCtrl.obtenerIdAula(filtro);
+        if (!"ninguno".equals(filtro)) {
+            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,false,true,filtro,idAdministrador);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un aula");
+        }
+    }//GEN-LAST:event_jbtnpdfdiagnosticoMouseClicked
 
     /**
      * @param args the command line arguments

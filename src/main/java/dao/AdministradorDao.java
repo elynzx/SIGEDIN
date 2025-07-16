@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import model.entidades.Persona;
@@ -34,4 +35,9 @@ public interface AdministradorDao {
     public void registrarCambioEstudiante(String dato_final,String idEstudiante,String Dato);
     public int obtenerIdPersona(int idEstudiante);
     public int obtenerIdAula(String Dato);
+    public int obtenerId_Tipo_Matricula(String tipo_reporte);
+    public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico);
+    public void registrarReporte(int idTipoReporte,String criterio_filtro,int idEstudiante, int id,int idEmpleado, Timestamp timestamp);
+    public int obtenerIdReporte(Timestamp timestamp, int idEmpleado);
+    public int obtenerAula(String aula);
 }
