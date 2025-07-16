@@ -30,7 +30,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         cargarAulas(jcmbaula);
         cargarDiagnostico(jcmbdiagnostico);
         cargarDocentes(jcmbdocente);
-        jcmbaula.setVisible(false);
+        jcmbdato.setVisible(false);
         jtxtdato.setVisible(false);
         jbtncambiar.setVisible(false);
         jbtncancelar.setVisible(false);
@@ -122,9 +122,13 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         return jTableListaEstudiantes.getSelectedRow();
     }
     
-    private int idEstudiante(){
-            int filaSeleccionada = jTableListaEstudiantes.getSelectedRow();
-            int Id_estudiante = (int) jTableListaEstudiantes.getValueAt(filaSeleccionada, 0);
+    private String idEstudiante(){
+            int filaSeleccionada = (int) jTableListaEstudiantes.getSelectedRow();
+            if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un estudiante.");
+                return "-1";
+            }
+            String Id_estudiante = (String) jTableListaEstudiantes.getValueAt(filaSeleccionada, 0);
             
             return Id_estudiante;
     }
@@ -443,6 +447,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     private void jbtneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtneditarActionPerformed
         jcmbaula.setVisible(true);
         jtxtdato.setVisible(true);
+        jcmbdato.setVisible(true);
         jbtncambiar.setVisible(true);
         jbtncancelar.setVisible(true);
     }//GEN-LAST:event_jbtneditarActionPerformed
@@ -450,17 +455,46 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
     private void jbtncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtncancelarActionPerformed
         jcmbaula.setVisible(false);
         jtxtdato.setVisible(false);
+        jcmbdato.setVisible(false);
         jbtncambiar.setVisible(false);
         jbtncancelar.setVisible(false);
     }//GEN-LAST:event_jbtncancelarActionPerformed
 
     private void jbtncambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtncambiarActionPerformed
-        String Dato=jtxtdato.getText();
-        if(Dato.isBlank()){
-            JOptionPane.showMessageDialog(rootPane, "Dato invalido");
+        String Dato;
+        String idEstudiante=idEstudiante();
+        System.out.println("id estudiante: "+idEstudiante);
+        if(idEstudiante=="-1"){
+            JOptionPane.showMessageDialog(null, "debe seleccionar un alumno");
+            return;
+        }
+        if(dato_final=="aula"){
+            Dato=(String) jcmbdatoVariable.getSelectedItem();
         }else{
-            int idEstudiante=idEstudiante();
-            adminCtrl.registrarCambio(dato_final,idEstudiante);
+            Dato=jtxtdato.getText();
+        }
+        if(Dato.isBlank()){
+            JOptionPane.showMessageDialog(null, "Dato invalido");
+            return;
+        }else{if(dato_final!="celular"){
+                idEstudiante=idEstudiante();
+                adminCtrl.registrarCambioEstudiante(dato_final,idEstudiante,Dato);
+                EstudiantesAdmin estudiantes = new EstudiantesAdmin(idAdministrador);
+                estudiantes.setVisible(true);
+                this.dispose();
+        }else{
+            if (Dato.matches("\\d{9}")) {
+                idEstudiante=idEstudiante();
+                adminCtrl.registrarCambioEstudiante(dato_final,idEstudiante,Dato);
+                EstudiantesAdmin estudiantes = new EstudiantesAdmin(idAdministrador);
+                estudiantes.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "debe digitar un número de 9 digitos");
+                return;
+            }
+        }
+            
         }
     }//GEN-LAST:event_jbtncambiarActionPerformed
 
@@ -471,10 +505,11 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
             case "Seleccionar":JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un dato");break;
             case "Nombres": dato_final="nombres";break;
             case "Apellidos": dato_final="apellidos";break;
-            case "Aula Asignada": dato_final="aula";jcmbdatoVariable.setVisible(true); cargarAulas(jcmbdatoVariable);jtxtdato.setEditable(false);jtxtdato.setText("");break;
+            case "Aula Asignada": dato_final="aula";jcmbdatoVariable.setVisible(true);jcmbdatoVariable.removeAllItems();; cargarAulas(jcmbdatoVariable);jtxtdato.setEditable(false);jtxtdato.setText("");break;
             case "Celular": dato_final="celular";break;
-            default:return;
+            default:
         }
+        
         
     }//GEN-LAST:event_jcmbdatoActionPerformed
 

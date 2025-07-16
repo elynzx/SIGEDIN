@@ -416,28 +416,58 @@ public class AdministradorImp implements AdministradorDao {
     }
 
     @Override
-    public void registrarCambioEstudiante(String dato_final, int idEstudiante) {
+    public void registrarCambioEstudiante(String dato_final, String idEstudiante,String Dato) {
         String consulta="";
+        int id_estudiante = Integer.parseInt(idEstudiante);
         int id_persona=0;
+        int id_aula=0;
         switch(dato_final){
-            case "nombres": id_persona=obtenerIdPersona(idEstudiante); consulta="UPDATE persona SET nombres = "+dato_final+" WHERE id_persona="+id_persona+"";break;
+            case "nombres": id_persona=obtenerIdPersona(id_estudiante); consulta="UPDATE persona SET nombres = '"+Dato+"' WHERE id_persona="+id_persona+"";break;
+            case "apellidos": id_persona=obtenerIdPersona(id_estudiante); consulta="UPDATE persona SET apellidos = '"+Dato+"' WHERE id_persona="+id_persona+"";break;
+            case "aula": id_persona=obtenerIdPersona(id_estudiante); id_aula=obtenerIdAula(Dato);consulta="UPDATE matricula SET id_aula = "+id_aula+" WHERE id_estudiante="+id_estudiante+"";break;
+            case "celular": id_persona=obtenerIdPersona(id_estudiante); consulta="UPDATE persona SET celular = '"+Dato+"' WHERE id_persona="+id_persona+"";break;
+            default:
+        }
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null,"Cambio realizado de "+dato_final+" correctamente");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error al registrar usuario "+ e.getMessage());
+            e.printStackTrace();
         }
     }
 
     @Override
     public int obtenerIdPersona(int idEstudiante) {
-        String consulta="SELECT id_persona FROM estudiante WHERE id_persona="+idEstudiante+"";
+        String consulta="SELECT id_persona FROM estudiante WHERE id_estudiante="+idEstudiante+"";
         int id_persona=0;
         try (PreparedStatement pst = conn.prepareStatement(consulta)) {
         ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
                 id_persona = rs.getInt("id_persona");
+                System.out.println("id persona: "+id_persona);
             }
         } catch (SQLException e) {
-            System.out.println("Error al obtener lista Diagnostico: " + e.getMessage());
+            System.out.println("Error al obtener id persona " + e.getMessage());
         }
         return id_persona;
+    }
+    
+    @Override
+    public int obtenerIdAula(String Dato){
+        int id_aula=0;
+        String consulta="SELECT id_aula FROM aula WHERE nombre='"+Dato+"'";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                id_aula = rs.getInt("id_aula");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener id aula " + e.getMessage());
+        }
+        return id_aula;
     }
     
     

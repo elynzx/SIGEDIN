@@ -31,6 +31,7 @@ public interface AdministradorDao {
     public List<String> listaDiagnostico();
     public List<String> listaDocentes();
     public int obtenerIdMatricula(String id_alumno);
-    public void registrarCambioEstudiante(String dato_final,int idEstudiante);
+    public void registrarCambioEstudiante(String dato_final,String idEstudiante,String Dato);
     public int obtenerIdPersona(int idEstudiante);
+    public int obtenerIdAula(String Dato);
 }

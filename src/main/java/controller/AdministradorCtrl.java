@@ -149,8 +149,9 @@ public class AdministradorCtrl {
 
     }
     
-    public void registrarCambioEstudiante(String dato_final,int idEstudiante){
-        dao.registrarCambioEstudiante(dato_final, idEstudiante);
+    public void registrarCambioEstudiante(String dato_final,String idEstudiante,String Dato){
+        
+        dao.registrarCambioEstudiante(dato_final, idEstudiante,Dato);
         
     }
     
