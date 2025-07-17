@@ -1,4 +1,4 @@
-package utillities.ExcelTemplate;
+package utilities.ExcelTemplate;
 
 import model.funcionalidad.PlanIntervencion;
 import model.entidades.Estudiante;
@@ -33,8 +33,7 @@ public class ExcelHistorialIntervenciones {
             // Cabeceras
             Row header = sheet.createRow(3);
             String[] columnas = {
-                "Fecha", "Tipo de Conducta", "Función de Comportamiento",
-                "Objetivo", "Estrategia", "Implementación", "Observaciones"
+                "Fecha", "Tipo de Conducta", "Estrategia"
             };
 
             CellStyle estiloCabecera = workbook.createCellStyle();
@@ -54,11 +53,7 @@ public class ExcelHistorialIntervenciones {
                 Row fila = sheet.createRow(rowNum++);
                 fila.createCell(0).setCellValue(i.getFechaInicio().toString());
                 fila.createCell(1).setCellValue(i.getTipoConducta().getNombre());
-                fila.createCell(2).setCellValue(i.getFuncion().getNombre());
-                fila.createCell(3).setCellValue(i.getObjetivo());
-                fila.createCell(4).setCellValue(i.getEstrategia().getNombre());
-                fila.createCell(5).setCellValue(i.isAplicadoAntes() ? "Sí" : "No");
-                fila.createCell(6).setCellValue(i.getObservaciones());
+                fila.createCell(2).setCellValue(i.getEstrategia().getNombre());
             }
 
             for (int i = 0; i < columnas.length; i++) {

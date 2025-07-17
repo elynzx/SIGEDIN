@@ -50,8 +50,8 @@ public class EstudianteCtrl {
             for (Estudiante estudiante : listaEstudiantes) {
                 modelo.addRow(new Object[]{
                     estudiante.getIdEstudiante(),
-                    StringUtils.capitalize(estudiante.getNombres()),
-                    StringUtils.capitalize(estudiante.getApellidos())
+                    StringUtils.capitalize(estudiante.getApellidos()),
+                    StringUtils.capitalize(estudiante.getNombres())
                 });
             }
         } catch (Exception e) {

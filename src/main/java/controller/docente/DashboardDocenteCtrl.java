@@ -1,4 +1,3 @@
-
 package controller.docente;
 
 import com.google.common.base.Preconditions;
@@ -15,7 +14,6 @@ import model.entidades.Aula;
 import model.entidades.Estudiante;
 import org.apache.commons.lang3.StringUtils;
 
-
 public class DashboardDocenteCtrl {
 
     private final DocenteDao docenteDao;
@@ -28,6 +26,11 @@ public class DashboardDocenteCtrl {
         this.incidenteDao = incidenteDao;
     }
 
+    public List<String> obtenerActividadIncidentesRegistrados(int idDocente) {
+        Preconditions.checkArgument(idDocente > 0, "ID de docente inválido");
+        return incidenteDao.obtenerActividadIncidentesRegistrados(idDocente);
+    }
+
     public Aula obtenerDatosAula(int idDocente) {
         Preconditions.checkArgument(idDocente > 0, "ID de docente inválido");
         return docenteDao.obtenerDatosAula(idDocente);
@@ -38,12 +41,7 @@ public class DashboardDocenteCtrl {
         return ImmutableList.copyOf(estudianteDao.obtenerListaEstudiantes(idDocente));
     }
 
-    public List<String> obtenerHistorialIncidentesRegistrados(int idDocente) {
-        Preconditions.checkArgument(idDocente > 0, "ID de docente inválido");
-        return incidenteDao.obtenerHistorialIncidentes(idDocente);
-    }
-
-    public List<String> obtenerListaAlertas(int idDocente) {
+    public List<String> obtenerEstudiantesConIncidentes(int idDocente) {
         Map<Integer, Integer> mapaConductas = incidenteDao.obtenerTopEstudiantesConConductasProblematicas(idDocente);
         Map<Integer, Integer> mapaFichas = incidenteDao.obtenerTopEstudiantesConFichasABC(idDocente);
 
@@ -57,19 +55,18 @@ public class DashboardDocenteCtrl {
             if (est != null) {
                 int conductas = mapaConductas.getOrDefault(id, 0);
                 int fichas = mapaFichas.getOrDefault(id, 0);
+
                 String nombre = est.getApellidos() + ", " + est.getNombres();
-                lista.add(nombre + " | Conductas: " + conductas + " | Fichas ABC: " + fichas);
+                String alerta = String.format("%s | Conductas: %d | Fichas ABC: %d", nombre, conductas, fichas);
+                lista.add(alerta);
             }
         }
-
         return lista;
     }
 
-    public List<Integer> obtenerIdsEstudiantesConAlertas(int idDocente) {
-        Set<Integer> ids = new HashSet<>();
-        ids.addAll(incidenteDao.obtenerTopEstudiantesConConductasProblematicas(idDocente).keySet());
-        ids.addAll(incidenteDao.obtenerTopEstudiantesConFichasABC(idDocente).keySet());
-        return new ArrayList<>(ids);
+    // == metricas ==
+    public Map<String, Integer> obtenerConductasPorTipo(int idEstudiante) {
+        return incidenteDao.obtenerConductasPorTipo(idEstudiante);
     }
 
     public Map<String, Integer> obtenerFichasABCporAntecedente(int idEstudiante) {
@@ -78,6 +75,10 @@ public class DashboardDocenteCtrl {
 
     public Map<String, Integer> obtenerConductasPorMes(int idEstudiante) {
         return incidenteDao.obtenerConductasProblematicasPorMes(idEstudiante);
+    }
+
+    public Map<String, Object> obtenerResumenABCyConductas(int idEstudiante) {
+        return incidenteDao.obtenerResumenIncidentes(idEstudiante); // Este método ya existe
     }
 
     public String obtenerNombreEstudiante(int idEstudiante) {

@@ -22,6 +22,10 @@ public class Usuario {
         this.persona = persona;
     }
 
+    public Usuario() {
+      
+    }
+
     public int getIdUsuario() {
         return idUsuario;
     }

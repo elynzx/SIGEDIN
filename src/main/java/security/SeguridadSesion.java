@@ -31,5 +31,9 @@ public class SeguridadSesion {
     public static String getNombreCompleto() {
         return usuarioActual.isPresent() ? usuarioActual.get().getNombres() + " " + usuarioActual.get().getApellidos() : "Invitado";
     }
+    
+    public static String getNombres() {
+        return usuarioActual.isPresent() ? usuarioActual.get().getNombres() : "Invitado";
+    }
 
 }

@@ -20,8 +20,8 @@ import dao.funcionalidad.ConductaProblematicaImp;
 import dao.funcionalidad.FichaAbcImp;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import utillities.ExcelTemplate.ExcelHistorialConductas;
-import utillities.ExcelTemplate.ExcelHistorialFichas;
+import utilities.ExcelTemplate.ExcelHistorialConductas;
+import utilities.ExcelTemplate.ExcelHistorialFichas;
 
 public class VistaIncidente extends javax.swing.JPanel {
 
@@ -203,11 +203,10 @@ public class VistaIncidente extends javax.swing.JPanel {
         jpDashboardDocente.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 290, -1));
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(45, 94, 152));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Waterfall-1.png"))); // NOI18N
-        jLabel14.setText("REGISTRO DE INCIDENTES");
+        jLabel14.setText("Registro de Incidentes");
         jpDashboardDocente.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 330, 30));
 
         cbListaEstudiantes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -218,13 +217,13 @@ public class VistaIncidente extends javax.swing.JPanel {
                 cbListaEstudiantesActionPerformed(evt);
             }
         });
-        jpDashboardDocente.add(cbListaEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 270, 30));
+        jpDashboardDocente.add(cbListaEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 60, 230, 30));
 
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Selecciona un estudiante:");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        jpDashboardDocente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 130, 20));
+        jpDashboardDocente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 40, 140, 20));
 
         lbNivel12.setBackground(new java.awt.Color(255, 255, 255));
         lbNivel12.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N
@@ -300,7 +299,7 @@ public class VistaIncidente extends javax.swing.JPanel {
         lbNivel16.setText("Selecciona un estudiante para realizar el registro:");
         lbNivel16.setToolTipText("");
         lbNivel16.setPreferredSize(new java.awt.Dimension(70, 25));
-        jpDashboardDocente.add(lbNivel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 530, 25));
+        jpDashboardDocente.add(lbNivel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 530, 20));
 
         tbHistorialConductasProbEstudiante.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         tbHistorialConductasProbEstudiante.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -361,7 +360,7 @@ public class VistaIncidente extends javax.swing.JPanel {
         lbNivel18.setText("Selecciona un estudiante para realizar el registro:");
         lbNivel18.setToolTipText("");
         lbNivel18.setPreferredSize(new java.awt.Dimension(70, 25));
-        jpDashboardDocente.add(lbNivel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 530, 25));
+        jpDashboardDocente.add(lbNivel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 530, 20));
 
         tbHistorialFichasAbc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         tbHistorialFichasAbc.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -419,41 +418,31 @@ public class VistaIncidente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConductaProbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConductaProbActionPerformed
-
         setConductaPanel();
-
     }//GEN-LAST:event_btnConductaProbActionPerformed
 
     private void btnFichaAbcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFichaAbcActionPerformed
-
         setFichaPanel();
-
-
     }//GEN-LAST:event_btnFichaAbcActionPerformed
 
     private void btnDescHistorialConductasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescHistorialConductasMouseClicked
-
-        if (estudianteSeleccionado == null || listaFichasAbc.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay datos para exportar.");
-            return;
-        }
-        ExcelHistorialFichas.exportarHistorialFichas(listaFichasAbc, estudianteSeleccionado, this);
-
-    }//GEN-LAST:event_btnDescHistorialConductasMouseClicked
-
-    private void btnDescHistorialFichasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescHistorialFichasMouseClicked
-
         if (estudianteSeleccionado == null || listaConductas.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay datos para exportar.");
             return;
         }
         ExcelHistorialConductas.exportarHistorialConductas(listaConductas, estudianteSeleccionado, this);
+    }//GEN-LAST:event_btnDescHistorialConductasMouseClicked
+
+    private void btnDescHistorialFichasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescHistorialFichasMouseClicked
+        if (estudianteSeleccionado == null || listaFichasAbc.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay datos para exportar.");
+            return;
+        }
+        ExcelHistorialFichas.exportarHistorialFichas(listaFichasAbc, estudianteSeleccionado, this);
     }//GEN-LAST:event_btnDescHistorialFichasMouseClicked
 
     private void cbListaEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbListaEstudiantesActionPerformed
-
         Estudiante estudiante = (Estudiante) cbListaEstudiantes.getSelectedItem();
-
         if (estudiante != null) {
             idEstudianteSeleccionado = estudiante.getIdEstudiante();
             estudianteSeleccionado = estudianteCtrl.obtenerEstudiantePorId(idEstudianteSeleccionado);
@@ -464,10 +453,7 @@ public class VistaIncidente extends javax.swing.JPanel {
             cargarConductasEstudiante(idEstudianteSeleccionado);
             setConductaPanel();
         }
-
-
     }//GEN-LAST:event_cbListaEstudiantesActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConductaProb;

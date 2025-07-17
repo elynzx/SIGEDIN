@@ -4,10 +4,6 @@
  */
 package model.funcionalidad.catalogo;
 
-/**
- *
- * @author rpasc
- */
 public class TipoReporte {
 
     private int id;
@@ -19,6 +15,12 @@ public class TipoReporte {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
+    public TipoReporte(int id, String nombre) {
+        this.id = id;
+        this.nombre = nombre;
+    }
+    
 
     public int getId() {
         return id;

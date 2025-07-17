@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package utillities.ExcelTemplate;
+package utilities.ExcelTemplate;
 
 import model.entidades.Estudiante;
-import model.funcionalidad.FichaAbc;
+import model.funcionalidad.ConductaProblematica;
 import model.funcionalidad.catalogo.Diagnostico;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -16,19 +16,20 @@ import java.io.FileOutputStream;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExcelHistorialFichas {
+public class ExcelHistorialConductas {
 
-    public static void exportarHistorialFichas(List<FichaAbc> listaFichas,
-            Estudiante estudiante,
-            JPanel parent) {
+    public static void exportarHistorialConductas(List<ConductaProblematica> listaConductas,
+                                                  Estudiante estudiante,
+                                                  JPanel parent) {
         try (Workbook workbook = new XSSFWorkbook()) {
-            Sheet sheet = workbook.createSheet("Fichas ABC");
+            Sheet sheet = workbook.createSheet("Conductas Problemáticas");
 
             CellStyle headerStyle = workbook.createCellStyle();
             Font font = workbook.createFont();
             font.setBold(true);
             headerStyle.setFont(font);
 
+            // Info estudiante
             Row info1 = sheet.createRow(0);
             info1.createCell(0).setCellValue("Estudiante:");
             info1.createCell(1).setCellValue(estudiante.getNombres() + " " + estudiante.getApellidos());
@@ -45,8 +46,8 @@ public class ExcelHistorialFichas {
 
             Row header = sheet.createRow(3);
             header.createCell(0).setCellValue("Fecha");
-            header.createCell(1).setCellValue("Antecedente");
-            header.createCell(2).setCellValue("Comportamiento");
+            header.createCell(1).setCellValue("Tipo de conducta");
+            header.createCell(2).setCellValue("Descripción");
             header.createCell(3).setCellValue("Gravedad");
 
             for (int i = 0; i < 4; i++) {
@@ -54,12 +55,12 @@ public class ExcelHistorialFichas {
             }
 
             int rowNum = 4;
-            for (FichaAbc ficha : listaFichas) {
+            for (ConductaProblematica conducta : listaConductas) {
                 Row row = sheet.createRow(rowNum++);
-                row.createCell(0).setCellValue(ficha.getFecha().toString());
-                row.createCell(1).setCellValue(ficha.getAntecedente().getNombre());
-                row.createCell(2).setCellValue(ficha.getComportamiento());
-                row.createCell(3).setCellValue(ficha.getGravedad());
+                row.createCell(0).setCellValue(conducta.getFecha().toString());
+                row.createCell(1).setCellValue(conducta.getTipo().getNombre());
+                row.createCell(2).setCellValue(conducta.getDescripcion());
+                row.createCell(3).setCellValue(conducta.getGravedad());
             }
 
             sheet.autoSizeColumn(0);
@@ -68,8 +69,8 @@ public class ExcelHistorialFichas {
             sheet.autoSizeColumn(3);
 
             JFileChooser chooser = new JFileChooser();
-            chooser.setDialogTitle("Guardar historial de fichas");
-            String nombreArchivo = "FichasABC_" + estudiante.getApellidos().replace(" ", "_")
+            chooser.setDialogTitle("Guardar historial de conductas");
+            String nombreArchivo = "Conductas_" + estudiante.getApellidos().replace(" ", "_")
                     + "_" + estudiante.getNombres().replace(" ", "_")
                     + "_" + java.time.LocalDate.now() + ".xlsx";
             chooser.setSelectedFile(new File(nombreArchivo));

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.entidades.Estudiante;
 import model.funcionalidad.Asistencia;
-import utillities.FechaUtil;
+import utilities.FechaUtil;
 
 public class VistaAsistencia extends javax.swing.JFrame {
 

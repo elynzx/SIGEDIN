@@ -2,8 +2,8 @@ package controller.secretaria;
 import dao.SecretariaImp;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import view.Secretaria.VistaDashboardMatricula;
-import view.Secretaria.VistaEstudiantes;
+import view.Secretaria.VDashboardMatricula;
+import view.Secretaria.VEstudiantes;
 import view.Secretaria.Matricula;
 import view.Secretaria.ReportesMatricula;
 import java.awt.event.MouseAdapter;
@@ -18,8 +18,8 @@ import model.entidades.Persona;
 
 
 public class SecretariaCtrl {
-    private VistaDashboardMatricula dashboard;
-    private VistaEstudiantes estudiantes;
+    private VDashboardMatricula dashboard;
+    private VEstudiantes estudiantes;
     private Matricula matricula;
     private ReportesMatricula reportes;
     private SecretariaImp dao;
@@ -86,7 +86,7 @@ public class SecretariaCtrl {
         
     }
     
-    public SecretariaCtrl(VistaDashboardMatricula dashboard) {
+    public SecretariaCtrl(VDashboardMatricula dashboard) {
         this.dashboard = dashboard;
         this.dao = new SecretariaImp();
         cargarTablaAulas();
@@ -100,7 +100,7 @@ public class SecretariaCtrl {
 
         dashboard.getJlblestudiantes().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                new VistaEstudiantes().setVisible(true);
+                new VEstudiantes().setVisible(true);
                 dashboard.dispose();
             }
         });
@@ -113,7 +113,7 @@ public class SecretariaCtrl {
         });
     }
     
-    public SecretariaCtrl(VistaEstudiantes estudiantes){
+    public SecretariaCtrl(VEstudiantes estudiantes){
         this.estudiantes = estudiantes;
         
         estudiantes.getJlblmatricula().addMouseListener(new MouseAdapter() {
@@ -125,7 +125,7 @@ public class SecretariaCtrl {
         
         estudiantes.getJlblinicio().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                new VistaDashboardMatricula().setVisible(true);
+                new VDashboardMatricula().setVisible(true);
                 estudiantes.dispose();
             }
         });
@@ -158,14 +158,14 @@ public class SecretariaCtrl {
 
             matricula.getJlblestudiantes().addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    new VistaEstudiantes().setVisible(true);
+                    new VEstudiantes().setVisible(true);
                     matricula.dispose();
                 }
             });
 
             matricula.getJlblinicio().addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    new VistaDashboardMatricula().setVisible(true);
+                    new VDashboardMatricula().setVisible(true);
                     matricula.dispose();
                 }
             });
@@ -177,14 +177,14 @@ public class SecretariaCtrl {
                 
         reportes.getJlblinicio().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                new VistaDashboardMatricula().setVisible(true);
+                new VDashboardMatricula().setVisible(true);
                 reportes.dispose();
             }
         });
         
         reportes.getJlblestudiantes().addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                new VistaEstudiantes().setVisible(true);
+                new VEstudiantes().setVisible(true);
                 reportes.dispose();
             }
         });

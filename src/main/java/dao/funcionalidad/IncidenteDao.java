@@ -11,7 +11,7 @@ public interface IncidenteDao {
 
     public Map<String, Object> obtenerResumenIncidentes(int idEstudiante);
 
-    List<String> obtenerHistorialIncidentes(int idDocente);
+    List<String> obtenerActividadIncidentesRegistrados(int idDocente);
 
     Map<Integer, Integer> obtenerTopEstudiantesConConductasProblematicas(int idDocente);
 
@@ -20,5 +20,7 @@ public interface IncidenteDao {
     Map<String, Integer> obtenerFichasABCporAntecedente(int idEstudiante);
 
     Map<String, Integer> obtenerConductasProblematicasPorMes(int idEstudiante);
+
+    Map<String, Integer> obtenerConductasPorTipo(int idEstudiante);
 
 }

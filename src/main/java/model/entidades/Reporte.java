@@ -19,16 +19,19 @@ public class Reporte {
     private Estudiante estudiante;
     private Aula aula;
     private Date fechaGeneracion;
-    private Usuario generadoPor;
+    private Usuario usuario;
 
-    public Reporte(int id, TipoReporte tipoReporte, String criterioFiltro, Estudiante estudiante, Aula aula, Date fechaGeneracion, Usuario generadoPor) {
+    public Reporte(int id, TipoReporte tipoReporte, String criterioFiltro, Estudiante estudiante, Aula aula, Date fechaGeneracion, Usuario usuario) {
         this.id = id;
         this.tipoReporte = tipoReporte;
         this.criterioFiltro = criterioFiltro;
         this.estudiante = estudiante;
         this.aula = aula;
         this.fechaGeneracion = fechaGeneracion;
-        this.generadoPor = generadoPor;
+        this.usuario = usuario;
+    }
+
+    public Reporte() {
     }
 
     public int getId() {
@@ -79,12 +82,12 @@ public class Reporte {
         this.fechaGeneracion = fechaGeneracion;
     }
 
-    public Usuario getGeneradoPor() {
-        return generadoPor;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setGeneradoPor(Usuario generadoPor) {
-        this.generadoPor = generadoPor;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
 }

@@ -8,5 +8,4 @@ public interface UsuarioDao {
 
     UsuarioConectado validarLogin(String username, String password);
     int obtenerIdPersonaPorRol(String rol, int idPersona);
-    
 }

@@ -5,12 +5,10 @@
 package view.Docente;
 
 import controller.LoginCtrl;
-import dao.DocenteImp;
 import dao.UsuarioImp;
-import java.awt.Color;
 import security.SeguridadSesion;
-import utillities.FechaUtil;
-import utillities.VistaUtil;
+import utilities.FechaUtil;
+import utilities.VistaUtil;
 import view.Login;
 
 public class VistaMenuDocente extends javax.swing.JFrame {
@@ -22,16 +20,13 @@ public class VistaMenuDocente extends javax.swing.JFrame {
     private VistaPlanIndividual vPlanIndividual;
     private int idDocente;
 
-    Color azul = new Color(10, 93, 175);
-
     public VistaMenuDocente(int idDocente) {
         this.idDocente = idDocente;
         setUndecorated(true);
         initComponents();
         setDashboardDocente();
-        lbNomUsuario.setText(SeguridadSesion.getNombreCompleto());
+        lbNomUsuario.setText(SeguridadSesion.getNombres());
         FechaUtil.mostrarDia(lbFechaHoy);
-
     }
 
     public void setReporteDocente() {
@@ -116,11 +111,11 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         jpDashboard.setForeground(new java.awt.Color(255, 255, 255));
         jpDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbDashboard.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        lbDashboard.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbDashboard.setForeground(new java.awt.Color(23, 64, 112));
         lbDashboard.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Waterfall-1.png"))); // NOI18N
-        lbDashboard.setText("Dashboard");
+        lbDashboard.setText("DASHBOARD");
         lbDashboard.setToolTipText("");
         lbDashboard.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lbDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -142,7 +137,7 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         );
         bDashboardLayout.setVerticalGroup(
             bDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpDashboardLayout = new javax.swing.GroupLayout(jpDashboard);
@@ -152,31 +147,31 @@ public class VistaMenuDocente extends javax.swing.JFrame {
             .addGroup(jpDashboardLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(lbDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(bDashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpDashboardLayout.setVerticalGroup(
             jpDashboardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpDashboardLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(17, 17, 17)
                 .addComponent(lbDashboard)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(bDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        jpMenuBar.add(jpDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 125, 50));
+        jpMenuBar.add(jpDashboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 140, 50));
 
         jpSeguimiento.setBackground(new java.awt.Color(255, 255, 255));
         jpSeguimiento.setForeground(new java.awt.Color(255, 255, 255));
         jpSeguimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbSeguimiento.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        lbSeguimiento.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbSeguimiento.setForeground(new java.awt.Color(23, 64, 112));
         lbSeguimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSeguimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/User_scan-1.png"))); // NOI18N
-        lbSeguimiento.setText("Seguimiento");
+        lbSeguimiento.setText("SEGUIMIENTO");
         lbSeguimiento.setToolTipText("");
         lbSeguimiento.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lbSeguimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -198,7 +193,7 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         );
         bSeguimientoLayout.setVerticalGroup(
             bSeguimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpSeguimientoLayout = new javax.swing.GroupLayout(jpSeguimiento);
@@ -208,31 +203,31 @@ public class VistaMenuDocente extends javax.swing.JFrame {
             .addGroup(jpSeguimientoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpSeguimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(lbSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(bSeguimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpSeguimientoLayout.setVerticalGroup(
             jpSeguimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpSeguimientoLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(17, 17, 17)
                 .addComponent(lbSeguimiento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bSeguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addComponent(bSeguimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        jpMenuBar.add(jpSeguimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, 125, 50));
+        jpMenuBar.add(jpSeguimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 140, 50));
 
         jpIncidentes.setBackground(new java.awt.Color(255, 255, 255));
         jpIncidentes.setForeground(new java.awt.Color(255, 255, 255));
         jpIncidentes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbIncidentes.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        lbIncidentes.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbIncidentes.setForeground(new java.awt.Color(23, 64, 112));
         lbIncidentes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbIncidentes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Flag_fill-1.png"))); // NOI18N
-        lbIncidentes.setText("Incidentes");
+        lbIncidentes.setText("INCIDENTES");
         lbIncidentes.setToolTipText("");
         lbIncidentes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lbIncidentes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -254,7 +249,7 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         );
         bIncidentesLayout.setVerticalGroup(
             bIncidentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpIncidentesLayout = new javax.swing.GroupLayout(jpIncidentes);
@@ -264,31 +259,31 @@ public class VistaMenuDocente extends javax.swing.JFrame {
             .addGroup(jpIncidentesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpIncidentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbIncidentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bIncidentes, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(lbIncidentes, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(bIncidentes, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpIncidentesLayout.setVerticalGroup(
             jpIncidentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpIncidentesLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(17, 17, 17)
                 .addComponent(lbIncidentes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bIncidentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addComponent(bIncidentes, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        jpMenuBar.add(jpIncidentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 125, 50));
+        jpMenuBar.add(jpIncidentes, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 140, 50));
 
         jpPlanIndividual.setBackground(new java.awt.Color(255, 255, 255));
         jpPlanIndividual.setForeground(new java.awt.Color(255, 255, 255));
         jpPlanIndividual.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbPlanIndividual.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        lbPlanIndividual.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbPlanIndividual.setForeground(new java.awt.Color(23, 64, 112));
         lbPlanIndividual.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbPlanIndividual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/File_dock_add-1.png"))); // NOI18N
-        lbPlanIndividual.setText("Plan Individual");
+        lbPlanIndividual.setText("PLAN INDIVIDUAL");
         lbPlanIndividual.setToolTipText("");
         lbPlanIndividual.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lbPlanIndividual.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -310,7 +305,7 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         );
         bPlanIndividualLayout.setVerticalGroup(
             bPlanIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpPlanIndividualLayout = new javax.swing.GroupLayout(jpPlanIndividual);
@@ -320,31 +315,31 @@ public class VistaMenuDocente extends javax.swing.JFrame {
             .addGroup(jpPlanIndividualLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpPlanIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbPlanIndividual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bPlanIndividual, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(lbPlanIndividual, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(bPlanIndividual, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpPlanIndividualLayout.setVerticalGroup(
             jpPlanIndividualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpPlanIndividualLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(17, 17, 17)
                 .addComponent(lbPlanIndividual)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bPlanIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addComponent(bPlanIndividual, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        jpMenuBar.add(jpPlanIndividual, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 125, 50));
+        jpMenuBar.add(jpPlanIndividual, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 0, 140, 50));
 
         jpReportes.setBackground(new java.awt.Color(255, 255, 255));
         jpReportes.setForeground(new java.awt.Color(255, 255, 255));
         jpReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lbReportes.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        lbReportes.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbReportes.setForeground(new java.awt.Color(23, 64, 112));
         lbReportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/paper_clip-1.png"))); // NOI18N
-        lbReportes.setText("Reportes");
+        lbReportes.setText("REPORTES");
         lbReportes.setToolTipText("");
         lbReportes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lbReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -366,7 +361,7 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         );
         bReportesLayout.setVerticalGroup(
             bReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 2, Short.MAX_VALUE)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jpReportesLayout = new javax.swing.GroupLayout(jpReportes);
@@ -376,28 +371,28 @@ public class VistaMenuDocente extends javax.swing.JFrame {
             .addGroup(jpReportesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jpReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(lbReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                    .addComponent(bReportes, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jpReportesLayout.setVerticalGroup(
             jpReportesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpReportesLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(17, 17, 17)
                 .addComponent(lbReportes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(bReportes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addComponent(bReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
-        jpMenuBar.add(jpReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 10, 125, 50));
+        jpMenuBar.add(jpReportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 0, 140, 50));
 
         lbNomUsuario.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbNomUsuario.setForeground(new java.awt.Color(161, 34, 130));
         lbNomUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbNomUsuario.setText("Evelyn Pascual");
+        lbNomUsuario.setText("Evelyn");
         lbNomUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jpMenuBar.add(lbNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 140, 40));
+        jpMenuBar.add(lbNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 70, 50));
 
         lbBienvenida.setBackground(new java.awt.Color(255, 255, 255));
         lbBienvenida.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -407,14 +402,14 @@ public class VistaMenuDocente extends javax.swing.JFrame {
         lbBienvenida.setText("Hola,");
         lbBienvenida.setToolTipText("");
         lbBienvenida.setPreferredSize(new java.awt.Dimension(70, 25));
-        jpMenuBar.add(lbBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 70, 40));
+        jpMenuBar.add(lbBienvenida, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 60, 50));
 
-        lbFechaHoy.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        lbFechaHoy.setForeground(new java.awt.Color(39, 84, 138));
+        lbFechaHoy.setFont(new java.awt.Font("Trebuchet MS", 2, 12)); // NOI18N
+        lbFechaHoy.setForeground(new java.awt.Color(102, 102, 102));
         lbFechaHoy.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbFechaHoy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Date_fill-1_1.png"))); // NOI18N
+        lbFechaHoy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Calendar_fill-1.png"))); // NOI18N
         lbFechaHoy.setText("Fecha de hoy");
-        jpMenuBar.add(lbFechaHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 10, 250, 40));
+        jpMenuBar.add(lbFechaHoy, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 0, 210, 50));
 
         jpContenedor.setBackground(new java.awt.Color(255, 255, 255));
         jpContenedor.setMinimumSize(new java.awt.Dimension(1250, 710));
@@ -428,8 +423,8 @@ public class VistaMenuDocente extends javax.swing.JFrame {
 
         lbNombreSistema.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         lbNombreSistema.setForeground(new java.awt.Color(255, 255, 255));
-        lbNombreSistema.setText("Sistema de Gestion de Educación Inclusiva");
-        jpBarraSup.add(lbNombreSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 330, 38));
+        lbNombreSistema.setText("SISTEMA DE GESTIÓN DE EDUCACIÓN INCLUSIVA");
+        jpBarraSup.add(lbNombreSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 310, 38));
 
         lbSalir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close_1.png"))); // NOI18N
@@ -464,9 +459,9 @@ public class VistaMenuDocente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpBarraSup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jpMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpMenuBar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jpContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 710, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpContenedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -479,48 +474,37 @@ public class VistaMenuDocente extends javax.swing.JFrame {
     private void lbDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbDashboardMouseClicked
         VistaUtil.resaltarOpcionMenu(bDashboard, bSeguimiento, bIncidentes, bPlanIndividual, bReportes);
         setDashboardDocente();
-
-
     }//GEN-LAST:event_lbDashboardMouseClicked
 
     private void lbReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbReportesMouseClicked
 
         VistaUtil.resaltarOpcionMenu(bReportes, bSeguimiento, bIncidentes, bPlanIndividual, bDashboard);
         setReporteDocente();
-
-
     }//GEN-LAST:event_lbReportesMouseClicked
 
     private void lbSeguimientoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSeguimientoMouseClicked
 
         VistaUtil.resaltarOpcionMenu(bSeguimiento, bDashboard, bIncidentes, bPlanIndividual, bReportes);
         setSeguimiento();
-
-
     }//GEN-LAST:event_lbSeguimientoMouseClicked
 
     private void lbIncidentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIncidentesMouseClicked
 
         VistaUtil.resaltarOpcionMenu(bIncidentes, bSeguimiento, bDashboard, bPlanIndividual, bReportes);
         setIncidente();
-
-
     }//GEN-LAST:event_lbIncidentesMouseClicked
 
     private void lbPlanIndividualMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbPlanIndividualMouseClicked
 
         VistaUtil.resaltarOpcionMenu(bPlanIndividual, bSeguimiento, bDashboard, bIncidentes, bReportes);
         setPlanIndividual();
-
-
     }//GEN-LAST:event_lbPlanIndividualMouseClicked
 
     private void lbSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbSalirMouseClicked
 
         if (VistaUtil.modalConfirmarSalir(this)) {
             SeguridadSesion.cerrarSesion();
-
-            LoginCtrl loginCtrl = new LoginCtrl(new UsuarioImp(), new DocenteImp());
+            LoginCtrl loginCtrl = new LoginCtrl(new UsuarioImp());
             VistaUtil.mostrarVista(new Login(loginCtrl));
             this.dispose();
         }

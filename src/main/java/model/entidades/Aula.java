@@ -31,6 +31,9 @@ public class Aula {
         this.docente = docente;
     }
 
+    public Aula() {
+    }
+
     public int getId() {
         return id;
     }

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package utillities;
+package utilities;
 
 import java.awt.Font;
 import java.io.InputStream;
@@ -23,7 +23,6 @@ public class FuenteUtil {
             return new Font("SansSerif", Font.PLAIN, (int) tamaño); // Fuente por defecto en caso de error
         }
     }
-
 
     public static final Font TITULO = cargarFuente("Poppins-Bold.ttf", 20f);
     public static final Font DETALLE = cargarFuente("Poppins-Regular.ttf", 16f);

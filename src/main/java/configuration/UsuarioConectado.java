@@ -4,10 +4,7 @@
  */
 package configuration;
 
-/**
- *
- * @author rpasc
- */
+
 public class UsuarioConectado {
 
     private int idUsuario;

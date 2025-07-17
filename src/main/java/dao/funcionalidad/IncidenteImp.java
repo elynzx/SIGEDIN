@@ -62,7 +62,7 @@ public class IncidenteImp implements IncidenteDao {
     }
 
     @Override
-    public List<String> obtenerHistorialIncidentes(int idDocente) {
+    public List<String> obtenerActividadIncidentesRegistrados(int idDocente) {
 
         List<String> historialTopIncidentes = new ArrayList<>();
 
@@ -224,6 +224,28 @@ public class IncidenteImp implements IncidenteDao {
             }
         } catch (SQLException e) {
             System.out.println("Error al obtener conductas problemáticas por mes: " + e.getMessage());
+        }
+
+        return mapa;
+    }
+
+    @Override
+    public Map<String, Integer> obtenerConductasPorTipo(int idEstudiante) {
+        Map<String, Integer> mapa = new HashMap<>();
+        String sql = "SELECT tc.nombre AS tipo, COUNT(*) AS cantidad "
+                + "FROM conducta_problematica cp "
+                + "JOIN tipo_conducta tc ON cp.id_tipo_conducta = tc.id_tipo_conducta "
+                + "WHERE cp.id_estudiante = ? "
+                + "GROUP BY tc.nombre";
+
+        try (PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setInt(1, idEstudiante);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                mapa.put(rs.getString("tipo"), rs.getInt("cantidad"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener conductas por tipo: " + e.getMessage());
         }
 
         return mapa;

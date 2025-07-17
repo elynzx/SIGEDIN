@@ -7,22 +7,22 @@ package view.Secretaria;
 import javax.swing.JLabel;
 import controller.secretaria.SecretariaCtrl;
 import javax.swing.JTable;
-import utillities.FechaUtil;
+import utilities.FechaUtil;
 
 /**
  *
  * @author rpasc
  */
-public class VistaDashboardMatricula extends javax.swing.JFrame {
+public class VDashboardMatricula extends javax.swing.JFrame {
 
  
     private SecretariaCtrl secretaria;
-    private view.Secretaria.VistaEstudiantes estudiantes;
+    private view.Secretaria.VEstudiantes estudiantes;
     private view.Secretaria.Matricula matricula;
     private view.Secretaria.ReportesMatricula reportes;
     private FechaUtil fecha = new FechaUtil();
 
-    public VistaDashboardMatricula() {
+    public VDashboardMatricula() {
   
         initComponents();
         fecha.mostrarDiaHora(lbFechaCompleta);
@@ -382,7 +382,7 @@ public class VistaDashboardMatricula extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel7.setText("Inicio");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 400, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 400, -1));
 
         jPanel10.setBackground(new java.awt.Color(230, 248, 248));
 

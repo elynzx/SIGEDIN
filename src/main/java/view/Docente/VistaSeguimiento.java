@@ -24,7 +24,8 @@ import java.awt.Component;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import utillities.ExcelTemplate.ExcelResumenSeguimiento;
+import utilities.ExcelTemplate.ExcelResumenSeguimiento;
+import utilities.FechaUtil;
 
 public class VistaSeguimiento extends javax.swing.JPanel {
 
@@ -45,7 +46,6 @@ public class VistaSeguimiento extends javax.swing.JPanel {
         );
 
         initComponents();
-
         cargarEstudiantesTabla();
         seleccionTbAlumnos();
         cargarCategorias();
@@ -633,12 +633,11 @@ public class VistaSeguimiento extends javax.swing.JPanel {
         jpDashboardDocente.add(btnDescargarResumenSeg, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 420, 30, 30));
 
         jLabel14.setBackground(new java.awt.Color(51, 51, 51));
-        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Trebuchet MS", 1, 24)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(45, 94, 152));
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Waterfall-1.png"))); // NOI18N
-        jLabel14.setText("SEGUIMIENTO CONDUCTUAL DIARIO");
-        jpDashboardDocente.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 330, 30));
+        jLabel14.setText("Seguimiento Conductual Diario");
+        jpDashboardDocente.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 470, 30));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(102, 102, 102));

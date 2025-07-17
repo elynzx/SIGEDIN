@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package utillities;
+package utilities;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -11,10 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author rpasc
- */
+
 public class VistaUtil {
 
     public static void cambiarVistaPanel(JPanel contenedorMenu, Component vista) {

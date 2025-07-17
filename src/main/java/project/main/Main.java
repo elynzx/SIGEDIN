@@ -12,18 +12,11 @@ import dao.UsuarioDao;
 public class Main {
 
     public static void main(String[] args) {
-        
-        
-
+  
         Conexion.estableceConexion();
-
         UsuarioDao usuarioDao = new UsuarioImp();
-        DocenteDao docenteDao = new DocenteImp();
- 
+        LoginCtrl loginCtrl = new LoginCtrl(usuarioDao);
 
-        LoginCtrl loginCtrl = new LoginCtrl(usuarioDao, docenteDao);
-
-       
         Login loginView = new Login(loginCtrl);
         loginView.setVisible(true);
         loginView.setLocationRelativeTo(null);
