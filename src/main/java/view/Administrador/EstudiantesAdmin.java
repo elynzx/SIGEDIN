@@ -35,6 +35,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         jbtncambiar.setVisible(false);
         jbtncancelar.setVisible(false);
         jcmbdatoVariable.setVisible(false);
+        jlblnombre.setText(adminCtrl.obtenerNombreAdministrador(idAdministrador));
     }
 
     public JTable getjTableListaEstudiantes() {
@@ -219,7 +220,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hola,");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 40, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, -1));
 
         jlblnombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlblnombre.setForeground(new java.awt.Color(51, 51, 51));
@@ -335,7 +336,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtnactualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 330, 170, 40));
+        jPanel1.add(jbtnactualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 330, 190, 40));
 
         jbtnabrirpdf.setBackground(new java.awt.Color(102, 102, 102));
         jbtnabrirpdf.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
@@ -348,7 +349,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtnabrirpdfActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnabrirpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 270, 170, 40));
+        jPanel1.add(jbtnabrirpdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 270, 190, 40));
 
         jcmbdato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Apellidos", "Nombres", "Aula Asignada", "Celular" }));
         jcmbdato.addActionListener(new java.awt.event.ActionListener() {
@@ -356,7 +357,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jcmbdatoActionPerformed(evt);
             }
         });
-        jPanel1.add(jcmbdato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 440, 170, 30));
+        jPanel1.add(jcmbdato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 440, 190, 30));
 
         jbtneditar.setText("Editar datos de estudiante");
         jbtneditar.addActionListener(new java.awt.event.ActionListener() {
@@ -364,8 +365,8 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtneditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 390, 170, 30));
-        jPanel1.add(jtxtdato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 490, 170, 30));
+        jPanel1.add(jbtneditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 390, 190, 30));
+        jPanel1.add(jtxtdato, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 490, 190, 30));
 
         jbtncancelar.setText("cancelar");
         jbtncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -373,7 +374,7 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtncancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 590, -1, -1));
+        jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 590, 90, -1));
 
         jbtncambiar.setText("cambiar");
         jbtncambiar.addActionListener(new java.awt.event.ActionListener() {
@@ -381,16 +382,16 @@ public class EstudiantesAdmin extends javax.swing.JFrame {
                 jbtncambiarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtncambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 590, -1, -1));
+        jPanel1.add(jbtncambiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1193, 590, 90, -1));
 
         jcmbdatoVariable.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jcmbdatoVariable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 170, 30));
+        jPanel1.add(jcmbdatoVariable, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 540, 190, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1298, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1331, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

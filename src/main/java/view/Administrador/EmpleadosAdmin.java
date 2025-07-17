@@ -34,6 +34,7 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         jbmcdato.setEnabled(false);
         jbtnconfirmar.setVisible(false);
         jbtncancelar.setVisible(false);
+        jlblnombre.setText(adminCtrl.obtenerNombreAdministrador(idAdministrador));
         
 
     }
@@ -141,7 +142,7 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hola,");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 40, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, -1));
 
         jlblnombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlblnombre.setForeground(new java.awt.Color(51, 51, 51));
@@ -160,10 +161,20 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
 
         jlblreportes.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblreportes.setText("Reportes");
+        jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblreportesMouseClicked(evt);
+            }
+        });
         jPanel2.add(jlblreportes, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
 
         jlblestudiante.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jlblestudiante.setText("Estudiantes");
+        jlblestudiante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlblestudianteMouseClicked(evt);
+            }
+        });
         jPanel2.add(jlblestudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
@@ -351,6 +362,18 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jcmbcambiarcontraActionPerformed
+
+    private void jlblestudianteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblestudianteMouseClicked
+        EstudiantesAdmin estudiantes = new EstudiantesAdmin(idAdministrador);
+        estudiantes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblestudianteMouseClicked
+
+    private void jlblreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblreportesMouseClicked
+        ReportesAdmin reportes = new ReportesAdmin(idAdministrador);
+        reportes.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jlblreportesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

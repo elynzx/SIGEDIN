@@ -44,4 +44,5 @@ public interface AdministradorDao {
     public String verContraseña(String contraseña, Object Id,int idAdministrador);
     public void cambiarContraseña(String contraseña,Object Id,String contraNueva);
     public String obtenerContraseña(int idUsuario);
+    public String obtenerNombreAdministrador(int idAdministrador);
 }

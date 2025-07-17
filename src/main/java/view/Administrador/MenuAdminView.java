@@ -31,6 +31,7 @@ public class MenuAdminView extends javax.swing.JFrame {
         initComponents();
         cargarTablaAulas();
         cargarTablaUsuarios();
+        jlblnombre.setText(adminCtrl.obtenerNombreAdministrador(idAdministrador));
     }
 
     public JTable getjTableEstudiantes() {
@@ -49,52 +50,74 @@ public class MenuAdminView extends javax.swing.JFrame {
         this.jTableUsuarios = jTableUsuarios;
     }
     
-    private DefaultTableModel cargarTablaAulas(){
-        DefaultTableModel tablaAulas=(DefaultTableModel) getjTableEstudiantes().getModel();
-        tablaAulas.setRowCount(0);
-        List <ListaAulas> aulas=adminCtrl.cargarTablaAulas();
-        
-        for (ListaAulas a : aulas) {
-            tablaAulas.addRow(new Object[]{
-                a.getNombre(),
-                a.getNivelFuncional(),
-                a.getDiagnostico(),
-                a.getDniDocente(),
-                a.getVacantesTotales(),
-                a.getVacantesDisponibles()
-            });
-        }
-        
-        return tablaAulas;
-    }
     
-    private DefaultTableModel cargarTablaUsuarios(){
-        DefaultTableModel tablaAulas=(DefaultTableModel) getjTableUsuarios().getModel();
-        tablaAulas.setRowCount(0);
-        List <ListaUsuarios> usuarios=adminCtrl.cargarTablaUsuarios();
-        tablaAulas.setColumnIdentifiers(new String[]{
-            "ID Usuario", 
-            "ID Persona", 
-            "Nombres", 
-            "Apellidos", 
-            "Nombre de Usuario", 
-            "Rol", 
-            "Estado"
-        });
-        for (ListaUsuarios u : usuarios) {
-            tablaAulas.addRow(new Object[]{
-                u.getId(),
-                u.getPersona().getId(),
-                u.getPersona().getNombres(),
-                u.getPersona().getApellidos(),
-                u.getNombre_usuario(),
-                u.getRol(),
-                u.getEstado()
-            });
+    
+    private DefaultTableModel cargarTablaAulas() {
+    DefaultTableModel tablaAulas = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
         }
-        
-        return tablaAulas;
+    };
+
+    tablaAulas.setColumnIdentifiers(new Object[]{
+        "Nombre", "Nivel Funcional", "Diagnóstico", "DNI Docente", "Vacantes Totales", "Vacantes Disponibles"
+    });
+
+    List<ListaAulas> aulas = adminCtrl.cargarTablaAulas();
+    for (ListaAulas a : aulas) {
+        tablaAulas.addRow(new Object[]{
+            a.getNombre(),
+            a.getNivelFuncional(),
+            a.getDiagnostico(),
+            a.getDniDocente(),
+            a.getVacantesTotales(),
+            a.getVacantesDisponibles()
+        });
     }
+
+    getjTableEstudiantes().setModel(tablaAulas);
+
+    return tablaAulas;
+}
+
+    
+    private DefaultTableModel cargarTablaUsuarios() {
+    DefaultTableModel tablaUsuarios = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    tablaUsuarios.setColumnIdentifiers(new String[]{
+        "ID Usuario", 
+        "ID Persona", 
+        "Nombres", 
+        "Apellidos", 
+        "Nombre de Usuario", 
+        "Rol", 
+        "Estado"
+    });
+
+    List<ListaUsuarios> usuarios = adminCtrl.cargarTablaUsuarios();
+    for (ListaUsuarios u : usuarios) {
+        tablaUsuarios.addRow(new Object[]{
+            u.getId(),
+            u.getPersona().getId(),
+            u.getPersona().getNombres(),
+            u.getPersona().getApellidos(),
+            u.getNombre_usuario(),
+            u.getRol(),
+            u.getEstado()
+        });
+    }
+
+    getjTableUsuarios().setModel(tablaUsuarios);
+
+    return tablaUsuarios;
+}
+
     
     
     
@@ -138,7 +161,7 @@ public class MenuAdminView extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hola,");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 40, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, -1));
 
         jlblnombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlblnombre.setForeground(new java.awt.Color(51, 51, 51));

@@ -293,7 +293,95 @@ public class AdministradorCtrl {
         
     }
     
+        public void vacantespdf(String tipo_reporte,String criterio_filtro,int id,String filtro,int idAdministrador){
+        List<ListaAulas> vacantes = dao.obtenerListaAulas();
+        
+
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Timestamp timestamp = Timestamp.valueOf(now);
+        
+        int idTipoReporte = dao.obtenerId_Tipo_Matricula(tipo_reporte);
+
+        dao.registrarReporte(idTipoReporte, criterio_filtro, 0, 0, idAdministrador, timestamp);
+
+        
+        int idReporte = dao.obtenerIdReporte(timestamp, idAdministrador);
+
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Datos");
+
+        // Estilo con bordes para encabezado y celdas
+        CellStyle borderedStyle = workbook.createCellStyle();
+        borderedStyle.setBorderTop(BorderStyle.THIN);
+        borderedStyle.setBorderBottom(BorderStyle.THIN);
+        borderedStyle.setBorderLeft(BorderStyle.THIN);
+        borderedStyle.setBorderRight(BorderStyle.THIN);
+
+        // Fila de título
+        Row titulo = sheet.createRow(3);
+        titulo.createCell(5).setCellValue(tipo_reporte);
+        titulo.createCell(6).setCellValue("Id de Reporte:");
+        titulo.createCell(7).setCellValue(idReporte);
+
+        // Encabezado
+        Row header = sheet.createRow(5);
+        String[] headers = {
+            "Aula", "Nivel Funcional", "Diagnostico", "Docente a cargo", "Vacantes totales",
+            "Vacantes disponibles"
+        };
+        for (int j = 0; j < headers.length; j++) {
+            org.apache.poi.ss.usermodel.Cell cell = header.createCell(5 + j);
+            cell.setCellValue(headers[j]);
+            cell.setCellStyle(borderedStyle);
+        }
+
+        // Datos
+        for (int i = 0; i < vacantes.size(); i++) {
+            ListaAulas datos = vacantes.get(i);
+            String[] valores = datos.toArray();
+            Row fila = sheet.createRow(6 + i);
+
+        for (int j = 0; j < valores.length; j++) {
+            org.apache.poi.ss.usermodel.Cell cell = fila.createCell(5 + j);
+            cell.setCellValue(valores[j]);
+            cell.setCellStyle(borderedStyle);
+        }
+}
+
+
+
+        // Autoajustar columnas
+        for (int i = 5; i <= 13; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Guardar archivo
+        File archivo = new File("src/main/java/reportes/ReporteAula" + idReporte + ".xlsx");
+
+        try (FileOutputStream fileOut = new FileOutputStream(archivo)) {
+            workbook.write(fileOut);
+            workbook.close();
+            System.out.println("Archivo generado: " + archivo.getAbsolutePath());
+
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(archivo);
+            } else {
+                System.out.println("Desktop no es compatible. Abre el archivo manualmente.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
     
+    public String obtenerNombreAdministrador(int idAdministrador){
+        String nombre=dao.obtenerNombreAdministrador(idAdministrador);
+        
+        
+        return nombre;
+    }
     
     
     

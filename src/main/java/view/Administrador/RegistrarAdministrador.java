@@ -208,7 +208,7 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
                 jbtnregistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnregistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 490, -1, -1));
+        jPanel1.add(jbtnregistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 490, 90, -1));
 
         jbtncancelar.setText("Cancelar");
         jbtncancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -216,7 +216,7 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
                 jbtncancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 490, 80, -1));
+        jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 100, -1));
 
         jLabel10.setText("Genero:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, -1, -1));

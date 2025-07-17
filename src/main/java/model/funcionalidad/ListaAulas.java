@@ -75,5 +75,16 @@ public class ListaAulas {
         this.dniDocente = dniDocente;
     }
     
+    public String[] toArray() {
+            return new String[] {
+            nombre, // getNombre()
+            nivelFuncional,
+            diagnostico,
+            dniDocente,
+            String.valueOf(vacantesTotales),
+            String.valueOf(vacantesDisponibles)
+        };
+    }
+    
     
 }

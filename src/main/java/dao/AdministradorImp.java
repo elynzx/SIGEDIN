@@ -492,9 +492,9 @@ public class AdministradorImp implements AdministradorDao {
     public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico, boolean docente){
         List<String[]> lista = new ArrayList<>();
         String consulta="SELECT\n" +
-            "   e.id_estudiante, p.apellidos, p.nombres, d.nombre AS diagnostico,\n" +
-            "   n.nombre AS nivel_funcional, a.nombre AS aula,\n" +
-            "   pd.nombres AS docente_nombres, pd.apellidos AS docente_apellidos,\n" +
+            "   e.id_estudiante, p.apellidos, p.nombres, d.nombre AS diagnostico, \n" +
+            "   n.nombre AS nivel_funcional, a.nombre AS aula, \n" +
+            "   pd.nombres AS docente_nombres, pd.apellidos AS docente_apellidos, \n" +
             "   p.celular, m.fecha_matricula \n" +
             "FROM estudiante e \n" +
             "JOIN persona p ON p.id_persona = e.id_persona \n" +
@@ -503,16 +503,21 @@ public class AdministradorImp implements AdministradorDao {
             "JOIN docente dc ON dc.id_docente = a.id_docente \n" +
             "JOIN persona pd ON pd.id_persona = dc.id_persona \n" +
             "JOIN nivel_funcional n ON n.id_nivel = a.id_nivel_funcional \n" +
-            "JOIN diagnostico d ON d.id_diagnostico = a.id_diagnostico_referente";
+            "JOIN diagnostico d ON d.id_diagnostico = a.id_diagnostico_referente ";
                 
         if(aulas==true && diagnostico==false && docente==false){
             consulta +=" WHERE a.nombre='"+filtro+"'";
+            System.out.println("error 1");
         }else{
             if(diagnostico==true && aulas==false && docente==false){
                 consulta +=" WHERE d.nombre='"+filtro+"'";
+                System.out.println("error 2");
             }else{
-                if(diagnostico==false && aulas==false && docente==true){
+                if(diagnostico==false && aulas==false && docente==true && filtro!=""){
                     consulta +=" WHERE dc.id_docente="+filtro+"";
+                    System.out.println("error 3");
+                }else{
+                    
                 }
             }
         }
@@ -688,6 +693,23 @@ public class AdministradorImp implements AdministradorDao {
                 System.out.println("Error al ejecutar consulta2: " + e.getMessage());
         }
         return contraEmpleado;
+    }
+    
+    @Override
+    public String obtenerNombreAdministrador(int idAdministrador){
+        String nombre="";
+        String consulta="SELECT p.nombres FROM persona p JOIN usuario u ON u.id_persona=p.id_persona WHERE u.id_usuario="+idAdministrador+"";
+        
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                nombre = rs.getString("nombres");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener nombre del administrador " + e.getMessage());
+        }
+        return nombre;
     }
     
     

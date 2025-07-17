@@ -30,6 +30,7 @@ public class ReportesAdmin extends javax.swing.JFrame {
         cargarAulas();
         cargarDiagnostico();
         cargarDocentes();
+        jlblnombre.setText(adminCtrl.obtenerNombreAdministrador(idAdministrador));
     }
 
     public JButton getJbtnpdfmatricula() {
@@ -177,7 +178,7 @@ public class ReportesAdmin extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hola,");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 40, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, -1));
 
         jlblnombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlblnombre.setForeground(new java.awt.Color(51, 51, 51));
@@ -619,7 +620,11 @@ public class ReportesAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnpdfmatriculaActionPerformed
 
     private void jbtnpdfvacantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfvacantesActionPerformed
-        // TODO add your handling code here:
+        String tipo_reporte = "reporte_vacantes";
+                String criterio_filtro = "lista de vacantes";
+                String filtro = null;
+                int id = 0;
+                adminCtrl.vacantespdf(tipo_reporte,criterio_filtro,id,filtro,idAdministrador);
     }//GEN-LAST:event_jbtnpdfvacantesActionPerformed
 
     private void jbtnpdfdiagnosticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnpdfdiagnosticoMouseClicked
