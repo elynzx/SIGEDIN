@@ -18,6 +18,7 @@ public class VistaMenuSecretaria extends javax.swing.JFrame {
 
     public VistaMenuSecretaria(int idSecretaria) {
         this.idSecretaria = idSecretaria;
+        setUndecorated(true);
         initComponents();
         setDashboardSecretaria();
         lbNomUsuario.setText(SeguridadSesion.getNombreCompleto());
@@ -152,7 +153,7 @@ public class VistaMenuSecretaria extends javax.swing.JFrame {
         lbMatricula.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
         lbMatricula.setForeground(new java.awt.Color(23, 64, 112));
         lbMatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sertificate-2.png"))); // NOI18N
+        lbMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/File_dock_add-1.png"))); // NOI18N
         lbMatricula.setText("Matricula");
         lbMatricula.setToolTipText("");
         lbMatricula.setVerticalAlignment(javax.swing.SwingConstants.TOP);

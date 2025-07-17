@@ -6,6 +6,7 @@ package dao;
 
 import java.util.List;
 import model.entidades.Estudiante;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  *
@@ -14,7 +15,11 @@ import model.entidades.Estudiante;
 public interface EstudianteDao {
 
     Estudiante obtenerEstudiantePorId(int idEstudiante);
+    
+    Estudiante obtenerEstudiantePorDNI(String dni);
 
     List<Estudiante> obtenerListaEstudiantes(int idDocente);
+
+    public DefaultCategoryDataset generarGraficoMatriculaPorDiagnostico();
 
 }

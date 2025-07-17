@@ -18,6 +18,10 @@ public class Diagnostico {
         this.nombre = nombre;
     }
 
+    public Diagnostico() {
+    }
+
+    
     public int getId() {
         return id;
     }
@@ -34,4 +38,10 @@ public class Diagnostico {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    
 }

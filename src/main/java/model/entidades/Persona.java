@@ -23,7 +23,6 @@ public class Persona {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-
     public Persona(int id, String nombres, String apellidos, String dni, Date fechaNacimiento, String genero) {
         this.id = id;
         this.nombres = nombres;
@@ -92,6 +91,10 @@ public class Persona {
         this.apellidos = apellidos;
     }
 
+    public String getNombreCompleto() {
+        return nombres + " " + apellidos;
+    }
+
     public String getDni() {
         return dni;
     }
@@ -140,6 +143,4 @@ public class Persona {
         this.genero = genero;
     }
 
-    
-    
 }

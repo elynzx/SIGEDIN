@@ -12,8 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.entidades.Apoderado;
 import model.funcionalidad.catalogo.Diagnostico;
 import model.entidades.Estudiante;
+import model.funcionalidad.catalogo.NivelFuncional;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class EstudianteImp implements EstudianteDao {
 
@@ -78,8 +81,7 @@ public class EstudianteImp implements EstudianteDao {
         return estudiante;
     }
 
-
-        @Override
+    @Override
     public List<Estudiante> obtenerListaEstudiantes(int idDocente) {
         List<Estudiante> listaEstudiantes = new ArrayList<>();
         String sql = "SELECT e.id_estudiante, p.nombres, p.apellidos "
@@ -105,5 +107,86 @@ public class EstudianteImp implements EstudianteDao {
 
         return ImmutableList.copyOf(listaEstudiantes);
     }
-    
+
+    @Override
+    public DefaultCategoryDataset generarGraficoMatriculaPorDiagnostico() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        String sql = "SELECT d.nombre, COUNT(*) AS total FROM estudiante_diagnostico ed JOIN diagnostico d ON ed.id_diagnostico = d.id_diagnostico JOIN matricula m ON ed.id_estudiante = m.id_estudiante WHERE m.estado = 'activo' GROUP BY d.nombre";
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                // CORREGIR ESTA LÍNEA:
+                dataset.addValue(rs.getInt("total"), rs.getString("nombre"), ""); // ← diagnóstico como serie
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataset;
+    }
+
+    @Override
+    public Estudiante obtenerEstudiantePorDNI(String dni) {
+        String sql = "SELECT e.*, p.* FROM estudiante e "
+                + "JOIN persona p ON e.id_persona = p.id_persona "
+                + "WHERE p.dni = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, dni);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    Estudiante estudiante = new Estudiante();
+                    estudiante.setIdEstudiante(rs.getInt("id_estudiante"));
+                    estudiante.setId(rs.getInt("id_persona"));
+                    estudiante.setNombres(rs.getString("nombres"));
+                    estudiante.setApellidos(rs.getString("apellidos"));
+                    estudiante.setDni(rs.getString("dni"));
+                    estudiante.setCorreo(rs.getString("correo"));
+                    estudiante.setDireccion(rs.getString("direccion"));
+                    estudiante.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+                    estudiante.setGenero(rs.getString("genero"));
+                    estudiante.setAlergias(rs.getBoolean("alergias"));
+                    estudiante.setTipoAlergia(rs.getString("tipo_alergia"));
+                    estudiante.setTomaMedicamentos(rs.getBoolean("toma_medicamentos"));
+                    estudiante.setMedicamentos(rs.getString("medicamentos"));
+                    estudiante.setObservaciones(rs.getString("observaciones"));
+
+                    NivelFuncional nivel = new NivelFuncional();
+                    nivel.setId(rs.getInt("id_nivel_funcional"));
+                    estudiante.setNivelFuncional(nivel);
+
+                    int idApoderado = rs.getInt("id_apoderado");
+
+                    Apoderado apoderado = ApoderadoImp.obtenerInstancia().obtenerApoderadoPorId(idApoderado);
+                    estudiante.setApoderado(apoderado);
+
+                    estudiante.setDiagnosticos(obtenerDiagnosticosPorEstudiante(estudiante.getIdEstudiante()));
+
+                    return estudiante;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private List<Diagnostico> obtenerDiagnosticosPorEstudiante(int idEstudiante) {
+        List<Diagnostico> lista = new ArrayList<>();
+        String sql = "SELECT d.id_diagnostico, d.nombre FROM estudiante_diagnostico ed "
+                + "JOIN diagnostico d ON ed.id_diagnostico = d.id_diagnostico "
+                + "WHERE ed.id_estudiante = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idEstudiante);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Diagnostico diag = new Diagnostico();
+                    diag.setId(rs.getInt("id_diagnostico"));
+                    diag.setNombre(rs.getString("nombre"));
+                    lista.add(diag);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
 }

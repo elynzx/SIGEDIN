@@ -408,6 +408,7 @@ public class VistaPlanIndividual extends javax.swing.JPanel {
 
         jpDashboardDocente.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, 430, 610));
 
+        tbHistorialIntervenciones.setBackground(new java.awt.Color(255, 255, 255));
         tbHistorialIntervenciones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         tbHistorialIntervenciones.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         tbHistorialIntervenciones.setForeground(new java.awt.Color(23, 64, 112));
@@ -456,6 +457,7 @@ public class VistaPlanIndividual extends javax.swing.JPanel {
         });
         jpDashboardDocente.add(descargaHistorialIntervenciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 470, 70, 30));
 
+        tbResumenIncidentes.setBackground(new java.awt.Color(255, 255, 255));
         tbResumenIncidentes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         tbResumenIncidentes.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         tbResumenIncidentes.setForeground(new java.awt.Color(23, 64, 112));

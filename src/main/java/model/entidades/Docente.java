@@ -1,15 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model.entidades;
 
 import java.sql.Date;
 
-/**
- *
- * @author rpasc
- */
+
 public class Docente extends Persona {
 
     private int idDocente;
@@ -20,6 +13,9 @@ public class Docente extends Persona {
         this.idDocente = idDocente;
         this.usuario = usuario;
     }
+    public Docente() {
+    }
+    
 
     public int getIdDocente() {
         return idDocente;

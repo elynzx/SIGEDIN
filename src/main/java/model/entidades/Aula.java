@@ -90,4 +90,8 @@ public class Aula {
         this.docente = docente;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

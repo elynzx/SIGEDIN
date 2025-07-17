@@ -18,6 +18,9 @@ public class NivelFuncional {
         this.nombre = nombre;
     }
 
+    public NivelFuncional() {
+    }
+
     public int getId() {
         return id;
     }
@@ -34,4 +37,20 @@ public class NivelFuncional {
         this.nombre = nombre;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        NivelFuncional other = (NivelFuncional) obj;
+        return id == other.id;
+    }
 }

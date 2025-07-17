@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-
 public class VistaUtil {
 
     public static void cambiarVistaPanel(JPanel contenedorMenu, Component vista) {
@@ -21,7 +20,7 @@ public class VistaUtil {
     }
 
     public static void resaltarOpcionMenu(JPanel opcionMenu, JPanel... otrasOpciones) {
-        Color azul = new Color(23,64,112);
+        Color azul = new Color(23, 64, 112);
         opcionMenu.setBackground(azul);
         for (JPanel opcion : otrasOpciones) {
             opcion.setBackground(Color.white);

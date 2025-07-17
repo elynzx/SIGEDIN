@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import model.funcionalidad.catalogo.Antecedente;
 import model.funcionalidad.catalogo.CategoriaConducta;
+import model.funcionalidad.catalogo.Diagnostico;
 import model.funcionalidad.catalogo.EstrategiaIntervencion;
 import model.funcionalidad.catalogo.FuncionComportamiento;
+import model.funcionalidad.catalogo.NivelFuncional;
 import model.funcionalidad.catalogo.TipoConducta;
 
 public class CatalogoImp implements CatalogoDao {
@@ -32,7 +34,6 @@ public class CatalogoImp implements CatalogoDao {
         }
         return instancia;
     }
-
 
     @Override
     public List<TipoConducta> obtenerTipoConductas() {
@@ -56,7 +57,6 @@ public class CatalogoImp implements CatalogoDao {
         return listaTipoConductas;
     }
 
-
     @Override
     public List<FuncionComportamiento> obtenerFuncionComportamientos() {
         List<FuncionComportamiento> listaFuncionComportamientos = new ArrayList<>();
@@ -78,7 +78,6 @@ public class CatalogoImp implements CatalogoDao {
         }
         return listaFuncionComportamientos;
     }
-
 
     @Override
     public List<Antecedente> obtenerAntecedentes() {
@@ -141,4 +140,45 @@ public class CatalogoImp implements CatalogoDao {
         return listaEstrategias;
     }
 
+    @Override
+    public List<Diagnostico> obtenerDiagnosticos() {
+        List<Diagnostico> lista = new ArrayList<>();
+        String sql = "SELECT id_diagnostico, nombre FROM diagnostico";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Diagnostico diag = new Diagnostico();
+                diag.setId(rs.getInt("id_diagnostico"));
+                diag.setNombre(rs.getString("nombre"));
+                lista.add(diag);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
+    @Override
+    public List<NivelFuncional> obtenerNivelesFuncionales() {
+        List<NivelFuncional> lista = new ArrayList<>();
+        String sql = "SELECT id_nivel, nombre FROM nivel_funcional";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                NivelFuncional nivel = new NivelFuncional();
+                nivel.setId(rs.getInt("id_nivel"));
+                nivel.setNombre(rs.getString("nombre"));
+                lista.add(nivel);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
 }

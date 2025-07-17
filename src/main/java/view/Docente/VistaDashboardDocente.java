@@ -9,7 +9,6 @@ import dao.EstudianteImp;
 import model.entidades.Aula;
 import model.entidades.Estudiante;
 import dao.funcionalidad.IncidenteImp;
-import java.util.List;
 import utilities.MetricasUtil;
 
 public class VistaDashboardDocente extends javax.swing.JPanel {

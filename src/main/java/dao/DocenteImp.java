@@ -12,7 +12,7 @@ import model.entidades.Aula;
 
 public class DocenteImp implements DocenteDao {
 
-    private static DocenteImp instanciaDocente;
+    private static DocenteImp instancia;
     private Connection conn;
 
     public DocenteImp() {
@@ -20,10 +20,10 @@ public class DocenteImp implements DocenteDao {
     }
 
     public static DocenteImp obtenerInstancia() {
-        if (instanciaDocente == null) {
-            instanciaDocente = new DocenteImp();
+        if (instancia == null) {
+            instancia = new DocenteImp();
         }
-        return instanciaDocente;
+        return instancia;
     }
 
     

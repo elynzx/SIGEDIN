@@ -66,7 +66,7 @@ public class MetricasUtil {
 
     public static void mostrarGraficoConductasPorTipo(JPanel panel, JLabel lbTitulo, JLabel lbNombre, String nombreEstudiante, Map<String, Integer> datos) {
         if (lbNombre != null) {
-            mostrarNombreEstudiante(lbNombre,nombreEstudiante);
+            mostrarNombreEstudiante(lbNombre, nombreEstudiante);
         }
 
         if (datos == null || datos.isEmpty()) {
@@ -101,7 +101,7 @@ public class MetricasUtil {
             lbTitulo.setText("Antecedente de Fichas ABC");
         }
         if (lbNombre != null) {
-          mostrarNombreEstudiante(lbNombre,nombreEstudiante);
+            mostrarNombreEstudiante(lbNombre, nombreEstudiante);
         }
 
         if (datos == null || datos.isEmpty()) {
@@ -134,7 +134,7 @@ public class MetricasUtil {
             lbTitulo.setText("Conductas Problemáticas por Mes");
         }
         if (lbNombre != null) {
-          mostrarNombreEstudiante(lbNombre,nombreEstudiante);
+            mostrarNombreEstudiante(lbNombre, nombreEstudiante);
         }
 
         if (datos == null || datos.isEmpty()) {
@@ -178,7 +178,7 @@ public class MetricasUtil {
             lbTitulo.setText("Resumen de Conductas y Fichas ABC");
         }
         if (lbNombre != null) {
-          mostrarNombreEstudiante(lbNombre,nombreEstudiante);
+            mostrarNombreEstudiante(lbNombre, nombreEstudiante);
         }
 
         int totalConductas = (int) resumen.getOrDefault("conducta_total", 0);
@@ -216,5 +216,77 @@ public class MetricasUtil {
         configurarPanel(chartPanel, panel);
         limpiarPanel(panel, chartPanel);
 
+    }
+
+    public static void mostrarGraficoMatriculaPorAula(JPanel panel, JLabel lbTitulo, DefaultCategoryDataset dataset) {
+        if (lbTitulo != null) {
+            lbTitulo.setText("Matrícula por Aula");
+        }
+
+        if (dataset == null || dataset.getRowCount() == 0) {
+            mostrarMensaje(panel, "No hay datos de matrícula por aula.");
+            return;
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                null, // título dentro del gráfico (lo dejamos vacío)
+                "Aula",
+                "Estudiantes",
+                dataset
+        );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setOutlineVisible(false);
+
+        BarRenderer renderer = new BarRenderer();
+        renderer.setBarPainter(new StandardBarPainter());
+        renderer.setShadowVisible(false);
+
+        for (int i = 0; i < dataset.getRowCount(); i++) {
+            renderer.setSeriesPaint(i, COLORES[i % COLORES.length]);
+        }
+
+        plot.setRenderer(renderer);
+
+        ChartPanel chartPanel = new ChartPanel(chart, false);
+        configurarPanel(chartPanel, panel);
+        limpiarPanel(panel, chartPanel);
+    }
+
+    public static void mostrarGraficoMatriculaPorDiagnostico(JPanel panel, JLabel lbTitulo, DefaultCategoryDataset dataset) {
+        if (lbTitulo != null) {
+            lbTitulo.setText("Matrícula por Diagnóstico");
+        }
+
+        if (dataset == null || dataset.getRowCount() == 0) {
+            mostrarMensaje(panel, "No hay datos de matrícula por diagnóstico.");
+            return;
+        }
+
+        JFreeChart chart = ChartFactory.createBarChart(
+                null,
+                "Diagnóstico",
+                "Estudiantes",
+                dataset
+        );
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setOutlineVisible(false);
+
+        BarRenderer renderer = new BarRenderer();
+        renderer.setBarPainter(new StandardBarPainter());
+        renderer.setShadowVisible(false);
+
+        for (int i = 0; i < dataset.getRowCount(); i++) {
+            renderer.setSeriesPaint(i, COLORES[i % COLORES.length]);
+        }
+
+        plot.setRenderer(renderer);
+
+        ChartPanel chartPanel = new ChartPanel(chart, false);
+        configurarPanel(chartPanel, panel);
+        limpiarPanel(panel, chartPanel);
     }
 }

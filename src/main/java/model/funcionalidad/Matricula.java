@@ -8,10 +8,6 @@ import model.entidades.Estudiante;
 import model.entidades.Aula;
 import java.sql.Date;
 
-/**
- *
- * @author rpasc
- */
 public class Matricula {
 
     private int id;
@@ -30,6 +26,9 @@ public class Matricula {
         this.observaciones = observaciones;
     }
 
+    public Matricula() {
+    }
+    
     public int getId() {
         return id;
     }

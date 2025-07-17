@@ -15,11 +15,11 @@ import org.apache.commons.lang3.StringUtils;
 public class ValidarUsuario {
 
     public static void validarLogin(String username, String password) {
-        Preconditions.checkNotNull(username, "El usuario no puede ser nulo");
-        Preconditions.checkNotNull(password, "La contraseña no puede ser nula");
+        Preconditions.checkNotNull(username, "Debe ingresar el usuario");
+        Preconditions.checkNotNull(password, "Debe ingresar la contraseña");
         
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
-            throw new  IllegalArgumentException("Debe ingresa su usuario y contraseña");
+            throw new  IllegalArgumentException("Debe ingresar su usuario y contraseña");
         
         } 
     }

@@ -322,7 +322,8 @@ public class VEstudiantes extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(null);
 
-        jTable1.setForeground(new java.awt.Color(51, 51, 51));
+        jTable1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        jTable1.setForeground(new java.awt.Color(23, 64, 112));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, "Pascual Caycho", "Evelyn Roxana", null, null, null, null, null, null},
@@ -351,6 +352,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         });
         jTable1.setFocusable(false);
         jTable1.setGridColor(new java.awt.Color(204, 204, 204));
+        jTable1.setRowHeight(25);
         jTable1.setSelectionBackground(new java.awt.Color(66, 128, 191));
         jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTable1.setShowGrid(true);
