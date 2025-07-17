@@ -69,14 +69,14 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("Usuario");
 
         textUsername.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        textUsername.setText("epascual");
+        textUsername.setText("Roberto_pro");
 
         jLabel2.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setText("Contraseña");
 
         textPassword.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        textPassword.setText("1234");
+        textPassword.setText("4321");
 
         btnIngresar.setBackground(new java.awt.Color(45, 94, 152));
         btnIngresar.setFont(new java.awt.Font("Trebuchet MS", 1, 16)); // NOI18N

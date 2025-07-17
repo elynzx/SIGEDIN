@@ -61,7 +61,7 @@ public class UsuarioImp implements UsuarioDao {
                 sql = "SELECT id_usuario FROM usuario WHERE id_persona = ?";
 
             case "administrador" ->
-                sql = "SELECT id_administrador FROM administrador WHERE id_persona = ?";
+                sql = "SELECT id_usuario FROM usuario WHERE id_persona = ?";
 
             default ->
                 throw new IllegalArgumentException("Rol no reconocido" + rol);
