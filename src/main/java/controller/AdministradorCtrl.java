@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.entidades.Persona;
@@ -171,7 +172,7 @@ public class AdministradorCtrl {
             return id;
         }
     
-        public void generarPdfAula(String tipo_reporte, String criterio_filtro,int id,boolean aulas, boolean diagnostico,String filtro,int id_empleado) {
+        public void generarPdfAula(String tipo_reporte, String criterio_filtro,int id,boolean aulas, boolean diagnostico, boolean docente, String filtro,int id_empleado) {
     
         
         int idTipoReporte = dao.obtenerId_Tipo_Matricula(tipo_reporte);
@@ -182,7 +183,11 @@ public class AdministradorCtrl {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Timestamp timestamp = Timestamp.valueOf(now);
         
-        List<String[]> estudiantes = dao.obtenerListaMatriculasPorAula(filtro,aulas,diagnostico);
+        if(docente=true){
+            filtro=dao.obtenerIdDocente(filtro);
+        }
+        
+        List<String[]> estudiantes = dao.obtenerListaMatriculasPorAula(filtro,aulas,diagnostico,docente);
 
         dao.registrarReporte(idTipoReporte, criterio_filtro, idEstudiante, id, idEmpleado, timestamp);
 
@@ -251,6 +256,44 @@ public class AdministradorCtrl {
             e.printStackTrace();
         }
     }
+        
+    public void verContraseña(String contraseña, Object Id, int idAdministrador){
+        String contra=dao.verContraseña(contraseña,Id,idAdministrador);
+        if(contra==""){
+            JOptionPane.showMessageDialog(null, "Error al obtener contraseña");
+            return;
+        }else{
+            JOptionPane.showMessageDialog(null, "La contraseña de el Id usuario: "+Id+" es: "+contra);
+        }
+        
+    }
+    
+    public void cambiarContraseña(String contraseña, Object Id,int idAdministrador){
+        String contra=dao.verContraseña(contraseña,Id,idAdministrador);
+        if(contra==""){
+            return;
+        }else{
+            JPasswordField passwordField = new JPasswordField();
+            int option = JOptionPane.showConfirmDialog(
+                null, 
+                passwordField, 
+                "Ingresa contraseña nueva", 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.PLAIN_MESSAGE
+            );
+
+            if (option == JOptionPane.OK_OPTION) {
+                String contraNueva = new String(passwordField.getPassword());
+                dao.cambiarContraseña(contraseña,Id,contraNueva);
+            } else {
+            JOptionPane.showMessageDialog(null, "Operación cancelada.");
+            }
+            
+        }
+        
+    }
+    
+    
     
     
     

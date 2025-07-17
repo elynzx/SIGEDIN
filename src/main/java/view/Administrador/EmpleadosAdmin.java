@@ -8,6 +8,7 @@ import controller.AdministradorCtrl;
 import dao.AdministradorImp;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import model.funcionalidad.ListaUsuarios;
@@ -92,7 +93,7 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
             adminCtrl.cambiarDato(tipo_dato,dato, id);
             cargarTablaUsuarios();
             jtxtDato.setEditable(false);
-            jtxtDato.setText(" ");
+            jtxtDato.setText("");
             jbmcdato.setEnabled(false);
             jbtnconfirmar.setVisible(false);
             jbtncancelar.setVisible(false);
@@ -116,13 +117,13 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableusuarios = new javax.swing.JTable();
         jbtnagregar = new javax.swing.JButton();
-        jbtneliminar = new javax.swing.JButton();
         jbtneditar = new javax.swing.JButton();
         jbtnVerContraseña = new javax.swing.JButton();
         jbmcdato = new javax.swing.JComboBox<>();
         jtxtDato = new javax.swing.JTextField();
         jbtnconfirmar = new javax.swing.JButton();
         jbtncancelar = new javax.swing.JButton();
+        jcmbcambiarcontra = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -198,11 +199,7 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
                 jbtnagregarActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 190, 30));
-
-        jbtneliminar.setBackground(new java.awt.Color(255, 51, 51));
-        jbtneliminar.setText("Eliminar Empleado");
-        jPanel1.add(jbtneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 260, 190, 30));
+        jPanel1.add(jbtnagregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 260, 190, 30));
 
         jbtneditar.setBackground(new java.awt.Color(255, 255, 153));
         jbtneditar.setText("Editar Dato de Empleado");
@@ -215,6 +212,11 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
 
         jbtnVerContraseña.setBackground(new java.awt.Color(153, 255, 255));
         jbtnVerContraseña.setText("Ver Contraseña");
+        jbtnVerContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnVerContraseñaActionPerformed(evt);
+            }
+        });
         jPanel1.add(jbtnVerContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 490, 190, 30));
 
         jbmcdato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nombres", "Apellidos", "Nombre de Usuario", "Rol", "Estado" }));
@@ -238,6 +240,14 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jbtncancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 450, 90, -1));
+
+        jcmbcambiarcontra.setText("Cambiar Contraseña");
+        jcmbcambiarcontra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmbcambiarcontraActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jcmbcambiarcontra, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 540, 190, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -294,6 +304,54 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jlblmenuMouseClicked
 
+    private void jbtnVerContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerContraseñaActionPerformed
+        int filaSeleccionada = jTableusuarios.getSelectedRow();
+        
+        if(filaSeleccionada==-1){
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un usuario");
+        }else{
+            Object Id = jTableusuarios.getValueAt(filaSeleccionada, 1);
+            JPasswordField passwordField = new JPasswordField();
+            int option = JOptionPane.showConfirmDialog(
+                null, 
+                passwordField, 
+                "Ingresa Contraseña actual", 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.PLAIN_MESSAGE
+            );
+            if (option == JOptionPane.OK_OPTION) {
+                String contraseña = new String(passwordField.getPassword());
+                adminCtrl.verContraseña(contraseña,Id,idAdministrador);
+            } else {
+                JOptionPane.showMessageDialog(null, "Operación cancelada.");
+            }
+        }
+    }//GEN-LAST:event_jbtnVerContraseñaActionPerformed
+
+    private void jcmbcambiarcontraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbcambiarcontraActionPerformed
+        int filaSeleccionada = jTableusuarios.getSelectedRow();
+        if(filaSeleccionada==-1){
+            JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un usuario");
+        }else{
+            Object Id = jTableusuarios.getValueAt(filaSeleccionada, 1);
+            JPasswordField passwordField = new JPasswordField();
+            int option = JOptionPane.showConfirmDialog(
+                null, 
+                passwordField, 
+                "Ingresa Contraseña actual", 
+                JOptionPane.OK_CANCEL_OPTION, 
+                JOptionPane.PLAIN_MESSAGE
+            );
+            if (option == JOptionPane.OK_OPTION) {
+                String contraseña = new String(passwordField.getPassword());
+                adminCtrl.cambiarContraseña(contraseña, Id, idAdministrador);
+            } else {
+                JOptionPane.showMessageDialog(null, "Operación cancelada.");
+            }
+        }
+        
+    }//GEN-LAST:event_jcmbcambiarcontraActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
@@ -309,7 +367,7 @@ public class EmpleadosAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jbtncancelar;
     private javax.swing.JButton jbtnconfirmar;
     private javax.swing.JButton jbtneditar;
-    private javax.swing.JButton jbtneliminar;
+    private javax.swing.JButton jcmbcambiarcontra;
     private javax.swing.JLabel jlblempleado;
     private javax.swing.JLabel jlblestudiante;
     private javax.swing.JLabel jlblmenu;

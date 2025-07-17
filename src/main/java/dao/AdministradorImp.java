@@ -489,7 +489,7 @@ public class AdministradorImp implements AdministradorDao {
     }
     
     @Override
-    public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico){
+    public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico, boolean docente){
         List<String[]> lista = new ArrayList<>();
         String consulta="SELECT\n" +
             "   e.id_estudiante, p.apellidos, p.nombres, d.nombre AS diagnostico,\n" +
@@ -505,11 +505,15 @@ public class AdministradorImp implements AdministradorDao {
             "JOIN nivel_funcional n ON n.id_nivel = a.id_nivel_funcional \n" +
             "JOIN diagnostico d ON d.id_diagnostico = a.id_diagnostico_referente";
                 
-        if(aulas==true && diagnostico==false){
+        if(aulas==true && diagnostico==false && docente==false){
             consulta +=" WHERE a.nombre='"+filtro+"'";
         }else{
-            if(diagnostico==true && aulas==false){
+            if(diagnostico==true && aulas==false && docente==false){
                 consulta +=" WHERE d.nombre='"+filtro+"'";
+            }else{
+                if(diagnostico==false && aulas==false && docente==true){
+                    consulta +=" WHERE dc.id_docente="+filtro+"";
+                }
             }
         }
             
@@ -607,6 +611,85 @@ public class AdministradorImp implements AdministradorDao {
          
         return idAula;
      }
+
+    @Override
+    public String obtenerIdDocente(String filtro) {
+        String consulta="SELECT d.id_docente FROM docente d JOIN persona p ON p.id_persona=d.id_persona WHERE p.apellidos='"+filtro+"'";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                filtro = rs.getString("id_docente");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener id del docente " + e.getMessage());
+        }
+        return filtro;
+    }
+    
+    @Override
+    public String verContraseña(String contraseña, Object Id, int idAdministrador) {
+    String contra = "";
+
+    // Validar que Id no sea null y convertirlo correctamente
+    if (Id == null || !(Id instanceof Number)) {
+        JOptionPane.showMessageDialog(null, "ID inválido");
+        return contra;
+    }
+
+    int idUsuario = ((Number) Id).intValue();
+
+    String consulta = "SELECT password FROM usuario WHERE password = ? AND id_usuario = ?";
+
+    try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+        pst.setString(1, contraseña);
+        pst.setInt(2, idAdministrador);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            JOptionPane.showMessageDialog(null, "Contraseña validada correctamente");
+            contra=obtenerContraseña(idUsuario);
+        } else {
+            JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error al ejecutar consulta1: " + e.getMessage());
+    }
+
+    return contra;
+}
+
+    
+    @Override
+    public void cambiarContraseña(String contraseña,Object Id,String contraNueva){
+        String consulta="UPDATE usuario SET PASSWORD='"+contraNueva+"' WHERE id_usuario="+Id+"";
+        try (PreparedStatement pst = conn.prepareStatement(consulta)) {
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Contraseña cambiada correctamente");
+        } catch (SQLException e) {
+            System.out.println("Error al cambiar contraseña "+ e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    
+    @Override
+    public String obtenerContraseña(int idUsuario){
+        String consulta2 = "SELECT password FROM usuario WHERE id_usuario = ?";
+        String contraEmpleado="";
+        try (PreparedStatement pst2 = conn.prepareStatement(consulta2)) {
+                pst2.setInt(1, idUsuario);
+                ResultSet rs2 = pst2.executeQuery();
+
+                if (rs2.next()) {
+                    contraEmpleado = rs2.getString("password");
+                }
+        } catch (SQLException e) {
+                System.out.println("Error al ejecutar consulta2: " + e.getMessage());
+        }
+        return contraEmpleado;
+    }
+    
     
     
     
