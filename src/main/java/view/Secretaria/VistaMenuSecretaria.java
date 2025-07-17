@@ -2,7 +2,6 @@
 package view.Secretaria;
 
 import controller.LoginCtrl;
-import dao.DocenteImp;
 import dao.UsuarioImp;
 import security.SeguridadSesion;
 import utilities.FechaUtil;
