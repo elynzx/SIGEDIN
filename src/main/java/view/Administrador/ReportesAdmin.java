@@ -29,6 +29,8 @@ public class ReportesAdmin extends javax.swing.JFrame {
         initComponents();
         cargarAulas();
         cargarDiagnostico();
+        cargarDocentes();
+        jlblnombre.setText(adminCtrl.obtenerNombreAdministrador(idAdministrador));
     }
 
     public JButton getJbtnpdfmatricula() {
@@ -75,6 +77,16 @@ public class ReportesAdmin extends javax.swing.JFrame {
         return jlblestudiante;
     }
 
+    public JComboBox<String> getJcmbdocente() {
+        return jcmbdocente;
+    }
+
+    public void setJcmbdocente(JComboBox<String> jcmbdocente) {
+        this.jcmbdocente = jcmbdocente;
+    }
+    
+    
+
     public void setJlblestudiante(JLabel jlblestudiante) {
         this.jlblestudiante = jlblestudiante;
     }
@@ -97,6 +109,16 @@ public class ReportesAdmin extends javax.swing.JFrame {
 
             for (String nombre : listaDiagnostico) {
                 jcmbdiagnostico.addItem(nombre);
+            }
+    }
+    
+    public void cargarDocentes(){
+        List<String> listaDocentes = adminCtrl.cargarDocentes(jcmbdocente);;
+        jcmbdocente.removeAllItems();
+        jcmbdocente.addItem("ninguno");
+
+            for (String nombre : listaDocentes) {
+                jcmbdocente.addItem(nombre);
             }
     }
     
@@ -137,6 +159,12 @@ public class ReportesAdmin extends javax.swing.JFrame {
         lbNivel13 = new javax.swing.JLabel();
         jbtnpdfvacantes = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        lbNivel14 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jcmbdocente = new javax.swing.JComboBox<>();
+        jbtnpdfdocente = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -150,7 +178,7 @@ public class ReportesAdmin extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(51, 51, 51));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Hola,");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 40, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, -1));
 
         jlblnombre.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jlblnombre.setForeground(new java.awt.Color(51, 51, 51));
@@ -214,7 +242,7 @@ public class ReportesAdmin extends javax.swing.JFrame {
         });
         jPanel2.add(jlblestudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, -1, -1));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 80));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1420, 80));
 
         jPanel7.setBackground(new java.awt.Color(249, 246, 231));
 
@@ -457,15 +485,87 @@ public class ReportesAdmin extends javax.swing.JFrame {
 
         jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 420, 430, 170));
 
+        jPanel10.setBackground(new java.awt.Color(249, 246, 231));
+
+        lbNivel14.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lbNivel14.setForeground(new java.awt.Color(51, 51, 51));
+        lbNivel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbNivel14.setText("Resumen del aula por docente");
+        lbNivel14.setToolTipText("");
+        lbNivel14.setPreferredSize(new java.awt.Dimension(70, 25));
+
+        jLabel12.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel12.setText("Seleccionar docente:");
+
+        jcmbdocente.setForeground(new java.awt.Color(102, 102, 102));
+        jcmbdocente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Atención", "Escape", "Sensorial", "Acceso a objetos o actividades", "Control / evitar tarea", "Evación de exigencias", "Ninguna identificada (requiere observación)" }));
+        jcmbdocente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
+        jcmbdocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcmbdocenteActionPerformed(evt);
+            }
+        });
+
+        jbtnpdfdocente.setBackground(new java.awt.Color(102, 102, 102));
+        jbtnpdfdocente.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
+        jbtnpdfdocente.setForeground(new java.awt.Color(255, 255, 255));
+        jbtnpdfdocente.setText("GENERAR PDF");
+        jbtnpdfdocente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtnpdfdocente.setFocusPainted(false);
+        jbtnpdfdocente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnpdfdocenteActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel14.setText("Reporte de las aulas por docente");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel12)
+                    .addComponent(jbtnpdfdocente, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcmbdocente, 0, 315, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbNivel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(lbNivel14, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jcmbdocente, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jbtnpdfdocente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 110, 390, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1416, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -505,18 +605,26 @@ public class ReportesAdmin extends javax.swing.JFrame {
         String filtro = (String) getJcmbaulas().getSelectedItem();
         int id = adminCtrl.obtenerIdAula(filtro);
         if (!"ninguno".equals(filtro)) {
-            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,true,false,filtro,idAdministrador);
+            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,true,false,false,filtro,idAdministrador);
         }else{
             JOptionPane.showMessageDialog(this, "Debe seleccionar un aula");
         }
     }//GEN-LAST:event_jbtnpdfaulaActionPerformed
 
     private void jbtnpdfmatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfmatriculaActionPerformed
-        // TODO add your handling code here:
+        String tipo_reporte = "general";
+        String criterio_filtro = "Matricula general";
+        String filtro = "";
+        int id = 0;
+        adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,false,false,false,filtro,idAdministrador);
     }//GEN-LAST:event_jbtnpdfmatriculaActionPerformed
 
     private void jbtnpdfvacantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfvacantesActionPerformed
-        // TODO add your handling code here:
+        String tipo_reporte = "reporte_vacantes";
+                String criterio_filtro = "lista de vacantes";
+                String filtro = null;
+                int id = 0;
+                adminCtrl.vacantespdf(tipo_reporte,criterio_filtro,id,filtro,idAdministrador);
     }//GEN-LAST:event_jbtnpdfvacantesActionPerformed
 
     private void jbtnpdfdiagnosticoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtnpdfdiagnosticoMouseClicked
@@ -525,11 +633,27 @@ public class ReportesAdmin extends javax.swing.JFrame {
         String filtro = (String) getJcmbdiagnostico().getSelectedItem();
         int id = adminCtrl.obtenerIdAula(filtro);
         if (!"ninguno".equals(filtro)) {
-            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,false,true,filtro,idAdministrador);
+            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,false,true,false,filtro,idAdministrador);
         }else{
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un aula");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un diagnostico");
         }
     }//GEN-LAST:event_jbtnpdfdiagnosticoMouseClicked
+
+    private void jcmbdocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmbdocenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jcmbdocenteActionPerformed
+
+    private void jbtnpdfdocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfdocenteActionPerformed
+        String tipo_reporte = "resumen_aula_docente";
+        String criterio_filtro = "Resumen del aula por docente";
+        String filtro = (String) getJcmbdocente().getSelectedItem();
+        int id = adminCtrl.obtenerIdAula(filtro);
+        if (!"ninguno".equals(filtro)) {
+            adminCtrl.generarPdfAula(tipo_reporte,criterio_filtro,id,false,false,true,filtro,idAdministrador);
+        }else{
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un docente");
+        }
+    }//GEN-LAST:event_jbtnpdfdocenteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -538,12 +662,15 @@ public class ReportesAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
@@ -552,10 +679,12 @@ public class ReportesAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JButton jbtnpdfaula;
     private javax.swing.JButton jbtnpdfdiagnostico;
+    private javax.swing.JButton jbtnpdfdocente;
     public javax.swing.JButton jbtnpdfmatricula;
     public javax.swing.JButton jbtnpdfvacantes;
     public javax.swing.JComboBox<String> jcmbaulas;
     public javax.swing.JComboBox<String> jcmbdiagnostico;
+    public javax.swing.JComboBox<String> jcmbdocente;
     private javax.swing.JLabel jlblempleado;
     private javax.swing.JLabel jlblestudiante;
     private javax.swing.JLabel jlblmenu;
@@ -565,5 +694,6 @@ public class ReportesAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel lbNivel11;
     private javax.swing.JLabel lbNivel12;
     private javax.swing.JLabel lbNivel13;
+    private javax.swing.JLabel lbNivel14;
     // End of variables declaration//GEN-END:variables
 }

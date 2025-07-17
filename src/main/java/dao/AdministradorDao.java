@@ -36,8 +36,13 @@ public interface AdministradorDao {
     public int obtenerIdPersona(int idEstudiante);
     public int obtenerIdAula(String Dato);
     public int obtenerId_Tipo_Matricula(String tipo_reporte);
-    public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico);
+    public List<String[]> obtenerListaMatriculasPorAula(String filtro,boolean aulas, boolean diagnostico,boolean docente);
     public void registrarReporte(int idTipoReporte,String criterio_filtro,int idEstudiante, int id,int idEmpleado, Timestamp timestamp);
     public int obtenerIdReporte(Timestamp timestamp, int idEmpleado);
     public int obtenerAula(String aula);
+    public String obtenerIdDocente(String filtro);
+    public String verContraseña(String contraseña, Object Id,int idAdministrador);
+    public void cambiarContraseña(String contraseña,Object Id,String contraNueva);
+    public String obtenerContraseña(int idUsuario);
+    public String obtenerNombreAdministrador(int idAdministrador);
 }
