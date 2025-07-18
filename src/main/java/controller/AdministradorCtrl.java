@@ -190,7 +190,6 @@ public class AdministradorCtrl {
         List<String[]> estudiantes = dao.obtenerListaMatriculasPorAula(filtro,aulas,diagnostico,docente);
 
         dao.registrarReporte(idTipoReporte, criterio_filtro, idEstudiante, id, idEmpleado, timestamp);
-
         
         int idReporte = dao.obtenerIdReporte(timestamp, idEmpleado);
 
@@ -381,6 +380,115 @@ public class AdministradorCtrl {
         
         
         return nombre;
+    }
+    
+    
+    
+    public List<String> cargarUsuarios(JComboBox combo) {
+        List<String> listaUsuarios = dao.listaUsuarios();
+        return listaUsuarios;
+    }
+    
+    public void registrarReporte(String username,int idAdministrador){
+        int id_usuario=dao.obtenerIdUsuario(username);
+        String tipo_reporte="resumen_usuario";
+        String criterio_filtro="Reporte de usuario: "+username;
+        int id_tipo_reporte=dao.obtenerId_Tipo_Matricula(tipo_reporte);
+        LocalDateTime now = LocalDateTime.now().withNano(0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        Timestamp timestamp = Timestamp.valueOf(now);
+        int idEstudiante=0;
+        int id=0;
+        int idReporte;
+        dao.registrarReporteUsuario(id_tipo_reporte,criterio_filtro,idEstudiante,id,idAdministrador,timestamp);
+        idReporte=dao.obtenerIdReporte(timestamp, idAdministrador);
+        
+        Usuario usuario=dao.obtenerDatosUsuario(id_usuario);
+        
+        List<String[]> reportesUsuario=dao.obtenerHistorialReportes(id_usuario);
+        
+        //gererar el pdf
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("Datos");
+
+        // Estilo con bordes para encabezado y celdas
+        CellStyle borderedStyle = workbook.createCellStyle();
+        borderedStyle.setBorderTop(BorderStyle.THIN);
+        borderedStyle.setBorderBottom(BorderStyle.THIN);
+        borderedStyle.setBorderLeft(BorderStyle.THIN);
+        borderedStyle.setBorderRight(BorderStyle.THIN);
+
+        // Fila de título
+        Row titulo = sheet.createRow(3);
+        titulo.createCell(1).setCellValue(tipo_reporte);
+        titulo.createCell(2).setCellValue("Id de Reporte:");
+        titulo.createCell(3).setCellValue(idReporte);
+        titulo.createCell(4).setCellValue("id de usuario");
+        titulo.createCell(5).setCellValue(id_usuario);
+        titulo.createCell(6).setCellValue("Nombre del usuario");
+        titulo.createCell(7).setCellValue(usuario.getUsername());
+        titulo.createCell(8).setCellValue("Rol:");
+        titulo.createCell(9).setCellValue(usuario.getRol());
+        titulo.createCell(10).setCellValue("Estado:");
+        titulo.createCell(11).setCellValue(usuario.getEstado());
+        titulo.createCell(12).setCellValue("Apellidos y nombres:");
+        titulo.createCell(13).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getNombres());
+        titulo.createCell(14).setCellValue("Dni:");
+        titulo.createCell(15).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getDni());
+        titulo.createCell(16).setCellValue("Celular:");
+        titulo.createCell(17).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getCelular());
+        titulo.createCell(18).setCellValue("Correo:");
+        titulo.createCell(19).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getCorreo());
+        titulo.createCell(20).setCellValue("Direccion:");
+        titulo.createCell(21).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getDireccion());
+        titulo.createCell(22).setCellValue("Fecha de nacimiento:");
+        titulo.createCell(23).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getFechaNacimiento());
+
+        // Encabezado
+        Row header = sheet.createRow(5);
+        String[] headers = {
+            "Id_reporte", "criterio filtro", "id de aula", "fecha de generacion", "generado por"
+        };
+        for (int j = 0; j < headers.length; j++) {
+            org.apache.poi.ss.usermodel.Cell cell = header.createCell(5 + j);
+            cell.setCellValue(headers[j]);
+            cell.setCellStyle(borderedStyle);
+        }
+
+        // Datos
+        for (int i = 0; i < reportesUsuario.size(); i++) {
+            String[] datos = reportesUsuario.get(i);
+            Row fila = sheet.createRow(6 + i);
+            for (int j = 0; j < datos.length; j++) {
+                org.apache.poi.ss.usermodel.Cell cell = fila.createCell(5 + j);
+                cell.setCellValue(datos[j]);
+                cell.setCellStyle(borderedStyle);
+            }
+        }
+
+        // Autoajustar columnas
+        for (int i = 5; i <= 13; i++) {
+            sheet.autoSizeColumn(i);
+        }
+
+        // Guardar archivo
+        File archivo = new File("src/main/java/reportes/ReporteUsuario" + idReporte + ".xlsx");
+
+        try (FileOutputStream fileOut = new FileOutputStream(archivo)) {
+            workbook.write(fileOut);
+            workbook.close();
+            System.out.println("Archivo generado: " + archivo.getAbsolutePath());
+
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(archivo);
+            } else {
+                System.out.println("Desktop no es compatible. Abre el archivo manualmente.");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
     
     

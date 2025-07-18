@@ -15,7 +15,7 @@ import static utilities.PdfTemplate.ReportePdfUtil.*;
 public class ReportePdfAsistencia {
 
     public static File generarReporteAsistencia(String nombreEstudiante, Map<String, Object> datos) {
-        Document documento = new Document();
+        Document documento = new Document() {};
         File archivo = null;
 
         try {
