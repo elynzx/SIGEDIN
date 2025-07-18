@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view.Administrador;
 
 import controller.AdministradorCtrl;
 import dao.AdministradorImp;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import model.entidades.Persona;
 import model.entidades.Usuario;
+import utilities.SeguridadUtil;
 
 /**
  *
@@ -27,87 +21,86 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
 
     public RegistrarAdministrador(String rol, int idAdministrador) {
         this.rol = rol;
-        this.idAdministrador=idAdministrador;
-        this.adminCtrl= new AdministradorCtrl(
-        AdministradorImp.obtenerInstancia()
+        this.idAdministrador = idAdministrador;
+        this.adminCtrl = new AdministradorCtrl(
+                AdministradorImp.obtenerInstancia()
         );
         initComponents();
         jlblrol.setText(rol);
 
     }
-    
-    public void registrar(){
-        String nombre=jtxtnombre.getText();
-        String apellido=jtxtapellido.getText();
-        String dni=jtxtdni.getText();
-        java.util.Date fechaNacimiento=jDatenacimientoAlumno.getDate();
-        String telefono=jtxttelefono.getText();
-        String correo=jtxtcorreo.getText();
-        String direccion=jtxtdireccion.getText();
-        String genero= (String) jcmbgenero.getSelectedItem();
-        String username=jtxtnombreusuario.getText();
-        String contraseña=jPasswordFieldcontraseña.getText();
-        String estado=(String) jcmbestado.getSelectedItem();
-        String Rol=(String) jcmbrol.getSelectedItem();
-        
-        java.sql.Date sqlFechaUsuario= new java.sql.Date(fechaNacimiento.getTime());
-        
+
+    public void registrar() {
+        String nombre = jtxtnombre.getText();
+        String apellido = jtxtapellido.getText();
+        String dni = jtxtdni.getText();
+        java.util.Date fechaNacimiento = jDatenacimientoAlumno.getDate();
+        String telefono = jtxttelefono.getText();
+        String correo = jtxtcorreo.getText();
+        String direccion = jtxtdireccion.getText();
+        String genero = (String) jcmbgenero.getSelectedItem();
+        String username = jtxtnombreusuario.getText();
+        String contraseñaPlano = jPasswordFieldcontraseña.getText();
+        String contraseñaEncriptada = SeguridadUtil.encriptar(contraseñaPlano);
+        String estado = (String) jcmbestado.getSelectedItem();
+        String Rol = (String) jcmbrol.getSelectedItem();
+
+        java.sql.Date sqlFechaUsuario = new java.sql.Date(fechaNacimiento.getTime());
+
         LocalDate FechaActual = LocalDate.now();
         LocalDate fechaNacimientoLocal = fechaNacimiento.toInstant()
-                                    .atZone(ZoneId.systemDefault())
-                                    .toLocalDate();
-        
-        if(nombre.isBlank() || apellido.isBlank() || fechaNacimientoLocal.isAfter(FechaActual) || fechaNacimiento==null || correo.isBlank() || direccion.isBlank()){
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+
+        if (nombre.isBlank() || apellido.isBlank() || fechaNacimientoLocal.isAfter(FechaActual) || fechaNacimiento == null || correo.isBlank() || direccion.isBlank()) {
             JOptionPane.showMessageDialog(null, "Debe ingresar todos los datos requeridos");
-            
-        }else{
-            if(!dni.matches("\\d{8}")){
+
+        } else {
+            if (!dni.matches("\\d{8}")) {
                 JOptionPane.showMessageDialog(null, "Dni Invalido");
-            }else{
-                if(!telefono.matches("\\d{9}")){
+            } else {
+                if (!telefono.matches("\\d{9}")) {
                     JOptionPane.showMessageDialog(null, "Numero ingresado invalido");
-                }else{
-                    if(adminCtrl.verificarDni(dni)==false){
+                } else {
+                    if (adminCtrl.verificarDni(dni) == false) {
                         JOptionPane.showMessageDialog(null, "Numero de DNI ya se encuentra registrado");
-                    }else{
+                    } else {
                         Persona persona = new Persona(
                                 0,
                                 nombre,
-                                apellido, 
-                                dni, 
-                                telefono, 
-                                correo, 
-                                direccion, 
+                                apellido,
+                                dni,
+                                telefono,
+                                correo,
+                                direccion,
                                 sqlFechaUsuario,
                                 genero);
                         Usuario usuario = new Usuario(
                                 0,
                                 username,
-                                contraseña,
+                                contraseñaEncriptada,
                                 Rol,
                                 estado,
                                 persona
                         );
-                        boolean confirmacion=adminCtrl.registrar(usuario);
-                        if(confirmacion==true){
+                        boolean confirmacion = adminCtrl.registrar(usuario);
+                        if (confirmacion == true) {
                             JOptionPane.showMessageDialog(rootPane, "Empleado registrado con exito");
                             EmpleadosAdmin empleado = new EmpleadosAdmin(idAdministrador);
                             empleado.setVisible(true);
                             this.dispose();
-                        }else{
+                        } else {
                             JOptionPane.showMessageDialog(rootPane, "Error al registrar empleado");
                             EmpleadosAdmin empleado = new EmpleadosAdmin(idAdministrador);
                             empleado.setVisible(true);
                             this.dispose();
                         }
-                        
+
                     }
                 }
             }
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,7 +150,7 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, -1, -1));
 
         jlblrol.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jlblrol.setText("jLabel2");
+        jlblrol.setText("-");
         jPanel1.add(jlblrol, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
         jLabel2.setText("Rol:");
@@ -258,7 +251,7 @@ public class RegistrarAdministrador extends javax.swing.JFrame {
 
     private void jbtnregistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnregistrarActionPerformed
         registrar();
-        
+
     }//GEN-LAST:event_jbtnregistrarActionPerformed
 
     private void jbtncancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtncancelarActionPerformed

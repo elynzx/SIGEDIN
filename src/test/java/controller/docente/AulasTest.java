@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Date;
 import java.util.List;
+import model.entidades.Estudiante;
 
 public class AulasTest {
 
@@ -197,6 +198,11 @@ public class AulasTest {
         @Override
         public int obtenerIdPorDNI(String dni) {
             return 0;
+        }
+
+        @Override
+        public List<Estudiante> listarEstudiantesParaVistaMatricula() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         }
     }
 

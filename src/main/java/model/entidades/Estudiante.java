@@ -7,6 +7,7 @@ import java.util.List;
 import model.funcionalidad.catalogo.Diagnostico;
 import model.funcionalidad.catalogo.NivelFuncional;
 
+
 public class Estudiante extends Persona {
 
     private int idEstudiante;
@@ -18,6 +19,10 @@ public class Estudiante extends Persona {
     private List<Diagnostico> diagnosticos;
     private Apoderado apoderado;
     private String observaciones;
+
+    private Aula aulaAsignada;
+    private Date fechaMatricula;
+
 
     public Estudiante(int idEstudiante, String nombres, String apellidos, Date fechaNacimiento,
             String tipoAlergia, String medicamentos, String observaciones,
@@ -42,8 +47,6 @@ public class Estudiante extends Persona {
     public Estudiante(int idEstudiante) {
         this.idEstudiante = idEstudiante;
     }
-    
-    
 
     public Estudiante(int idEstudiante, boolean alergias, String tipoAlergia, boolean tomaMedicamentos, String medicamentos, NivelFuncional nivelFuncional, Apoderado apoderado, String observaciones, int id, String nombres, String apellidos, String dni, String celular, String correo, String direccion, Date fechaNacimiento, String genero) {
         super(id, nombres, apellidos, dni, celular, correo, direccion, fechaNacimiento, genero);
@@ -141,6 +144,23 @@ public class Estudiante extends Persona {
     public void setDiagnosticos(List<Diagnostico> diagnosticos) {
         this.diagnosticos = diagnosticos;
     }
+
+    public void setAulaAsignada(Aula aulaAsignada) {
+        this.aulaAsignada = aulaAsignada;
+    }
+
+    public Aula getAulaAsignada() {
+        return aulaAsignada;
+    }
+
+    public void setFechaMatricula(Date fechaMatricula) {
+        this.fechaMatricula = fechaMatricula;
+    }
+
+    public Date getFechaMatricula() {
+        return fechaMatricula;
+    }
+    
 
     @Override
     public String toString() {

@@ -14,8 +14,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.entidades.Apoderado;
+import model.entidades.Aula;
 import model.funcionalidad.catalogo.Diagnostico;
 import model.entidades.Estudiante;
+import model.entidades.Persona;
 import model.funcionalidad.catalogo.NivelFuncional;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -290,5 +292,72 @@ public class EstudianteImp implements EstudianteDao {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    @Override
+    public List<Estudiante> listarEstudiantesParaVistaMatricula() {
+
+        List<Estudiante> estudiantes = new ArrayList<>();
+
+        String sql = "SELECT e.id_estudiante, p.apellidos, p.nombres, "
+                + "GROUP_CONCAT(DISTINCT d.nombre SEPARATOR ', ') AS diagnosticos, "
+                + "nf.nombre AS nivel_funcional, a.nombre AS aula, "
+                + "CONCAT(dp.apellidos, ' ', dp.nombres) AS docente_aula, "
+                + "ap.celular AS celular_apoderado, m.fecha_matricula "
+                + "FROM estudiante e "
+                + "JOIN persona p ON e.id_persona = p.id_persona "
+                + "JOIN nivel_funcional nf ON e.id_nivel_funcional = nf.id_nivel "
+                + "JOIN estudiante_diagnostico ed ON ed.id_estudiante = e.id_estudiante "
+                + "JOIN diagnostico d ON ed.id_diagnostico = d.id_diagnostico "
+                + "JOIN matricula m ON e.id_estudiante = m.id_estudiante "
+                + "JOIN aula a ON m.id_aula = a.id_aula "
+                + "JOIN docente doc ON a.id_docente = doc.id_docente "
+                + "JOIN persona dp ON doc.id_persona = dp.id_persona "
+                + "JOIN apoderado apo ON e.id_apoderado = apo.id_apoderado "
+                + "JOIN persona ap ON apo.id_persona = ap.id_persona "
+                + "WHERE m.estado = 'activo' "
+                + "GROUP BY e.id_estudiante";
+
+        try (PreparedStatement pst = conn.prepareStatement(sql); ResultSet rs = pst.executeQuery()) {
+
+            while (rs.next()) {
+                Estudiante est = new Estudiante();
+                est.setIdEstudiante(rs.getInt("id_estudiante"));
+                est.setApellidos(rs.getString("apellidos"));
+                est.setNombres(rs.getString("nombres"));
+
+                List<Diagnostico> listaDiag = new ArrayList<>();
+                for (String nombreDiag : rs.getString("diagnosticos").split(",\\s*")) {
+                    Diagnostico diag = new Diagnostico();
+                    diag.setNombre(nombreDiag);
+                    listaDiag.add(diag);
+                }
+                est.setDiagnosticos(listaDiag);
+
+                NivelFuncional nivel = new NivelFuncional();
+                nivel.setNombre(rs.getString("nivel_funcional"));
+                est.setNivelFuncional(nivel);
+
+                Aula aula = new Aula();
+                aula.setNombre(rs.getString("aula"));
+                est.setAulaAsignada(aula);
+
+                est.setObservaciones(rs.getString("docente_aula")); // Docente como texto
+
+                Apoderado apoderado = new Apoderado();
+                apoderado.setCelular(rs.getString("celular_apoderado"));
+                est.setApoderado(apoderado);
+
+                est.setFechaMatricula(rs.getDate("fecha_matricula"));
+
+                estudiantes.add(est);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return estudiantes;
+
     }
 }

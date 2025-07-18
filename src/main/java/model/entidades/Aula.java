@@ -7,10 +7,7 @@ package model.entidades;
 import model.funcionalidad.catalogo.Diagnostico;
 import model.funcionalidad.catalogo.NivelFuncional;
 
-/**
- *
- * @author rpasc
- */
+
 public class Aula {
 
     private int id;

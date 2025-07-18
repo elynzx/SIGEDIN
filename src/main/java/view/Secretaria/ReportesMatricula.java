@@ -142,7 +142,7 @@ public class ReportesMatricula extends javax.swing.JFrame {
         lbNomUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
         lbNomUsuario.setForeground(new java.awt.Color(51, 51, 51));
         lbNomUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lbNomUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/User Alt3.png"))); // NOI18N
+        lbNomUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Date_fill-1_1.png"))); // NOI18N
         lbNomUsuario.setText("Evelyn Pascual");
         lbNomUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel5.add(lbNomUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 170, -1));

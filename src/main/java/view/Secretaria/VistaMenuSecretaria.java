@@ -263,9 +263,8 @@ public class VistaMenuSecretaria extends javax.swing.JFrame {
         jpPlanIndividual.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lbReportes.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
-        lbReportes.setForeground(new java.awt.Color(23, 64, 112));
+        lbReportes.setForeground(new java.awt.Color(255, 255, 255));
         lbReportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/paper_clip-1.png"))); // NOI18N
         lbReportes.setText("Reportes");
         lbReportes.setToolTipText("");
         lbReportes.setVerticalAlignment(javax.swing.SwingConstants.TOP);
