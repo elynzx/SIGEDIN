@@ -42,18 +42,45 @@ public class MatriculaCtrl {
     public List<NivelFuncional> obtenerNivelesFuncionales() {
         return catalogoDao.obtenerNivelesFuncionales();
     }
-    
+
     public List<Aula> filtrarAulas(int idNivelFuncional, List<Integer> idsDiagnosticos) {
         return aulaDao.filtrarAulasPorNivelYDiagnostico(idNivelFuncional, idsDiagnosticos);
     }
 
-    public boolean registrarMatricula(Estudiante estudiante, Apoderado apoderado,
-            List<Integer> idsDiagnosticos, int idAula) {
-        return matriculaDao.registrarMatriculaCompleta(estudiante, apoderado, idsDiagnosticos, idAula);
-    }
-
     public Matricula obtenerMatriculaPorEstudiante(int idEstudiante) {
         return matriculaDao.obtenerMatriculaPorEstudiante(idEstudiante);
+    }
+
+    public Apoderado buscarApoderadoPorDNI(String dni) {
+        return apoderadoDao.obtenerApoderadoPorDNI(dni);
+    }
+
+    public void registrarApoderado(Apoderado apoderado) {
+        apoderadoDao.registrarApoderado(apoderado);
+    }
+
+    public void registrarEstudiante(Estudiante estudiante) {
+        estudianteDao.registrarEstudiante(estudiante);
+    }
+
+    public void registrarMatricula(Matricula matricula) {
+        matriculaDao.registrarMatricula(matricula);
+    }
+
+    public void actualizarApoderado(Apoderado apoderado) {
+        apoderadoDao.actualizarApoderado(apoderado);
+    }
+
+    public void actualizarEstudiante(Estudiante estudiante) {
+        estudianteDao.actualizarEstudiante(estudiante);
+    }
+
+    public void actualizarMatricula(Matricula matricula) {
+        matriculaDao.actualizarMatricula(matricula);
+    }
+
+    public void cambiarEstadoMatricula(int idMatricula, String nuevoEstado) {
+        matriculaDao.cambiarEstadoMatricula(idMatricula, nuevoEstado);
     }
 
 }

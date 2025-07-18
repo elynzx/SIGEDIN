@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.entidades.Apoderado;
@@ -187,6 +188,91 @@ public class EstudianteImp implements EstudianteDao {
             e.printStackTrace();
         }
         return lista;
+    }
+
+    @Override
+    public void registrarEstudiante(Estudiante estudiante) {
+        String sqlPersona = "INSERT INTO persona (nombres, apellidos, dni, correo, direccion, fecha_nacimiento, genero) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sqlEstudiante = "INSERT INTO estudiante (id_persona, alergias, tipo_alergia, toma_medicamentos, medicamentos, observaciones, id_nivel_funcional, id_apoderado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(sqlPersona, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, estudiante.getNombres());
+                ps.setString(2, estudiante.getApellidos());
+                ps.setString(3, estudiante.getDni());
+                ps.setString(4, estudiante.getCorreo());
+                ps.setString(5, estudiante.getDireccion());
+                ps.setDate(6, new java.sql.Date(estudiante.getFechaNacimiento().getTime()));
+                ps.setString(7, estudiante.getGenero());
+                ps.executeUpdate();
+
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int idPersona = rs.getInt(1);
+
+                    try (PreparedStatement ps2 = conn.prepareStatement(sqlEstudiante)) {
+                        ps2.setInt(1, idPersona);
+                        ps2.setBoolean(2, estudiante.isAlergias());
+                        ps2.setString(3, estudiante.getTipoAlergia());
+                        ps2.setBoolean(4, estudiante.isTomaMedicamentos());
+                        ps2.setString(5, estudiante.getMedicamentos());
+                        ps2.setString(6, estudiante.getObservaciones());
+                        ps2.setInt(7, estudiante.getNivelFuncional().getId());
+                        ps2.setInt(8, estudiante.getApoderado().getIdApoderado());
+                        ps2.executeUpdate();
+                    }
+                }
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void actualizarEstudiante(Estudiante estudiante) {
+        String sqlPersona = "UPDATE persona SET nombres = ?, apellidos = ?, dni = ?, correo = ?, direccion = ?, fecha_nacimiento = ?, genero = ? WHERE id_persona = ?";
+        String sqlEstudiante = "UPDATE estudiante SET alergias = ?, tipo_alergia = ?, toma_medicamentos = ?, medicamentos = ?, observaciones = ?, id_nivel_funcional = ?, id_apoderado = ? WHERE id_estudiante = ?";
+
+        try (PreparedStatement ps1 = conn.prepareStatement(sqlPersona); PreparedStatement ps2 = conn.prepareStatement(sqlEstudiante)) {
+
+            ps1.setString(1, estudiante.getNombres());
+            ps1.setString(2, estudiante.getApellidos());
+            ps1.setString(3, estudiante.getDni());
+            ps1.setString(4, estudiante.getCorreo());
+            ps1.setString(5, estudiante.getDireccion());
+            ps1.setDate(6, new java.sql.Date(estudiante.getFechaNacimiento().getTime()));
+            ps1.setString(7, estudiante.getGenero());
+            ps1.setInt(8, estudiante.getId());
+            ps1.executeUpdate();
+
+            ps2.setBoolean(1, estudiante.isAlergias());
+            ps2.setString(2, estudiante.getTipoAlergia());
+            ps2.setBoolean(3, estudiante.isTomaMedicamentos());
+            ps2.setString(4, estudiante.getMedicamentos());
+            ps2.setString(5, estudiante.getObservaciones());
+            ps2.setInt(6, estudiante.getNivelFuncional().getId());
+            ps2.setInt(7, estudiante.getApoderado().getIdApoderado());
+            ps2.setInt(8, estudiante.getIdEstudiante());
+            ps2.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

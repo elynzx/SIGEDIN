@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import model.entidades.Apoderado;
 
 public class ApoderadoImp implements ApoderadoDao {
@@ -29,8 +30,51 @@ public class ApoderadoImp implements ApoderadoDao {
     }
 
     @Override
-    public boolean registrarApoderado(Apoderado apoderado) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void registrarApoderado(Apoderado apoderado) {
+        String sqlPersona = "INSERT INTO persona (nombres, apellidos, dni, celular, correo, direccion, fecha_nacimiento, genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlApoderado = "INSERT INTO apoderado (id_persona, parentesco) VALUES (?, ?)";
+
+        try {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps = conn.prepareStatement(sqlPersona, Statement.RETURN_GENERATED_KEYS)) {
+                ps.setString(1, apoderado.getNombres());
+                ps.setString(2, apoderado.getApellidos());
+                ps.setString(3, apoderado.getDni());
+                ps.setString(4, apoderado.getCelular());
+                ps.setString(5, apoderado.getCorreo());
+                ps.setString(6, apoderado.getDireccion());
+                ps.setDate(7, new java.sql.Date(apoderado.getFechaNacimiento().getTime()));
+                ps.setString(8, apoderado.getGenero());
+                ps.executeUpdate();
+
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int idPersona = rs.getInt(1);
+
+                    try (PreparedStatement ps2 = conn.prepareStatement(sqlApoderado)) {
+                        ps2.setInt(1, idPersona);
+                        ps2.setString(2, apoderado.getParentesco());
+                        ps2.executeUpdate();
+                    }
+                }
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -63,4 +107,30 @@ public class ApoderadoImp implements ApoderadoDao {
         return null;
     }
 
+    @Override
+    public void actualizarApoderado(Apoderado apoderado) {
+        String sqlPersona = "UPDATE persona SET nombres = ?, apellidos = ?, dni = ?, celular = ?, correo = ?, direccion = ?, fecha_nacimiento = ?, genero = ? WHERE id_persona = ?";
+        String sqlApoderado = "UPDATE apoderado SET parentesco = ? WHERE id_apoderado = ?";
+
+        try (PreparedStatement ps1 = conn.prepareStatement(sqlPersona); PreparedStatement ps2 = conn.prepareStatement(sqlApoderado)) {
+
+            ps1.setString(1, apoderado.getNombres());
+            ps1.setString(2, apoderado.getApellidos());
+            ps1.setString(3, apoderado.getDni());
+            ps1.setString(4, apoderado.getCelular());
+            ps1.setString(5, apoderado.getCorreo());
+            ps1.setString(6, apoderado.getDireccion());
+            ps1.setDate(7, new java.sql.Date(apoderado.getFechaNacimiento().getTime()));
+            ps1.setString(8, apoderado.getGenero());
+            ps1.setInt(9, apoderado.getId());
+            ps1.executeUpdate();
+
+            ps2.setString(1, apoderado.getParentesco());
+            ps2.setInt(2, apoderado.getIdApoderado());
+            ps2.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

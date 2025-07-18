@@ -15,11 +15,15 @@ import org.jfree.data.category.DefaultCategoryDataset;
 public interface EstudianteDao {
 
     Estudiante obtenerEstudiantePorId(int idEstudiante);
-    
+
     Estudiante obtenerEstudiantePorDNI(String dni);
 
     List<Estudiante> obtenerListaEstudiantes(int idDocente);
 
     public DefaultCategoryDataset generarGraficoMatriculaPorDiagnostico();
+
+    void registrarEstudiante(Estudiante estudiante);
+
+    void actualizarEstudiante(Estudiante estudiante);
 
 }

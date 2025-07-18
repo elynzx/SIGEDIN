@@ -6,12 +6,17 @@ import dao.AulaImp;
 import dao.EstudianteImp;
 import dao.funcionalidad.CatalogoImp;
 import dao.funcionalidad.MatriculaImp;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import model.entidades.Apoderado;
 import model.entidades.Aula;
 import model.entidades.Estudiante;
 import model.funcionalidad.catalogo.Diagnostico;
@@ -21,8 +26,10 @@ import model.funcionalidad.Matricula;
 public class VistaMatricula extends javax.swing.JPanel {
 
     private final MatriculaCtrl matriculaCtrl;
+    private Estudiante estudianteActual;
 
     public VistaMatricula(int idSecretaria) {
+
         this.matriculaCtrl = new MatriculaCtrl(
                 EstudianteImp.obtenerInstancia(),
                 ApoderadoImp.obtenerInstancia(),
@@ -31,12 +38,24 @@ public class VistaMatricula extends javax.swing.JPanel {
                 MatriculaImp.obtenerInstancia()
         );
         initComponents();
+        initFechaMatricula();
         initDiagnosticos();
         initNivelesFuncionales();
         obtenerDiagnosticoSeleccionados();
     }
 
+    
+    
+    
+    
+/*
+ * Busqueda de matricula
+ * 
+ */
+    
     private void cargarDatosEstudiante(Estudiante estudiante) {
+        this.estudianteActual = estudiante;
+
         txtNombres.setText(estudiante.getNombres());
         txtApellidos.setText(estudiante.getApellidos());
         txtDni.setText(estudiante.getDni());
@@ -146,6 +165,100 @@ public class VistaMatricula extends javax.swing.JPanel {
         });
     }
 
+    private void initFechaMatricula() {
+        LocalDate hoy = LocalDate.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        txtFechaMatricula.setText(hoy.format(formato));
+    }
+
+    
+    private Apoderado construirApoderado() {
+        Apoderado apoderado = new Apoderado();
+        apoderado.setDni(txtDniApoderado.getText().trim());
+        apoderado.setNombres(txtNombresApoderado.getText().trim());
+        apoderado.setApellidos(txtApellidosApoderado.getText().trim());
+        apoderado.setCorreo(txtCorreoApoderado.getText().trim());
+        apoderado.setDireccion(txtDireccionApoderado.getText().trim());
+        apoderado.setFechaNacimiento((Date) txtFechaNacimientoApoderado.getDate());
+        apoderado.setCelular(txtCelularApoderado.getText().trim());
+        apoderado.setParentesco(cbParentesco.getSelectedItem().toString());
+        return apoderado;
+    }
+
+    private Matricula construirMatricula(Estudiante estudiante) {
+        Matricula matricula = new Matricula();
+        matricula.setEstudiante(estudiante);
+        matricula.setAula((Aula) cbAula.getSelectedItem());
+
+        try {
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(txtFechaMatricula.getText(), formato);
+            matricula.setFechaMatricula(java.sql.Date.valueOf(fecha));
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this, "Fecha de matrícula inválida.");
+            return null;
+        }
+
+        matricula.setEstado(cbEstadoActual.getSelectedItem().toString());
+        return matricula;
+    }
+
+    private Estudiante construirEstudiante() {
+        Estudiante estudiante = new Estudiante();
+        estudiante.setDni(txtDni.getText().trim());
+        estudiante.setNombres(txtNombres.getText().trim());
+        estudiante.setApellidos(txtApellidos.getText().trim());
+        estudiante.setFechaNacimiento((Date) txtFechaNacimiento.getDate());
+        estudiante.setGenero(cbGeneroEstudiante.getSelectedItem().toString());
+        estudiante.setAlergias(rbAlergiaSi.isSelected());
+        estudiante.setTipoAlergia(txtTipoAlergia.getText().trim());
+        estudiante.setTomaMedicamentos(rbMedicamentoSi.isSelected());
+        estudiante.setMedicamentos(txtMedicamentos.getText().trim());
+        estudiante.setObservaciones(txtObservaciones.getText().trim());
+        estudiante.setNivelFuncional((NivelFuncional) cbNivelFuncional.getSelectedItem());
+
+        List<Diagnostico> diagnosticos = jListDiagnostico.getSelectedValuesList();
+        estudiante.setDiagnosticos(diagnosticos);
+
+        return estudiante;
+    }
+
+    private void limpiarCampos() {
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtDni.setText("");
+        txtFechaNacimiento.setDate(null);
+        cbGeneroEstudiante.setSelectedIndex(0);
+        rbAlergiaSi.setSelected(false);
+        rbAlergiaNo.setSelected(false);
+        txtTipoAlergia.setText("");
+        txtTipoAlergia.setEnabled(false);
+        rbMedicamentoSi.setSelected(false);
+        rbMedicamentoNo.setSelected(false);
+        txtMedicamentos.setText("");
+        txtMedicamentos.setEnabled(false);
+        txtObservaciones.setText("");
+        cbNivelFuncional.setSelectedIndex(0);
+        jListDiagnostico.clearSelection();
+        txtDiagnosticosSeleccionados.setText("");
+
+        txtDniApoderado.setText("");
+        txtNombresApoderado.setText("");
+        txtApellidosApoderado.setText("");
+        txtCorreoApoderado.setText("");
+        txtDireccionApoderado.setText("");
+        txtFechaNacimientoApoderado.setDate(null);
+        txtCelularApoderado.setText("");
+        cbParentesco.setSelectedIndex(0);
+
+        initFechaMatricula(); // vuelve a poner la fecha actual
+        cbEstadoActual.setSelectedIndex(0);
+        cbAula.removeAllItems();
+        txtDocente.setText("");
+
+        estudianteActual = null;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -157,7 +270,7 @@ public class VistaMatricula extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        btnDescHistorialConductas = new javax.swing.JLabel();
+        btnDescFichaMatricula = new javax.swing.JLabel();
         textBuscarEstudiante = new javax.swing.JTextField();
         btnBuscarDni = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -187,9 +300,9 @@ public class VistaMatricula extends javax.swing.JPanel {
         rbAlergiaNo = new javax.swing.JRadioButton();
         txtTipoAlergia = new javax.swing.JTextField();
         lbNivel3 = new javax.swing.JLabel();
-        btnGuardarPlan = new javax.swing.JButton();
-        btnGuardarPlan1 = new javax.swing.JButton();
-        btnGuardarPlan2 = new javax.swing.JButton();
+        btnRegistrarMatricula = new javax.swing.JButton();
+        btnAnularMatricula = new javax.swing.JButton();
+        btnModificarMatricula = new javax.swing.JButton();
         jLabel31 = new javax.swing.JLabel();
         txtIdMatricula = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -273,20 +386,20 @@ public class VistaMatricula extends javax.swing.JPanel {
         jLabel3.setText("Buscar DNI:");
         jpDashboardDocente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 80, 40));
 
-        btnDescHistorialConductas.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
-        btnDescHistorialConductas.setForeground(new java.awt.Color(23, 64, 112));
-        btnDescHistorialConductas.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnDescHistorialConductas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Import-2.png"))); // NOI18N
-        btnDescHistorialConductas.setText("Descargar Ficha de Matricula");
-        btnDescHistorialConductas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDescHistorialConductas.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        btnDescHistorialConductas.setIconTextGap(8);
-        btnDescHistorialConductas.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnDescFichaMatricula.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        btnDescFichaMatricula.setForeground(new java.awt.Color(23, 64, 112));
+        btnDescFichaMatricula.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnDescFichaMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Import-2.png"))); // NOI18N
+        btnDescFichaMatricula.setText("Descargar Ficha de Matricula");
+        btnDescFichaMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDescFichaMatricula.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnDescFichaMatricula.setIconTextGap(8);
+        btnDescFichaMatricula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnDescHistorialConductasMouseClicked(evt);
+                btnDescFichaMatriculaMouseClicked(evt);
             }
         });
-        jpDashboardDocente.add(btnDescHistorialConductas, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 120, 220, 30));
+        jpDashboardDocente.add(btnDescFichaMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 120, 220, 30));
 
         textBuscarEstudiante.setBackground(new java.awt.Color(255, 255, 255));
         textBuscarEstudiante.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -491,11 +604,6 @@ public class VistaMatricula extends javax.swing.JPanel {
         rbMedicamentoSi.setForeground(new java.awt.Color(102, 102, 102));
         rbMedicamentoSi.setText("Sí");
         rbMedicamentoSi.setOpaque(true);
-        rbMedicamentoSi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbMedicamentoSiActionPerformed(evt);
-            }
-        });
 
         rbMedicamentoNo.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup1.add(rbMedicamentoNo);
@@ -503,11 +611,6 @@ public class VistaMatricula extends javax.swing.JPanel {
         rbMedicamentoNo.setSelected(true);
         rbMedicamentoNo.setText("No");
         rbMedicamentoNo.setOpaque(true);
-        rbMedicamentoNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbMedicamentoNoActionPerformed(evt);
-            }
-        });
 
         txtMedicamentos.setBackground(new java.awt.Color(255, 255, 255));
         txtMedicamentos.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -556,11 +659,6 @@ public class VistaMatricula extends javax.swing.JPanel {
         rbAlergiaSi.setForeground(new java.awt.Color(102, 102, 102));
         rbAlergiaSi.setText("Sí");
         rbAlergiaSi.setOpaque(true);
-        rbAlergiaSi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbAlergiaSiActionPerformed(evt);
-            }
-        });
 
         rbAlergiaNo.setBackground(new java.awt.Color(255, 255, 255));
         buttonGroup2.add(rbAlergiaNo);
@@ -568,11 +666,6 @@ public class VistaMatricula extends javax.swing.JPanel {
         rbAlergiaNo.setSelected(true);
         rbAlergiaNo.setText("No");
         rbAlergiaNo.setOpaque(true);
-        rbAlergiaNo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbAlergiaNoActionPerformed(evt);
-            }
-        });
 
         txtTipoAlergia.setBackground(new java.awt.Color(255, 255, 255));
         txtTipoAlergia.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -619,66 +712,66 @@ public class VistaMatricula extends javax.swing.JPanel {
 
         jpDashboardDocente.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 360, 490));
 
-        btnGuardarPlan.setBackground(new java.awt.Color(16, 58, 108));
-        btnGuardarPlan.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        btnGuardarPlan.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarPlan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Save_fill-2.png"))); // NOI18N
-        btnGuardarPlan.setText("REGISTRAR");
-        btnGuardarPlan.setBorder(null);
-        btnGuardarPlan.setBorderPainted(false);
-        btnGuardarPlan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarPlan.setFocusPainted(false);
-        btnGuardarPlan.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrarMatricula.setBackground(new java.awt.Color(16, 58, 108));
+        btnRegistrarMatricula.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnRegistrarMatricula.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrarMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Save_fill-2.png"))); // NOI18N
+        btnRegistrarMatricula.setText("REGISTRAR");
+        btnRegistrarMatricula.setBorder(null);
+        btnRegistrarMatricula.setBorderPainted(false);
+        btnRegistrarMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarMatricula.setFocusPainted(false);
+        btnRegistrarMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarPlanActionPerformed(evt);
+                btnRegistrarMatriculaActionPerformed(evt);
             }
         });
-        jpDashboardDocente.add(btnGuardarPlan, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, 135, 40));
+        jpDashboardDocente.add(btnRegistrarMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, 135, 40));
 
-        btnGuardarPlan1.setBackground(new java.awt.Color(51, 51, 51));
-        btnGuardarPlan1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        btnGuardarPlan1.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarPlan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Trash-1.png"))); // NOI18N
-        btnGuardarPlan1.setText("ELIMINAR");
-        btnGuardarPlan1.setBorder(null);
-        btnGuardarPlan1.setBorderPainted(false);
-        btnGuardarPlan1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarPlan1.setFocusPainted(false);
-        btnGuardarPlan1.addActionListener(new java.awt.event.ActionListener() {
+        btnAnularMatricula.setBackground(new java.awt.Color(51, 51, 51));
+        btnAnularMatricula.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnAnularMatricula.setForeground(new java.awt.Color(255, 255, 255));
+        btnAnularMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/close_1.png"))); // NOI18N
+        btnAnularMatricula.setText("ANULAR");
+        btnAnularMatricula.setBorder(null);
+        btnAnularMatricula.setBorderPainted(false);
+        btnAnularMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAnularMatricula.setFocusPainted(false);
+        btnAnularMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarPlan1ActionPerformed(evt);
+                btnAnularMatriculaActionPerformed(evt);
             }
         });
-        jpDashboardDocente.add(btnGuardarPlan1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 40, 135, 40));
+        jpDashboardDocente.add(btnAnularMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 40, 135, 40));
 
-        btnGuardarPlan2.setBackground(new java.awt.Color(221, 168, 83));
-        btnGuardarPlan2.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        btnGuardarPlan2.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarPlan2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Edit_fill-1.png"))); // NOI18N
-        btnGuardarPlan2.setText("MODIFICAR");
-        btnGuardarPlan2.setBorder(null);
-        btnGuardarPlan2.setBorderPainted(false);
-        btnGuardarPlan2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnGuardarPlan2.setFocusPainted(false);
-        btnGuardarPlan2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarMatricula.setBackground(new java.awt.Color(221, 168, 83));
+        btnModificarMatricula.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        btnModificarMatricula.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificarMatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Edit_fill-1.png"))); // NOI18N
+        btnModificarMatricula.setText("MODIFICAR");
+        btnModificarMatricula.setBorder(null);
+        btnModificarMatricula.setBorderPainted(false);
+        btnModificarMatricula.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarMatricula.setFocusPainted(false);
+        btnModificarMatricula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarPlan2ActionPerformed(evt);
+                btnModificarMatriculaActionPerformed(evt);
             }
         });
-        jpDashboardDocente.add(btnGuardarPlan2, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 40, 135, 40));
+        jpDashboardDocente.add(btnModificarMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 40, 135, 40));
 
         jLabel31.setFont(new java.awt.Font("Trebuchet MS", 0, 11)); // NOI18N
         jLabel31.setForeground(new java.awt.Color(23, 64, 112));
         jLabel31.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel31.setText("CÓDIGO DE MATRICULA:");
+        jLabel31.setText("MATRICULA:");
         jLabel31.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jpDashboardDocente.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 130, 40));
+        jpDashboardDocente.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 70, 40));
 
         txtIdMatricula.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtIdMatricula.setForeground(new java.awt.Color(23, 64, 112));
         txtIdMatricula.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txtIdMatricula.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jpDashboardDocente.add(txtIdMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 150, 40));
+        jpDashboardDocente.add(txtIdMatricula, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 140, 40));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(234, 234, 234)));
@@ -1233,9 +1326,9 @@ public class VistaMatricula extends javax.swing.JPanel {
         txtIdMatricula1.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         txtIdMatricula1.setForeground(new java.awt.Color(23, 64, 112));
         txtIdMatricula1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        txtIdMatricula1.setText("2025-");
+        txtIdMatricula1.setText("2025 -");
         txtIdMatricula1.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        jpDashboardDocente.add(txtIdMatricula1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 70, 40));
+        jpDashboardDocente.add(txtIdMatricula1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -1251,65 +1344,91 @@ public class VistaMatricula extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnDescHistorialConductasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescHistorialConductasMouseClicked
+    private void btnDescFichaMatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDescFichaMatriculaMouseClicked
 
-    }//GEN-LAST:event_btnDescHistorialConductasMouseClicked
+    }//GEN-LAST:event_btnDescFichaMatriculaMouseClicked
 
     private void btnBuscarDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDniActionPerformed
 
         String dni = textBuscarEstudiante.getText().trim();
-
         if (dni.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese un DNI válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
+        
         Estudiante estudiante = matriculaCtrl.buscarEstudiantePorDNI(dni);
-
         if (estudiante != null) {
             cargarDatosEstudiante(estudiante);
         } else {
             JOptionPane.showMessageDialog(this, "Estudiante no encontrado.", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btnBuscarDniActionPerformed
 
-    private void rbMedicamentoSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMedicamentoSiActionPerformed
+    private void btnRegistrarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMatriculaActionPerformed
 
-    }//GEN-LAST:event_rbMedicamentoSiActionPerformed
+        Apoderado apoderado = construirApoderado();
+        Apoderado existente = matriculaCtrl.buscarApoderadoPorDNI(apoderado.getDni());
 
-    private void rbMedicamentoNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMedicamentoNoActionPerformed
+        if (existente == null) {
+            matriculaCtrl.registrarApoderado(apoderado);
+        } else {
+            apoderado = existente;
+        }
 
-    }//GEN-LAST:event_rbMedicamentoNoActionPerformed
+        Estudiante estudiante = construirEstudiante();
+        estudiante.setApoderado(apoderado);
+        matriculaCtrl.registrarEstudiante(estudiante);
 
-    private void btnGuardarPlanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPlanActionPerformed
+        Matricula matricula = construirMatricula(estudiante);
+        if (matricula == null) {
+            return; 
+        }
+        matriculaCtrl.registrarMatricula(matricula);
 
-    }//GEN-LAST:event_btnGuardarPlanActionPerformed
+        JOptionPane.showMessageDialog(this, "Matrícula registrada correctamente.");
+        limpiarCampos();
+    }//GEN-LAST:event_btnRegistrarMatriculaActionPerformed
 
-    private void btnGuardarPlan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPlan1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarPlan1ActionPerformed
+    private void btnAnularMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularMatriculaActionPerformed
+        if (estudianteActual == null) {
+            JOptionPane.showMessageDialog(this, "Primero debes buscar un estudiante.");
+            return;
+        }
+        Matricula matricula = matriculaCtrl.obtenerMatriculaPorEstudiante(estudianteActual.getIdEstudiante());
+        if (matricula != null) {
+            matriculaCtrl.cambiarEstadoMatricula(matricula.getId(), "inactivo");
+            JOptionPane.showMessageDialog(this, "Matrícula desactivada correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró matrícula para este estudiante.");
+        }
+    }//GEN-LAST:event_btnAnularMatriculaActionPerformed
 
-    private void btnGuardarPlan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPlan2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuardarPlan2ActionPerformed
-
-    private void rbAlergiaSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAlergiaSiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbAlergiaSiActionPerformed
-
-    private void rbAlergiaNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAlergiaNoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbAlergiaNoActionPerformed
-
+    private void btnModificarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarMatriculaActionPerformed
+        if (estudianteActual == null) {
+            JOptionPane.showMessageDialog(this, "Primero debes buscar un estudiante.");
+            return;
+        }
+        Apoderado apoderado = construirApoderado();
+        
+        Estudiante estudiante = construirEstudiante();
+        estudiante.setIdEstudiante(estudianteActual.getIdEstudiante());
+        estudiante.setApoderado(apoderado);
+        
+        Matricula matricula = construirMatricula(estudiante);
+        matricula.setId(matriculaCtrl.obtenerMatriculaPorEstudiante(estudiante.getIdEstudiante()).getId());
+        matriculaCtrl.actualizarApoderado(apoderado);
+        matriculaCtrl.actualizarEstudiante(estudiante);
+        matriculaCtrl.actualizarMatricula(matricula);
+        
+        JOptionPane.showMessageDialog(this, "Matrícula modificada correctamente.");
+    }//GEN-LAST:event_btnModificarMatriculaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnularMatricula;
     private javax.swing.JButton btnBuscarDni;
-    private javax.swing.JLabel btnDescHistorialConductas;
-    private javax.swing.JButton btnGuardarPlan;
-    private javax.swing.JButton btnGuardarPlan1;
-    private javax.swing.JButton btnGuardarPlan2;
+    private javax.swing.JLabel btnDescFichaMatricula;
+    private javax.swing.JButton btnModificarMatricula;
+    private javax.swing.JButton btnRegistrarMatricula;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<Aula> cbAula;

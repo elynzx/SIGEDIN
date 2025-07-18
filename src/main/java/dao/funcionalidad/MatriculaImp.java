@@ -77,8 +77,31 @@ public class MatriculaImp implements MatriculaDao {
     }
 
     @Override
-    public boolean registrarMatriculaCompleta(Estudiante estudiante, Apoderado apoderado, List<Integer> idsDiagnosticos, int idAula) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void registrarMatricula(Matricula matricula) {
+        String sql = "INSERT INTO matricula (id_estudiante, id_aula, fecha_matricula, estado_actual) VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, matricula.getEstudiante().getIdEstudiante());
+            ps.setInt(2, matricula.getAula().getId());
+            ps.setDate(3, new java.sql.Date(matricula.getFechaMatricula().getTime()));
+            ps.setString(4, matricula.getEstado());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void cambiarEstadoMatricula(int idMatricula, String nuevoEstado) {
+        String sql = "UPDATE matricula SET estado_actual = ? WHERE id_matricula = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, nuevoEstado);
+            ps.setInt(2, idMatricula);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -131,4 +154,18 @@ public class MatriculaImp implements MatriculaDao {
         return null;
     }
 
+    @Override
+    public void actualizarMatricula(Matricula matricula) {
+        String sql = "UPDATE matricula SET id_aula = ?, fecha_matricula = ?, estado_actual = ? WHERE id_matricula = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, matricula.getAula().getId());
+            ps.setDate(2, new java.sql.Date(matricula.getFechaMatricula().getTime()));
+            ps.setString(3, matricula.getEstado());
+            ps.setInt(4, matricula.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
