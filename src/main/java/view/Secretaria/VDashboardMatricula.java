@@ -151,7 +151,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo1 1_2.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo02.png"))); // NOI18N
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 0, 74, 90));
 
         mEvaluaciones.setBackground(new java.awt.Color(237, 237, 237));
@@ -165,7 +165,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jlblmatricula.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblmatricula.setForeground(new java.awt.Color(255, 255, 255));
         jlblmatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke).png"))); // NOI18N
+        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sertificate-2.png"))); // NOI18N
         jlblmatricula.setToolTipText("");
         jlblmatricula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -204,7 +204,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jlblestudiantes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblestudiantes.setForeground(new java.awt.Color(255, 255, 255));
         jlblestudiantes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke)-1.png"))); // NOI18N
+        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/User_fill-2.png"))); // NOI18N
         jlblestudiantes.setToolTipText("");
         jlblestudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -244,7 +244,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jlblreportes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblreportes.setForeground(new java.awt.Color(255, 255, 255));
         jlblreportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clip_1.png"))); // NOI18N
+        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/paper_clip-2_1.png"))); // NOI18N
         jlblreportes.setToolTipText("");
         jlblreportes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -284,7 +284,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Log Out_2.png"))); // NOI18N
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/User_cicrle-2_1.png"))); // NOI18N
         jLabel23.setToolTipText("");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -333,7 +333,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jlblinicio.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblinicio.setForeground(new java.awt.Color(255, 255, 255));
         jlblinicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Home-1.png"))); // NOI18N
+        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Widget-2_1.png"))); // NOI18N
         jlblinicio.setToolTipText("");
         jlblinicio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblinicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -389,7 +389,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jLabel30.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(58, 163, 163));
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vect (2).png"))); // NOI18N
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill.png"))); // NOI18N
         jLabel30.setText("Total Estudiantes");
 
         jlbltotal.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
@@ -425,7 +425,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jLabel32.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel32.setForeground(new java.awt.Color(58, 163, 163));
         jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vect (3).png"))); // NOI18N
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill.png"))); // NOI18N
         jLabel32.setText("Aulas Disponibles");
 
         jlblasistentes.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
@@ -502,7 +502,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel33.setForeground(new java.awt.Color(58, 163, 163));
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vect (2).png"))); // NOI18N
+        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill.png"))); // NOI18N
         jLabel33.setText("Matrículas de Hoy");
 
         jlblmatriculas.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
@@ -538,7 +538,7 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel34.setForeground(new java.awt.Color(58, 163, 163));
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/vect (4).png"))); // NOI18N
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill.png"))); // NOI18N
         jLabel34.setText("Vacantes Disponibles");
 
         jlblvacantes.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
@@ -630,10 +630,6 @@ public class VDashboardMatricula extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jlblmatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblmatriculaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlblmatriculaMouseClicked
-
     private void jlblestudiantesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblestudiantesMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jlblestudiantesMouseClicked
@@ -641,10 +637,6 @@ public class VDashboardMatricula extends javax.swing.JFrame {
     private void jlblreportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblreportesMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jlblreportesMouseClicked
-
-    private void jlblinicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblinicioMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlblinicioMouseClicked
 
     private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
         this.dispose();
@@ -659,6 +651,14 @@ public class VDashboardMatricula extends javax.swing.JFrame {
 
         // TODO add your handling code here:
     }//GEN-LAST:event_mEvaluacionesMouseClicked
+
+    private void jlblmatriculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblmatriculaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlblmatriculaMouseClicked
+
+    private void jlblinicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlblinicioMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlblinicioMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

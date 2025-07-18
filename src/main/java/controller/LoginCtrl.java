@@ -10,6 +10,7 @@ import utilities.VistaUtil;
 import view.Docente.VistaMenuDocente;
 import view.Secretaria.VistaMenuSecretaria;
 import dao.UsuarioDao;
+import view.Secretaria.VDashboardMatricula;
 
 public class LoginCtrl {
 
@@ -53,7 +54,7 @@ public class LoginCtrl {
             case "administrador" ->
                 VistaUtil.mostrarVista(new MenuAdminView(idRol));
             case "secretaria" ->
-                VistaUtil.mostrarVista(new VistaMenuSecretaria(idRol));
+                VistaUtil.mostrarVista(new VDashboardMatricula());
             case "docente" ->
                 VistaUtil.mostrarVista(new VistaMenuDocente(idRol));
             default ->

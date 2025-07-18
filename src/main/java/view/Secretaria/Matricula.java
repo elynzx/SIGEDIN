@@ -163,17 +163,18 @@ public class Matricula extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(237, 237, 237));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel2.setForeground(new java.awt.Color(51, 0, 51));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo1 1_2.png"))); // NOI18N
+        jLabel2.setText("asd");
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 0, 74, 90));
 
         mSalir.setBackground(new java.awt.Color(237, 237, 237));
         mSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel23.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
-        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setForeground(new java.awt.Color(51, 0, 51));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Log Out_2.png"))); // NOI18N
+        jLabel23.setText("asd");
         jLabel23.setToolTipText("");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -228,9 +229,9 @@ public class Matricula extends javax.swing.JFrame {
         mInicio1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jlblinicio.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
-        jlblinicio.setForeground(new java.awt.Color(255, 255, 255));
+        jlblinicio.setForeground(new java.awt.Color(51, 0, 51));
         jlblinicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Home-1.png"))); // NOI18N
+        jlblinicio.setText("asd");
         jlblinicio.setToolTipText("");
         jlblinicio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblinicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -268,9 +269,9 @@ public class Matricula extends javax.swing.JFrame {
         mEvaluaciones.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jlblmatricula.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
-        jlblmatricula.setForeground(new java.awt.Color(255, 255, 255));
+        jlblmatricula.setForeground(new java.awt.Color(51, 0, 51));
         jlblmatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke).png"))); // NOI18N
+        jlblmatricula.setText("asd");
         jlblmatricula.setToolTipText("");
         jlblmatricula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -307,9 +308,9 @@ public class Matricula extends javax.swing.JFrame {
         mIndividual.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jlblestudiantes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
-        jlblestudiantes.setForeground(new java.awt.Color(255, 255, 255));
+        jlblestudiantes.setForeground(new java.awt.Color(51, 0, 51));
         jlblestudiantes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke)-1.png"))); // NOI18N
+        jlblestudiantes.setText("asd");
         jlblestudiantes.setToolTipText("");
         jlblestudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -347,9 +348,9 @@ public class Matricula extends javax.swing.JFrame {
         mReportes.setPreferredSize(new java.awt.Dimension(120, 90));
 
         jlblreportes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
-        jlblreportes.setForeground(new java.awt.Color(255, 255, 255));
+        jlblreportes.setForeground(new java.awt.Color(51, 0, 51));
         jlblreportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clip_1.png"))); // NOI18N
+        jlblreportes.setText("asd");
         jlblreportes.setToolTipText("");
         jlblreportes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1280,7 +1281,6 @@ public class Matricula extends javax.swing.JFrame {
         btnBuscarTicket.setBackground(new java.awt.Color(66, 128, 191));
         btnBuscarTicket.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         btnBuscarTicket.setForeground(new java.awt.Color(98, 66, 26));
-        btnBuscarTicket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Magnifer-1.png"))); // NOI18N
         btnBuscarTicket.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(66, 128, 191)));
         btnBuscarTicket.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarTicket.addActionListener(new java.awt.event.ActionListener() {

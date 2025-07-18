@@ -90,7 +90,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo1 1_2.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill-2.png"))); // NOI18N
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 0, 74, 90));
 
         mSalir.setBackground(new java.awt.Color(237, 237, 237));
@@ -99,7 +99,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jLabel23.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jLabel23.setForeground(new java.awt.Color(255, 255, 255));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Log Out_2.png"))); // NOI18N
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill-2.png"))); // NOI18N
         jLabel23.setToolTipText("");
         jLabel23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +156,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jlblinicio.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblinicio.setForeground(new java.awt.Color(255, 255, 255));
         jlblinicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Home-1.png"))); // NOI18N
+        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill-2.png"))); // NOI18N
         jlblinicio.setToolTipText("");
         jlblinicio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblinicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -196,7 +196,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jlblmatricula.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblmatricula.setForeground(new java.awt.Color(255, 255, 255));
         jlblmatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke).png"))); // NOI18N
+        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill-2.png"))); // NOI18N
         jlblmatricula.setToolTipText("");
         jlblmatricula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -235,7 +235,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jlblestudiantes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblestudiantes.setForeground(new java.awt.Color(255, 255, 255));
         jlblestudiantes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke)-1.png"))); // NOI18N
+        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill-2.png"))); // NOI18N
         jlblestudiantes.setToolTipText("");
         jlblestudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -275,7 +275,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jlblreportes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblreportes.setForeground(new java.awt.Color(255, 255, 255));
         jlblreportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clip_1.png"))); // NOI18N
+        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarm_fill-2.png"))); // NOI18N
         jlblreportes.setToolTipText("");
         jlblreportes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -317,6 +317,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         jLabel7.setText("Lista de Estudiantes");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 400, -1));
 
@@ -364,6 +365,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         btnCrearTicket2.setBackground(new java.awt.Color(58, 163, 163));
         btnCrearTicket2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnCrearTicket2.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearTicket2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         btnCrearTicket2.setText("ACTUALIZAR");
         btnCrearTicket2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearTicket2.setFocusPainted(false);
@@ -372,6 +374,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         btnCrearTicket4.setBackground(new java.awt.Color(66, 128, 191));
         btnCrearTicket4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnCrearTicket4.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearTicket4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         btnCrearTicket4.setText("VER FICHA");
         btnCrearTicket4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearTicket4.setFocusPainted(false);
@@ -385,6 +388,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         btnCrearTicket3.setBackground(new java.awt.Color(102, 102, 102));
         btnCrearTicket3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 13)); // NOI18N
         btnCrearTicket3.setForeground(new java.awt.Color(255, 255, 255));
+        btnCrearTicket3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         btnCrearTicket3.setText("EXPORTAR PDF");
         btnCrearTicket3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCrearTicket3.setFocusPainted(false);
@@ -402,7 +406,7 @@ public class VEstudiantes extends javax.swing.JFrame {
         btnBuscarTicket.setBackground(new java.awt.Color(66, 128, 191));
         btnBuscarTicket.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         btnBuscarTicket.setForeground(new java.awt.Color(98, 66, 26));
-        btnBuscarTicket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Magnifer-1.png"))); // NOI18N
+        btnBuscarTicket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Search_alt-2_1.png"))); // NOI18N
         btnBuscarTicket.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(66, 128, 191)));
         btnBuscarTicket.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscarTicket.addActionListener(new java.awt.event.ActionListener() {

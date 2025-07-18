@@ -88,7 +88,7 @@ public class ReportesMatricula extends javax.swing.JFrame {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo1 1_2.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo02.png"))); // NOI18N
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 0, 74, 90));
 
         mSalir.setBackground(new java.awt.Color(237, 237, 237));
@@ -154,7 +154,7 @@ public class ReportesMatricula extends javax.swing.JFrame {
         jlblinicio.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblinicio.setForeground(new java.awt.Color(255, 255, 255));
         jlblinicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Home-1.png"))); // NOI18N
+        jlblinicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         jlblinicio.setToolTipText("");
         jlblinicio.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblinicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,7 +194,7 @@ public class ReportesMatricula extends javax.swing.JFrame {
         jlblmatricula.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblmatricula.setForeground(new java.awt.Color(255, 255, 255));
         jlblmatricula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke).png"))); // NOI18N
+        jlblmatricula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         jlblmatricula.setToolTipText("");
         jlblmatricula.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -233,7 +233,7 @@ public class ReportesMatricula extends javax.swing.JFrame {
         jlblestudiantes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblestudiantes.setForeground(new java.awt.Color(255, 255, 255));
         jlblestudiantes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Vector (Stroke)-1.png"))); // NOI18N
+        jlblestudiantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         jlblestudiantes.setToolTipText("");
         jlblestudiantes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -273,7 +273,7 @@ public class ReportesMatricula extends javax.swing.JFrame {
         jlblreportes.setFont(new java.awt.Font("Poppins", 0, 13)); // NOI18N
         jlblreportes.setForeground(new java.awt.Color(255, 255, 255));
         jlblreportes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Clip_1.png"))); // NOI18N
+        jlblreportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Alarmclock-2.png"))); // NOI18N
         jlblreportes.setToolTipText("");
         jlblreportes.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jlblreportes.addMouseListener(new java.awt.event.MouseAdapter() {
