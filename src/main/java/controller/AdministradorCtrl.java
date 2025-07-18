@@ -436,13 +436,13 @@ public class AdministradorCtrl {
         titulo.createCell(14).setCellValue("Dni:");
         titulo.createCell(15).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getDni());
         titulo.createCell(16).setCellValue("Celular:");
-        titulo.createCell(17).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getCelular());
+        titulo.createCell(17).setCellValue(usuario.getPersona().getCelular());
         titulo.createCell(18).setCellValue("Correo:");
-        titulo.createCell(19).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getCorreo());
+        titulo.createCell(19).setCellValue(usuario.getPersona().getCorreo());
         titulo.createCell(20).setCellValue("Direccion:");
-        titulo.createCell(21).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getDireccion());
+        titulo.createCell(21).setCellValue(usuario.getPersona().getDireccion());
         titulo.createCell(22).setCellValue("Fecha de nacimiento:");
-        titulo.createCell(23).setCellValue(usuario.getPersona().getApellidos()+" "+usuario.getPersona().getFechaNacimiento());
+        titulo.createCell(23).setCellValue(usuario.getPersona().getFechaNacimiento());
 
         // Encabezado
         Row header = sheet.createRow(5);
@@ -482,7 +482,7 @@ public class AdministradorCtrl {
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(archivo);
             } else {
-                System.out.println("Desktop no es compatible. Abre el archivo manualmente     .");
+                System.out.println("Desktop no es compatible. Abre el archivo manualmente.");
             }
 
         } catch (IOException e) {

@@ -756,7 +756,12 @@ public class ReportesAdmin extends javax.swing.JFrame {
 
     private void jbtnpdfdocente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnpdfdocente1ActionPerformed
         String username=(String) getJcmbusuario().getSelectedItem();
-        adminCtrl.registrarReporte(username, idAdministrador);
+        if(username=="ninguno"){
+            JOptionPane.showMessageDialog(rootPane, "debe seleccionar un usuario");
+        }else{
+            adminCtrl.registrarReporte(username, idAdministrador);
+        }
+        
     }//GEN-LAST:event_jbtnpdfdocente1ActionPerformed
 
     /**
