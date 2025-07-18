@@ -45,4 +45,9 @@ public interface AdministradorDao {
     public void cambiarContraseña(String contraseña,Object Id,String contraNueva);
     public String obtenerContraseña(int idUsuario);
     public String obtenerNombreAdministrador(int idAdministrador);
+    public List<String> listaUsuarios();
+    public int obtenerIdUsuario(String username);
+    public void registrarReporteUsuario(int idTipoReporte,String criterio_filtro,int idEstudiante, int id,int idEmpleado, Timestamp timestamp);
+    public Usuario obtenerDatosUsuario(int id_usuario);
+    public List<String[]> obtenerHistorialReportes(int id_usuario);
 }
