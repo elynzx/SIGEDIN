@@ -7,10 +7,6 @@ package dao.funcionalidad;
 import java.util.List;
 import model.funcionalidad.FichaAbc;
 
-/**
- *
- * @author rpasc
- */
 public interface FichaAbcDao {
 
     boolean guardarFichaAbc(int idEstudiante, int idAntecedente, String comportamiento, String consecuencia, int gravedad);

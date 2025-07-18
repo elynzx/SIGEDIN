@@ -26,4 +26,6 @@ public interface EstudianteDao {
 
     void actualizarEstudiante(Estudiante estudiante);
 
+    public int obtenerIdPorDNI(String dni);
+
 }

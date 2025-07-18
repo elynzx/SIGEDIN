@@ -13,5 +13,5 @@ public interface AulaDao {
 
     List<Aula> filtrarAulasPorNivelYDiagnostico(int idNivelFuncional, List<Integer> idsDiagnosticos);
 
-    public List<Aula> obtenerAulas();
+    public List<Aula> obtenerAulasPorNivelSinFiltrar(int idNivelFuncional);
 }

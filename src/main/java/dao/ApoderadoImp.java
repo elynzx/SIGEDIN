@@ -26,7 +26,30 @@ public class ApoderadoImp implements ApoderadoDao {
 
     @Override
     public Apoderado obtenerApoderadoPorDNI(String dni) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Apoderado apoderado = null;
+        String sql = "SELECT * FROM apoderado a JOIN persona p ON a.id_persona = p.id_persona WHERE p.dni = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                apoderado = new Apoderado();
+                apoderado.setId(rs.getInt("id_apoderado"));
+                apoderado.setDni(rs.getString("dni"));
+                apoderado.setNombres(rs.getString("nombres"));
+                apoderado.setApellidos(rs.getString("apellidos"));
+                apoderado.setCorreo(rs.getString("correo"));
+                apoderado.setDireccion(rs.getString("direccion"));
+                apoderado.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
+                apoderado.setCelular(rs.getString("celular"));
+                apoderado.setParentesco(rs.getString("parentesco"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return apoderado;
     }
 
     @Override
@@ -52,10 +75,16 @@ public class ApoderadoImp implements ApoderadoDao {
                 if (rs.next()) {
                     int idPersona = rs.getInt(1);
 
-                    try (PreparedStatement ps2 = conn.prepareStatement(sqlApoderado)) {
+                    try (PreparedStatement ps2 = conn.prepareStatement(sqlApoderado, Statement.RETURN_GENERATED_KEYS)) {
                         ps2.setInt(1, idPersona);
                         ps2.setString(2, apoderado.getParentesco());
                         ps2.executeUpdate();
+
+                        ResultSet rs2 = ps2.getGeneratedKeys();
+                        if (rs2.next()) {
+                            int idApoderado = rs2.getInt(1);
+                            apoderado.setIdApoderado(idApoderado); // ✅ guardar el ID
+                        }
                     }
                 }
             }

@@ -78,13 +78,14 @@ public class MatriculaImp implements MatriculaDao {
 
     @Override
     public void registrarMatricula(Matricula matricula) {
-        String sql = "INSERT INTO matricula (id_estudiante, id_aula, fecha_matricula, estado_actual) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO matricula (id_estudiante, id_aula, fecha_matricula, estado) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, matricula.getEstudiante().getIdEstudiante());
             ps.setInt(2, matricula.getAula().getId());
             ps.setDate(3, new java.sql.Date(matricula.getFechaMatricula().getTime()));
             ps.setString(4, matricula.getEstado());
+
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,7 +114,9 @@ public class MatriculaImp implements MatriculaDao {
                 + "JOIN diagnostico d ON a.id_diagnostico_referente = d.id_diagnostico "
                 + "JOIN docente doc ON a.id_docente = doc.id_docente "
                 + "JOIN persona p ON doc.id_persona = p.id_persona "
-                + "WHERE m.id_estudiante = ?";
+                + "WHERE m.id_estudiante = ? "
+                + "ORDER BY m.id_matricula DESC LIMIT 1"; // ✅ solo la más reciente
+
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idEstudiante);
             try (ResultSet rs = ps.executeQuery()) {
@@ -156,7 +159,7 @@ public class MatriculaImp implements MatriculaDao {
 
     @Override
     public void actualizarMatricula(Matricula matricula) {
-        String sql = "UPDATE matricula SET id_aula = ?, fecha_matricula = ?, estado_actual = ? WHERE id_matricula = ?";
+        String sql = "UPDATE matricula SET id_aula = ?, fecha_matricula = ?, estado = ? WHERE id_matricula = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, matricula.getAula().getId());

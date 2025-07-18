@@ -83,4 +83,13 @@ public class MatriculaCtrl {
         matriculaDao.cambiarEstadoMatricula(idMatricula, nuevoEstado);
     }
 
+
+    public int obtenerIdEstudiantePorDNI(String dni) {
+        return estudianteDao.obtenerIdPorDNI(dni);
+    }
+
+    public List<Aula> obtenerTodasLasAulasPorNivel(int idNivelFuncional) {
+        return aulaDao.obtenerAulasPorNivelSinFiltrar(idNivelFuncional);
+    }
+
 }

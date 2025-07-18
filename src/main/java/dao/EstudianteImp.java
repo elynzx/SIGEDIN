@@ -220,7 +220,7 @@ public class EstudianteImp implements EstudianteDao {
                         ps2.setString(5, estudiante.getMedicamentos());
                         ps2.setString(6, estudiante.getObservaciones());
                         ps2.setInt(7, estudiante.getNivelFuncional().getId());
-                        ps2.setInt(8, estudiante.getApoderado().getIdApoderado());
+                        ps2.setInt(8, estudiante.getApoderado().getIdApoderado()); // ✅ usar el ID correcto
                         ps2.executeUpdate();
                     }
                 }
@@ -275,4 +275,20 @@ public class EstudianteImp implements EstudianteDao {
         }
     }
 
+    @Override
+    public int obtenerIdPorDNI(String dni) {
+        String sql = "SELECT e.id_estudiante FROM estudiante e "
+                + "JOIN persona p ON e.id_persona = p.id_persona "
+                + "WHERE p.dni = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id_estudiante");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

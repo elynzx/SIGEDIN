@@ -9,10 +9,6 @@ import model.funcionalidad.catalogo.FuncionComportamiento;
 import java.sql.Date;
 import model.entidades.Estudiante;
 
-/**
- *
- * @author rpasc
- */
 public class ConductaProblematica {
 
     private int id;
@@ -33,6 +29,25 @@ public class ConductaProblematica {
         this.gravedad = gravedad;
     }
 
+    public ConductaProblematica() {
+    }
+
+    public ConductaProblematica(int id, TipoConducta tipo, String descripcion, int gravedad, Date fecha) {
+        this.id = id;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+        this.gravedad = gravedad;
+        this.fecha = fecha;
+    }
+
+    public ConductaProblematica(Estudiante estudiante, TipoConducta tipo, FuncionComportamiento funcion, int gravedad, String descripcion) {
+        this.estudiante = estudiante;
+        this.tipo = tipo;
+        this.funcion = funcion;
+        this.gravedad = gravedad;
+        this.descripcion = descripcion;
+    }
+
     public ConductaProblematica(int id, Date fecha, TipoConducta tipo, int gravedad) {
         this.id = id;
         this.fecha = fecha;
@@ -47,10 +62,6 @@ public class ConductaProblematica {
         this.descripcion = descripcion;
         this.gravedad = gravedad;
     }
-    
-    
-    
-    
 
     public int getId() {
         return id;

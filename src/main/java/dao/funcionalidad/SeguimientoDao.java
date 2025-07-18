@@ -6,12 +6,8 @@ package dao.funcionalidad;
 
 import java.util.List;
 import java.util.Map;
-import model.funcionalidad.catalogo.CategoriaConducta;
 
-/**
- *
- * @author rpasc
- */
+
 public interface SeguimientoDao {
     
     

@@ -7,10 +7,7 @@ package dao.funcionalidad;
 import java.util.List;
 import model.funcionalidad.ConductaProblematica;
 
-/**
- *
- * @author rpasc
- */
+
 public interface ConductaProblematicaDao {
 
     boolean guardarConductaProblematica(int idEstudiante, int idConducta, int idFuncionComportamiento, int gravedad, String descripcion);

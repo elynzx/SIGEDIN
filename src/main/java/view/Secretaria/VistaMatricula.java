@@ -6,7 +6,7 @@ import dao.AulaImp;
 import dao.EstudianteImp;
 import dao.funcionalidad.CatalogoImp;
 import dao.funcionalidad.MatriculaImp;
-import java.sql.Date;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import javax.swing.event.ListSelectionListener;
 import model.entidades.Apoderado;
 import model.entidades.Aula;
 import model.entidades.Estudiante;
@@ -29,7 +30,6 @@ public class VistaMatricula extends javax.swing.JPanel {
     private Estudiante estudianteActual;
 
     public VistaMatricula(int idSecretaria) {
-
         this.matriculaCtrl = new MatriculaCtrl(
                 EstudianteImp.obtenerInstancia(),
                 ApoderadoImp.obtenerInstancia(),
@@ -37,23 +37,61 @@ public class VistaMatricula extends javax.swing.JPanel {
                 AulaImp.obtenerInstancia(),
                 MatriculaImp.obtenerInstancia()
         );
+
         initComponents();
+
+        rbAlergiaSi.addActionListener(e -> txtTipoAlergia.setEnabled(true));
+        rbAlergiaNo.addActionListener(e -> {
+            txtTipoAlergia.setText("");
+            txtTipoAlergia.setEnabled(false);
+        });
+
+        rbMedicamentoSi.addActionListener(e -> txtMedicamentos.setEnabled(true));
+        rbMedicamentoNo.addActionListener(e -> {
+            txtMedicamentos.setText("");
+            txtMedicamentos.setEnabled(false);
+        });
+
         initFechaMatricula();
         initDiagnosticos();
         initNivelesFuncionales();
         obtenerDiagnosticoSeleccionados();
+
+        activarEventos();
     }
 
-    
-    
-    
-    
-/*
- * Busqueda de matricula
- * 
- */
-    
+    private void silenciarEventos() {
+        for (ActionListener al : cbNivelFuncional.getActionListeners()) {
+            cbNivelFuncional.removeActionListener(al);
+        }
+        for (ActionListener al : cbAula.getActionListeners()) {
+            cbAula.removeActionListener(al);
+        }
+        for (ListSelectionListener lsl : jListDiagnostico.getListSelectionListeners()) {
+            jListDiagnostico.removeListSelectionListener(lsl);
+        }
+    }
+
+    private void activarEventos() {
+        cbNivelFuncional.addActionListener(e -> actualizarAulas());
+
+        cbAula.addActionListener(e -> actualizarDocente());
+
+        jListDiagnostico.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                List<Diagnostico> seleccionados = jListDiagnostico.getSelectedValuesList();
+                String texto = seleccionados.stream()
+                        .map(Diagnostico::getNombre)
+                        .collect(Collectors.joining(", "));
+                txtDiagnosticosSeleccionados.setText(texto);
+                actualizarAulas();
+            }
+        });
+    }
+
     private void cargarDatosEstudiante(Estudiante estudiante) {
+        silenciarEventos();
+
         this.estudianteActual = estudiante;
 
         txtNombres.setText(estudiante.getNombres());
@@ -98,18 +136,21 @@ public class VistaMatricula extends javax.swing.JPanel {
             txtIdMatricula.setText(String.valueOf(matricula.getId()));
             txtFechaMatricula.setText(matricula.getFechaMatricula().toString());
             cbEstadoActual.setSelectedItem(matricula.getEstado());
-            cbAula.setSelectedItem(matricula.getAula());
             cbNivelFuncional.setSelectedItem(matricula.getAula().getNivelFuncional());
             txtDocente.setText(matricula.getAula().getDocente().getNombreCompleto());
+
+            int nivelId = estudiante.getNivelFuncional().getId();
+            List<Aula> aulas = matriculaCtrl.obtenerTodasLasAulasPorNivel(nivelId);
+
+            if (!aulas.contains(matricula.getAula())) {
+                aulas.add(matricula.getAula());
+            }
+
+            initAulas(aulas);
+            cbAula.setSelectedItem(matricula.getAula());
         }
 
-        int nivelId = estudiante.getNivelFuncional().getId();
-        List<Integer> diagnosticoIds = estudiante.getDiagnosticos().stream()
-                .map(Diagnostico::getId)
-                .collect(Collectors.toList());
-
-        List<Aula> aulasFiltradas = matriculaCtrl.filtrarAulas(nivelId, diagnosticoIds);
-        initAulas(aulasFiltradas);
+        activarEventos();
     }
 
     private void initDiagnosticos() {
@@ -133,6 +174,39 @@ public class VistaMatricula extends javax.swing.JPanel {
         cbAula.removeAllItems();
         for (Aula aula : aulas) {
             cbAula.addItem(aula);
+        }
+    }
+
+    private void actualizarAulas() {
+        NivelFuncional nivel = (NivelFuncional) cbNivelFuncional.getSelectedItem();
+        List<Diagnostico> seleccionados = jListDiagnostico.getSelectedValuesList();
+
+        if (nivel != null && !seleccionados.isEmpty()) {
+            int nivelId = nivel.getId();
+            List<Integer> diagnosticoIds = seleccionados.stream()
+                    .map(Diagnostico::getId)
+                    .collect(Collectors.toList());
+
+            List<Aula> aulasFiltradas = matriculaCtrl.filtrarAulas(nivelId, diagnosticoIds);
+
+            if (aulasFiltradas.isEmpty()) {
+                if (cbAula.getItemCount() == 0) {
+                    JOptionPane.showMessageDialog(this, "No hay aulas disponibles.");
+                }
+                cbAula.removeAllItems();
+                txtDocente.setText("");
+            } else {
+                initAulas(aulasFiltradas);
+            }
+        }
+    }
+
+    private void actualizarDocente() {
+        Aula aulaSeleccionada = (Aula) cbAula.getSelectedItem();
+        if (aulaSeleccionada != null && aulaSeleccionada.getDocente() != null) {
+            txtDocente.setText(aulaSeleccionada.getDocente().getNombreCompleto());
+        } else {
+            txtDocente.setText("");
         }
     }
 
@@ -161,6 +235,8 @@ public class VistaMatricula extends javax.swing.JPanel {
                         .map(Diagnostico::getNombre)
                         .collect(Collectors.joining(", "));
                 txtDiagnosticosSeleccionados.setText(texto);
+
+                actualizarAulas();
             }
         });
     }
@@ -171,7 +247,6 @@ public class VistaMatricula extends javax.swing.JPanel {
         txtFechaMatricula.setText(hoy.format(formato));
     }
 
-    
     private Apoderado construirApoderado() {
         Apoderado apoderado = new Apoderado();
         apoderado.setDni(txtDniApoderado.getText().trim());
@@ -179,7 +254,10 @@ public class VistaMatricula extends javax.swing.JPanel {
         apoderado.setApellidos(txtApellidosApoderado.getText().trim());
         apoderado.setCorreo(txtCorreoApoderado.getText().trim());
         apoderado.setDireccion(txtDireccionApoderado.getText().trim());
-        apoderado.setFechaNacimiento((Date) txtFechaNacimientoApoderado.getDate());
+        java.util.Date fechaUtil = txtFechaNacimientoApoderado.getDate();
+        if (fechaUtil != null) {
+            apoderado.setFechaNacimiento(new java.sql.Date(fechaUtil.getTime()));
+        }
         apoderado.setCelular(txtCelularApoderado.getText().trim());
         apoderado.setParentesco(cbParentesco.getSelectedItem().toString());
         return apoderado;
@@ -190,9 +268,15 @@ public class VistaMatricula extends javax.swing.JPanel {
         matricula.setEstudiante(estudiante);
         matricula.setAula((Aula) cbAula.getSelectedItem());
 
+        String fechaTexto = txtFechaMatricula.getText().trim();
+        if (fechaTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar una fecha de matrícula.");
+            return null;
+        }
+
         try {
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fecha = LocalDate.parse(txtFechaMatricula.getText(), formato);
+            LocalDate fecha = LocalDate.parse(fechaTexto, formato);
             matricula.setFechaMatricula(java.sql.Date.valueOf(fecha));
         } catch (DateTimeParseException e) {
             JOptionPane.showMessageDialog(this, "Fecha de matrícula inválida.");
@@ -208,7 +292,12 @@ public class VistaMatricula extends javax.swing.JPanel {
         estudiante.setDni(txtDni.getText().trim());
         estudiante.setNombres(txtNombres.getText().trim());
         estudiante.setApellidos(txtApellidos.getText().trim());
-        estudiante.setFechaNacimiento((Date) txtFechaNacimiento.getDate());
+
+        java.util.Date fechaUtil = txtFechaNacimientoApoderado.getDate();
+        if (fechaUtil != null) {
+            estudiante.setFechaNacimiento(new java.sql.Date(fechaUtil.getTime()));
+        }
+
         estudiante.setGenero(cbGeneroEstudiante.getSelectedItem().toString());
         estudiante.setAlergias(rbAlergiaSi.isSelected());
         estudiante.setTipoAlergia(txtTipoAlergia.getText().trim());
@@ -1353,40 +1442,53 @@ public class VistaMatricula extends javax.swing.JPanel {
         String dni = textBuscarEstudiante.getText().trim();
         if (dni.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese un DNI válido.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            limpiarCampos();
             return;
         }
-        
+
         Estudiante estudiante = matriculaCtrl.buscarEstudiantePorDNI(dni);
         if (estudiante != null) {
             cargarDatosEstudiante(estudiante);
         } else {
             JOptionPane.showMessageDialog(this, "Estudiante no encontrado.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCampos();
         }
     }//GEN-LAST:event_btnBuscarDniActionPerformed
 
     private void btnRegistrarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarMatriculaActionPerformed
 
-        Apoderado apoderado = construirApoderado();
-        Apoderado existente = matriculaCtrl.buscarApoderadoPorDNI(apoderado.getDni());
+        try {
+            Apoderado apoderado = construirApoderado();
+            Estudiante estudiante = construirEstudiante();
+            estudiante.setApoderado(apoderado);
 
-        if (existente == null) {
-            matriculaCtrl.registrarApoderado(apoderado);
-        } else {
-            apoderado = existente;
+            Apoderado existenteApoderado = matriculaCtrl.buscarApoderadoPorDNI(apoderado.getDni());
+            if (existenteApoderado == null) {
+                matriculaCtrl.registrarApoderado(apoderado);
+            } else {
+                apoderado = existenteApoderado;
+            }
+
+            Estudiante existenteEstudiante = matriculaCtrl.buscarEstudiantePorDNI(estudiante.getDni());
+            if (existenteEstudiante == null) {
+                matriculaCtrl.registrarEstudiante(estudiante);
+                int idEstudiante = matriculaCtrl.obtenerIdEstudiantePorDNI(estudiante.getDni());
+                estudiante.setIdEstudiante(idEstudiante);
+            } else {
+                estudiante = existenteEstudiante;
+            }
+
+            Matricula matricula = construirMatricula(estudiante);
+
+            matriculaCtrl.registrarMatricula(matricula);
+
+            JOptionPane.showMessageDialog(this, "Matrícula registrada exitosamente.");
+            limpiarCampos();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar matrícula: " + e.getMessage());
+            e.printStackTrace();
         }
-
-        Estudiante estudiante = construirEstudiante();
-        estudiante.setApoderado(apoderado);
-        matriculaCtrl.registrarEstudiante(estudiante);
-
-        Matricula matricula = construirMatricula(estudiante);
-        if (matricula == null) {
-            return; 
-        }
-        matriculaCtrl.registrarMatricula(matricula);
-
-        JOptionPane.showMessageDialog(this, "Matrícula registrada correctamente.");
-        limpiarCampos();
     }//GEN-LAST:event_btnRegistrarMatriculaActionPerformed
 
     private void btnAnularMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularMatriculaActionPerformed
@@ -1404,23 +1506,40 @@ public class VistaMatricula extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAnularMatriculaActionPerformed
 
     private void btnModificarMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarMatriculaActionPerformed
+
         if (estudianteActual == null) {
             JOptionPane.showMessageDialog(this, "Primero debes buscar un estudiante.");
             return;
         }
+
         Apoderado apoderado = construirApoderado();
-        
+        apoderado.setIdApoderado(estudianteActual.getApoderado().getIdApoderado());
+        apoderado.setId(estudianteActual.getApoderado().getId());
+
         Estudiante estudiante = construirEstudiante();
         estudiante.setIdEstudiante(estudianteActual.getIdEstudiante());
+        estudiante.setId(estudianteActual.getId());
         estudiante.setApoderado(apoderado);
-        
+
         Matricula matricula = construirMatricula(estudiante);
-        matricula.setId(matriculaCtrl.obtenerMatriculaPorEstudiante(estudiante.getIdEstudiante()).getId());
+        if (matricula == null) {
+            return;
+        }
+
+        Matricula matriculaExistente = matriculaCtrl.obtenerMatriculaPorEstudiante(estudiante.getIdEstudiante());
+        if (matriculaExistente == null) {
+            JOptionPane.showMessageDialog(this, "No se encontró matrícula existente para modificar.");
+            return;
+        }
+        matricula.setId(matriculaExistente.getId());
+
         matriculaCtrl.actualizarApoderado(apoderado);
         matriculaCtrl.actualizarEstudiante(estudiante);
         matriculaCtrl.actualizarMatricula(matricula);
-        
+
         JOptionPane.showMessageDialog(this, "Matrícula modificada correctamente.");
+        limpiarCampos();
+
     }//GEN-LAST:event_btnModificarMatriculaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

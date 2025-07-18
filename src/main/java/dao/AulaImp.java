@@ -114,11 +114,15 @@ public class AulaImp implements AulaDao {
             return aulas;
         }
 
-        String sql = "SELECT a.* FROM aula a "
+        String sql = "SELECT a.*, p.nombres, p.apellidos "
+                + "FROM aula a "
+                + "JOIN docente d ON a.id_docente = d.id_docente "
+                + "JOIN persona p ON d.id_persona = p.id_persona "
                 + "WHERE a.id_nivel_funcional = ? "
                 + "AND a.id_diagnostico_referente IN ("
                 + idsDiagnosticos.stream().map(id -> "?").collect(Collectors.joining(", "))
-                + ")";
+                + ") "
+                + "AND a.vacantes_disponibles > 0";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idNivelFuncional);
@@ -128,11 +132,16 @@ public class AulaImp implements AulaDao {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    Docente docente = new Docente();
+                    docente.setNombres(rs.getString("nombres"));
+                    docente.setApellidos(rs.getString("apellidos"));
+
                     Aula aula = new Aula();
                     aula.setId(rs.getInt("id_aula"));
                     aula.setNombre(rs.getString("nombre"));
                     aula.setVacantesTotales(rs.getInt("vacantes_totales"));
                     aula.setVacantesDisponibles(rs.getInt("vacantes_disponibles"));
+                    aula.setDocente(docente); // 💡 ahora sí tiene el nombre
                     aulas.add(aula);
                 }
             }
@@ -144,8 +153,39 @@ public class AulaImp implements AulaDao {
 
     }
 
-    @Override
-    public List<Aula> obtenerAulas() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+
+    public List<Aula> obtenerAulasPorNivelSinFiltrar(int idNivelFuncional) {
+        List<Aula> aulas = new ArrayList<>();
+
+        String sql = "SELECT a.*, p.nombres, p.apellidos "
+                + "FROM aula a "
+                + "JOIN docente d ON a.id_docente = d.id_docente "
+                + "JOIN persona p ON d.id_persona = p.id_persona "
+                + "WHERE a.id_nivel_funcional = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, idNivelFuncional);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Docente docente = new Docente();
+                docente.setNombres(rs.getString("nombres"));
+                docente.setApellidos(rs.getString("apellidos"));
+
+                Aula aula = new Aula();
+                aula.setId(rs.getInt("id_aula"));
+                aula.setNombre(rs.getString("nombre"));
+                aula.setVacantesTotales(rs.getInt("vacantes_totales"));
+                aula.setVacantesDisponibles(rs.getInt("vacantes_disponibles"));
+                aula.setDocente(docente);
+
+                aulas.add(aula);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return aulas;
     }
 }

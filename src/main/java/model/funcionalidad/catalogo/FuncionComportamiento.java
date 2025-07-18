@@ -18,6 +18,10 @@ public class FuncionComportamiento {
         this.nombre = nombre;
     }
 
+    public FuncionComportamiento(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }
