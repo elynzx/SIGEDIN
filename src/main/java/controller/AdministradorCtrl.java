@@ -482,7 +482,7 @@ public class AdministradorCtrl {
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(archivo);
             } else {
-                System.out.println("Desktop no es compatible. Abre el archivo manualmente.");
+                System.out.println("Desktop no es compatible. Abre el archivo manualmente     .");
             }
 
         } catch (IOException e) {
